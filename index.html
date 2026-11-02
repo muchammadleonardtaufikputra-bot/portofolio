@@ -1,74 +1,254 @@
 
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Portfolio Muchammad Leonard Taufik Putra</title>
+    <meta name="description" content="Portfolio Leonard - Programmer dan Web Developer yang sedang berkembang.">
+
+    <title>Muchammad Leonard Taufik Putra | Developer Portfolio</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <h1>Leonard</h1>
-        <p>Future Programmer | Web Developer</p>
-    </header>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <a href="#home" class="logo">LEO<span>.</span></a>
 
-    <!-- KONTEN UTAMA -->
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Buka menu" aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
     <main>
 
-        <!-- PROFIL -->
-        <section class="profile">
+        <!-- HERO -->
+        <section class="hero" id="home">
 
-            <img
-                src="images/profile.jpg"
-                alt="Foto profil Leonard"
-                class="profile-img"
-            >
+            <div class="hero-content">
+                <p class="eyebrow">WELCOME TO MY PORTFOLIO</p>
 
-            <h2>Halo, Saya Leonard!</h2>
+                <h1>
+                    Hi, I'm <span>Leonard</span>
+                </h1>
 
-            <p>
-                Saya sedang belajar programming,
-                Linux, dan pengembangan website.
-                Saya ingin menjadi programmer profesional.
-                Pantau terus yaaa,
-            </p>
+                <h2>Future Programmer & Web Developer</h2>
 
-            <button onclick="sapa()">Kenalan</button>
+                <p class="hero-description">
+                    Saya sedang membangun kemampuan di bidang
+                    programming, Linux, dan web development.
+                    Saya percaya bahwa setiap programmer hebat
+                    dimulai dari satu baris kode.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn primary">
+                        Lihat Proyek
+                    </a>
+
+                    <a href="#about" class="btn secondary">
+                        Tentang Saya
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+    <video autoplay muted loop playsinline>
+        <source src="images/profile.mp4" type="video/mp4">
+        Browser kamu tidak mendukung video.
+    </video>
+</div>
 
         </section>
 
-        <!-- KEAHLIAN -->
-        <section class="skills">
+        <!-- ABOUT -->
+        <section class="section about" id="about">
 
-            <h2>Keahlian Saya</h2>
+            <div class="section-heading">
+                <p class="eyebrow">GET TO KNOW ME</p>
+                <h2>About <span>Me</span></h2>
+            </div>
 
-            <div class="skill-list">
+            <div class="about-card">
+                <h3>Halo, saya Muchammad Leonard Taufik Putra!</h3>
 
-                <div class="skill">Memahami HTML</div>
-                <div class="skill">Mampu mengoperasikan CSS</div>
-                <div class="skill">Dapat menggunakan JavaScript</div>
-                <div class="skill">Handal Python</div>
-                <div class="skill">Bisa dan mampu mengoperasikan Linux</div>
-                <div class="skill">Canggih dengan Git & GitHub</div>
+                <p>
+                    Saya adalah seseorang yang tertarik dengan
+                    dunia teknologi dan pemrograman. Saat ini
+                    saya sedang mempelajari HTML, CSS, JavaScript,
+                    Python, Linux, Git, dan GitHub.
+                </p>
+
+                <p>
+                    Tujuan saya adalah menjadi programmer
+                    profesional yang mampu membangun aplikasi
+                    dan website yang bermanfaat bagi banyak orang.
+                </p>
+
+                <p>
+                    Saya menikmati proses belajar, mencoba
+                    hal baru, dan menyelesaikan masalah melalui kode.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- SKILLS -->
+        <section class="section" id="skills">
+
+            <div class="section-heading">
+                <p class="eyebrow">WHAT I'M LEARNING</p>
+                <h2>My <span>Skills</span></h2>
+                <p>Teknologi yang sedang saya pelajari.</p>
+            </div>
+
+            <div class="skills-grid">
+
+                <div class="skill-card">
+                    <div class="skill-icon">🌐</div>
+                    <h3>HTML</h3>
+                    <p>Website Structure</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <h3>CSS</h3>
+                    <p>Web Design</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <h3>JavaScript</h3>
+                    <p>Web Interaction</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🐍</div>
+                    <h3>Python</h3>
+                    <p>Programming</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🐧</div>
+                    <h3>Linux</h3>
+                    <p>Operating System</p>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">🔧</div>
+                    <h3>Git & GitHub</h3>
+                    <p>Version Control</p>
+                </div>
 
             </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="section" id="projects">
+
+            <div class="section-heading">
+                <p class="eyebrow">MY WORK</p>
+                <h2>Featured <span>Projects</span></h2>
+                <p>Beberapa proyek dalam perjalanan belajar saya.</p>
+            </div>
+
+            <div class="projects-grid">
+
+                <article class="project-card">
+                    <div class="project-visual">💻</div>
+                    <div class="project-info">
+                        <p class="project-category">WEB DEVELOPMENT</p>
+                        <h3>Personal Portfolio</h3>
+                        <p>
+                            Website portfolio pribadi menggunakan
+                            HTML, CSS, dan JavaScript.
+                        </p>
+                        <div class="tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-visual">🐍</div>
+                    <div class="project-info">
+                        <p class="project-category">PROGRAMMING</p>
+                        <h3>Python Beginner</h3>
+                        <p>
+                            Kumpulan latihan Python untuk memahami
+                            dasar-dasar pemrograman.
+                        </p>
+                        <div class="tags">
+                            <span>Python</span>
+                            <span>Linux</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-visual">🐧</div>
+                    <div class="project-info">
+                        <p class="project-category">SYSTEM</p>
+                        <h3>Linux Learning</h3>
+                        <p>
+                            Dokumentasi pembelajaran Linux,
+                            terminal, dan perintah dasar.
+                        </p>
+                        <div class="tags">
+                            <span>Linux</span>
+                            <span>Terminal</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section contact" id="contact">
+
+            <div class="section-heading">
+                <p class="eyebrow">GET IN TOUCH</p>
+                <h2>Let's <span>Connect</span></h2>
+                <p>
+                    Saya terbuka untuk belajar, berkolaborasi,
+                    dan berbagi pengalaman.
+                </p>
+            </div>
+
+            <a class="btn primary"
+               href="https://github.com/muchammadleonardtaufikputra-bot"
+               target="_blank" rel="noopener noreferrer">
+                Kunjungi GitHub Saya
+            </a>
 
         </section>
 
     </main>
 
     <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 MuchammadLeonardTaufikPutra. All Rights Reserved.</p>
+    <footer class="footer">
+        <p>
+            &copy; <span id="year"></span> Leonard.
+            Built with HTML, CSS & JavaScript.
+        </p>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
 
 </body>
