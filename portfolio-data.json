@@ -91,6 +91,21 @@
         "JavaScript"
       ],
       "url": "https://muchammadleonardtaufikputra-bot.github.io/portofolio/projects/security-awareness/"
+    },
+    {
+      "icon": "🛰️",
+      "category": "CYBERSECURITY / BLUE TEAM",
+      "title": "SENTINEL X — Threat Detection & Incident Response",
+      "description": "Simulasi Security Operations Center (SOC) dengan synthetic log analyzer, rule-based threat detection, incident management, MITRE ATT&CK mapping, forensic timeline, dan export laporan.",
+      "tags": [
+        "Cybersecurity",
+        "Blue Team",
+        "SOC",
+        "JavaScript",
+        "MITRE ATT&CK",
+        "Incident Response"
+      ],
+      "url": "https://muchammadleonardtaufikputra-bot.github.io/portofolio/projects/sentinel-x/"
     }
   ],
   "contact": {
