@@ -1,0 +1,86 @@
+{
+  "profile": {
+    "name": "Muchammad Leonard Taufik Putra",
+    "greeting": "Hi, I'm",
+    "tagline": "Future Programmer & Web Developer",
+    "intro": "Saya sedang membangun kemampuan di bidang programming, Linux, dan web development. Saya percaya bahwa setiap programmer hebat dimulai dari satu baris kode.",
+    "aboutTitle": "Halo, saya Leon!",
+    "about": [
+      "Saya adalah seseorang yang tertarik dengan dunia teknologi dan pemrograman. Saat ini saya sedang mempelajari HTML, CSS, JavaScript, Python, Linux, Git, dan GitHub.",
+      "Tujuan saya adalah menjadi programmer profesional yang mampu membangun aplikasi dan website yang bermanfaat bagi banyak orang.",
+      "Saya menikmati proses belajar, mencoba hal baru, dan menyelesaikan masalah melalui kode."
+    ]
+  },
+  "skills": [
+    {
+      "icon": "🌐",
+      "name": "HTML",
+      "description": "Website Structure"
+    },
+    {
+      "icon": "🎨",
+      "name": "CSS",
+      "description": "Web Design"
+    },
+    {
+      "icon": "⚡",
+      "name": "JavaScript",
+      "description": "Web Interaction"
+    },
+    {
+      "icon": "🐍",
+      "name": "Python",
+      "description": "Programming"
+    },
+    {
+      "icon": "🐧",
+      "name": "Linux",
+      "description": "Operating System"
+    },
+    {
+      "icon": "🔧",
+      "name": "Git & GitHub",
+      "description": "Version Control"
+    }
+  ],
+  "projects": [
+    {
+      "icon": "💻",
+      "category": "WEB DEVELOPMENT",
+      "title": "Personal Portfolio",
+      "description": "Website portfolio pribadi menggunakan HTML, CSS, dan JavaScript.",
+      "tags": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "url": ""
+    },
+    {
+      "icon": "🐍",
+      "category": "PROGRAMMING",
+      "title": "Python Beginner",
+      "description": "Kumpulan latihan Python untuk memahami dasar-dasar pemrograman.",
+      "tags": [
+        "Python",
+        "Linux"
+      ],
+      "url": ""
+    },
+    {
+      "icon": "🐧",
+      "category": "SYSTEM",
+      "title": "Linux Learning",
+      "description": "Dokumentasi pembelajaran Linux, terminal, dan perintah dasar.",
+      "tags": [
+        "Linux",
+        "Terminal"
+      ],
+      "url": ""
+    }
+  ],
+  "contact": {
+    "description": "Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.",
+    "github": "https://github.com/muchammadleonardtaufikputra-bot"
+  }
+}
