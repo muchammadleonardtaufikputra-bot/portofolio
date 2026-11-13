@@ -77,6 +77,20 @@
         "Terminal"
       ],
       "url": ""
+    },
+    {
+      "icon": "🛡️",
+      "category": "CYBERSECURITY",
+      "title": "Cybersecurity Awareness Lab",
+      "description": "Aplikasi edukasi interaktif untuk berlatih mengenali tanda-tanda phishing melalui contoh pesan simulasi yang aman.",
+      "tags": [
+        "Cybersecurity",
+        "Phishing Awareness",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "url": "https://muchammadleonardtaufikputra-bot.github.io/portofolio/projects/security-awareness/"
     }
   ],
   "contact": {
