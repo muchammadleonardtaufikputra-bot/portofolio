@@ -249,6 +249,35 @@
         </p>
     </footer>
 
+
+    <script>
+    (async function loadPortfolioData() {
+      const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+      try {
+        const response = await fetch("portfolio-data.json", {cache:"no-store"});
+        if (!response.ok) return;
+        const d = await response.json();
+        const p = d.profile || {};
+        const heroName = document.querySelector(".hero h1 span");
+        if (heroName && p.name) heroName.textContent = p.name;
+        const heroTitle = document.querySelector(".hero h2");
+        if (heroTitle && p.tagline) heroTitle.textContent = p.tagline;
+        const intro = document.querySelector(".hero-description");
+        if (intro && p.intro) intro.textContent = p.intro;
+        const about = document.querySelector(".about-card");
+        if (about) about.innerHTML = (p.aboutTitle ? "<h3>"+escapeHTML(p.aboutTitle)+"</h3>" : "") + (p.about || []).map(x=>"<p>"+escapeHTML(x)+"</p>").join("");
+        const skills = document.querySelector(".skills-grid");
+        if (skills && Array.isArray(d.skills)) skills.innerHTML = d.skills.map(s=>'<div class="skill-card"><div class="skill-icon">'+escapeHTML(s.icon)+'</div><h3>'+escapeHTML(s.name)+'</h3><p>'+escapeHTML(s.description)+'</p></div>').join("");
+        const projects = document.querySelector(".projects-grid");
+        if (projects && Array.isArray(d.projects)) projects.innerHTML = d.projects.map(x=>'<article class="project-card"><div class="project-visual">'+escapeHTML(x.icon)+'</div><div class="project-info"><p class="project-category">'+escapeHTML(x.category)+'</p><h3>'+escapeHTML(x.title)+'</h3><p>'+escapeHTML(x.description)+'</p><div class="tags">'+(x.tags||[]).map(t=>'<span>'+escapeHTML(t)+'</span>').join("")+'</div>'+(x.url?'<a href="'+escapeHTML(x.url)+'" target="_blank" rel="noopener noreferrer">Lihat proyek</a>':"")+'</div></article>').join("");
+        const contactText = document.querySelector(".contact .section-heading > p:last-child");
+        if (contactText && d.contact?.description) contactText.textContent = d.contact.description;
+        const contactLink = document.querySelector(".contact > a.btn");
+        if (contactLink && d.contact?.github) contactLink.href = d.contact.github;
+      } catch (error) { console.warn("Data portofolio belum dapat dimuat:", error); }
+    })();
+    </script>
+
     <script src="script.js"></script>
 
 </body>
