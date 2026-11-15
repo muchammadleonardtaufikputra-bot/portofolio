@@ -118,3 +118,21 @@ document.getElementById("year").textContent =
   document.addEventListener("pointerleave", function () { glow.classList.remove("is-active"); });
   document.addEventListener("pointerenter", function () { glow.classList.add("is-active"); });
 })();
+
+
+// PROFILE PARALLAX — gentle pointer response, no image manipulation
+(function(){
+  const frame=document.querySelector(".portrait-frame");
+  if(!frame || !window.matchMedia("(hover:hover) and (pointer:fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let raf=0;
+  frame.addEventListener("pointermove",function(e){
+    const r=frame.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width-.5;
+    const py=(e.clientY-r.top)/r.height-.5;
+    if(raf) cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(function(){
+      frame.style.transform="perspective(1000px) rotateX("+(-py*7)+"deg) rotateY("+(px*9)+"deg)";
+    });
+  });
+  frame.addEventListener("pointerleave",function(){frame.style.transform="";});
+})();
