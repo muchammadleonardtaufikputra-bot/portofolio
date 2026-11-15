@@ -136,3 +136,18 @@ document.getElementById("year").textContent =
   });
   frame.addEventListener("pointerleave",function(){frame.style.transform="";});
 })();
+
+
+// PORTFOLIO EXTRAS: scroll progress, local clock, and safe simulated terminal
+(function(){
+ const bar=document.getElementById("scrollProgress");
+ function updateProgress(){if(!bar)return;const max=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(max>0?(window.scrollY/max)*100:0)+"%";}
+ window.addEventListener("scroll",updateProgress,{passive:true});window.addEventListener("resize",updateProgress);updateProgress();
+ const clock=document.getElementById("liveClock");
+ function tick(){if(clock)clock.textContent=new Date().toLocaleTimeString("id-ID",{hour12:false});}
+ tick();setInterval(tick,1000);
+ const form=document.getElementById("terminalForm"),input=document.getElementById("terminalInput"),output=document.getElementById("terminalOutput");
+ if(!form||!input||!output)return;
+ const commands={help:"Commands: help, about, projects, skills, socials, clear, date",about:"Leonard — developer, programmer, and cybersecurity enthusiast. Always learning and building.",projects:"Featured work: SENTINEL X and other development experiments. Visit the Projects section above.",skills:"Current stack: Python, HTML, CSS, JavaScript, Linux, Git, and GitHub.",socials:"Instagram: instagram.com/eonll.ard | GitHub: github.com/muchammadleonardtaufikputra-bot",date:()=>new Date().toString()};
+ form.addEventListener("submit",function(e){e.preventDefault();const cmd=input.value.trim().toLowerCase();if(!cmd)return;const line=document.createElement("p");line.className="terminal-command";line.textContent="visitor@leonard:~$ "+cmd;output.appendChild(line);if(cmd==="clear"){output.innerHTML="";}else{const response=document.createElement("p");response.className="terminal-response";const result=commands[cmd];response.textContent=typeof result==="function"?result():(result||"Command not found. Type help to see available commands.");output.appendChild(response);}input.value="";output.scrollTop=output.scrollHeight;});
+})();
