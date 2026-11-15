@@ -1,284 +1,96 @@
-
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description" content="Portfolio Leonard - Programmer dan Web Developer yang sedang berkembang.">
-
-    <title>Muchammad Leonard Taufik Putra | Developer Portfolio</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070711">
+  <meta name="description" content="Portfolio Muchammad Leonard Taufik Putra — Developer, programmer, and cybersecurity enthusiast.">
+  <title>Muchammad Leonard Taufik Putra | Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <nav class="navbar">
+    <a href="#home" class="logo" aria-label="Leonard, home">L<span>T</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Let’s talk <span>↗</span></a>
+  </nav>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow"><span class="status-dot"></span> HELLO, I'M A DEVELOPER</p>
+        <h1>Building my<br><span>digital future.</span></h1>
+        <h2>Developer <i>|</i> Cybersecurity Enthusiast <i>|</i> Learner</h2>
+        <p class="hero-description">Saya membangun kemampuan di bidang programming, web development, dan cybersecurity. Selalu belajar, bereksperimen, dan mengubah ide menjadi karya nyata.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn primary">Explore projects <span>→</span></a>
+          <a href="#contact" class="btn secondary">Get in touch</a>
+        </div>
+        <div class="hero-meta"><span><b>01</b> Curious mind</span><span><b>02</b> Build & learn</span><span><b>03</b> Think securely</span></div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-grid" aria-hidden="true"></div>
+        <div class="portrait-frame">
+          <div class="portrait-glow" aria-hidden="true"></div>
+          <img src="images/leonard-profile.webp" alt="Foto profil Leonard dengan desain glitch cyan dan ungu" class="portrait" fetchpriority="high">
+          <span class="frame-corner corner-tl"></span><span class="frame-corner corner-br"></span>
+        </div>
+        <p class="visual-caption"><span></span> DEVELOPER / PROGRAMMER / LEARNER</p>
+      </div>
+    </section>
 
-    <!-- NAVIGATION -->
-    <nav class="navbar">
-        <a href="#home" class="logo">Muchammad Leonard Taufik Putra<span>.</span></a>
+    <section class="section about" id="about">
+      <div class="section-heading"><p class="eyebrow">GET TO KNOW ME</p><h2>A little <span>about me.</span></h2></div>
+      <div class="about-card">
+        <div class="about-mark">LT<span>.</span></div>
+        <div><h3>Halo, saya Leon!</h3>
+          <p>Saya tertarik dengan dunia teknologi, pemrograman, dan keamanan digital. Saat ini saya terus mengembangkan kemampuan HTML, CSS, JavaScript, Python, Linux, Git, dan GitHub.</p>
+          <p>Tujuan saya adalah menjadi developer yang mampu membangun aplikasi dan website yang bermanfaat, sekaligus memahami bagaimana menjaga sistem tetap aman.</p>
+          <p>Saya menikmati proses belajar, mencoba hal baru, dan menyelesaikan masalah melalui kode.</p>
+        </div>
+      </div>
+    </section>
 
-        <button class="menu-toggle" id="menuToggle"
-                aria-label="Buka menu" aria-expanded="false">
-            ☰
-        </button>
+    <section class="section" id="projects">
+      <div class="section-heading section-heading-row"><div><p class="eyebrow">SELECTED WORK</p><h2>Featured <span>projects.</span></h2><p>Beberapa karya dan eksperimen yang sedang saya kembangkan.</p></div><a class="text-link" href="https://github.com/muchammadleonardtaufikputra-bot?tab=repositories" target="_blank" rel="noopener noreferrer">View GitHub ↗</a></div>
+      <div class="projects-grid"></div>
+    </section>
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    <section class="section" id="skills">
+      <div class="section-heading"><p class="eyebrow">TOOLS & TECHNOLOGIES</p><h2>My tech <span>stack.</span></h2><p>Teknologi yang sedang saya pelajari dan gunakan.</p></div>
+      <div class="skills-grid"></div>
+    </section>
 
-    <main>
-
-        <!-- HERO -->
-        <section class="hero" id="home">
-
-            <div class="hero-content">
-                <p class="eyebrow">WELCOME TO MY PORTFOLIO</p>
-
-                <h1>
-                    Hi, I'm <span>Muchammad Leonard Taufik Putra</span>
-                </h1>
-
-                <h2>Future Programmer & Web Developer</h2>
-
-                <p class="hero-description">
-                    Saya sedang membangun kemampuan di bidang
-                    programming, Linux, dan web development.
-                    Saya percaya bahwa setiap programmer hebat
-                    dimulai dari satu baris kode.
-                </p>
-
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn primary">
-                        Lihat Proyek
-                    </a>
-
-                    <a href="#about" class="btn secondary">
-                        Tentang Saya
-                    </a>
-                </div>
-            </div>
-
-            <div class="hero-image">
-    <video autoplay muted loop playsinline>
-        <source src="images/profile.mp4" type="video/mp4">
-        Browser kamu tidak mendukung video.
-    </video>
-</div>
-
-        </section>
-
-        <!-- ABOUT -->
-        <section class="section about" id="about">
-
-            <div class="section-heading">
-                <p class="eyebrow">GET TO KNOW ME</p>
-                <h2>About <span>Me</span></h2>
-            </div>
-
-            <div class="about-card">
-                <h3>Halo, saya Leon!</h3>
-
-                <p>
-                    Saya adalah seseorang yang tertarik dengan
-                    dunia teknologi dan pemrograman. Saat ini
-                    saya sedang mempelajari HTML, CSS, JavaScript,
-                    Python, Linux, Git, dan GitHub.
-                </p>
-
-                <p>
-                    Tujuan saya adalah menjadi programmer
-                    profesional yang mampu membangun aplikasi
-                    dan website yang bermanfaat bagi banyak orang.
-                </p>
-
-                <p>
-                    Saya menikmati proses belajar, mencoba
-                    hal baru, dan menyelesaikan masalah melalui kode.
-                </p>
-            </div>
-
-        </section>
-
-        <!-- SKILLS -->
-        <section class="section" id="skills">
-
-            <div class="section-heading">
-                <p class="eyebrow">WHAT I'M LEARNING</p>
-                <h2>My <span>Skills</span></h2>
-                <p>Teknologi yang sedang saya pelajari.</p>
-            </div>
-
-            <div class="skills-grid">
-
-                <div class="skill-card">
-                    <div class="skill-icon">🌐</div>
-                    <h3>HTML</h3>
-                    <p>Website Structure</p>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">🎨</div>
-                    <h3>CSS</h3>
-                    <p>Web Design</p>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">⚡</div>
-                    <h3>JavaScript</h3>
-                    <p>Web Interaction</p>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">🐍</div>
-                    <h3>Python</h3>
-                    <p>Programming</p>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">🐧</div>
-                    <h3>Linux</h3>
-                    <p>Operating System</p>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">🔧</div>
-                    <h3>Git & GitHub</h3>
-                    <p>Version Control</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- PROJECTS -->
-        <section class="section" id="projects">
-
-            <div class="section-heading">
-                <p class="eyebrow">MY WORK</p>
-                <h2>Featured <span>Projects</span></h2>
-                <p>Beberapa proyek dalam perjalanan belajar saya.</p>
-            </div>
-
-            <div class="projects-grid">
-
-                <article class="project-card">
-                    <div class="project-visual">💻</div>
-                    <div class="project-info">
-                        <p class="project-category">WEB DEVELOPMENT</p>
-                        <h3>Personal Portfolio</h3>
-                        <p>
-                            Website portfolio pribadi menggunakan
-                            HTML, CSS, dan JavaScript.
-                        </p>
-                        <div class="tags">
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-visual">🐍</div>
-                    <div class="project-info">
-                        <p class="project-category">PROGRAMMING</p>
-                        <h3>Python Beginner</h3>
-                        <p>
-                            Kumpulan latihan Python untuk memahami
-                            dasar-dasar pemrograman.
-                        </p>
-                        <div class="tags">
-                            <span>Python</span>
-                            <span>Linux</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card">
-                    <div class="project-visual">🐧</div>
-                    <div class="project-info">
-                        <p class="project-category">SYSTEM</p>
-                        <h3>Linux Learning</h3>
-                        <p>
-                            Dokumentasi pembelajaran Linux,
-                            terminal, dan perintah dasar.
-                        </p>
-                        <div class="tags">
-                            <span>Linux</span>
-                            <span>Terminal</span>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section class="section contact" id="contact">
-
-            <div class="section-heading">
-                <p class="eyebrow">GET IN TOUCH</p>
-                <h2>Let's <span>Connect</span></h2>
-                <p>
-                    Saya terbuka untuk belajar, berkolaborasi,
-                    dan berbagi pengalaman.
-                </p>
-            </div>
-
-            <a class="btn primary"
-               href="https://github.com/muchammadleonardtaufikputra-bot"
-               target="_blank" rel="noopener noreferrer">
-                Kunjungi GitHub Saya
-            </a>
-
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>
-            &copy; <span id="year"></span> Muchammad Leonard Taufik Putra.
-            Built with HTML, CSS & JavaScript.
-        </p>
-    </footer>
-
-
-    <script>
-    (async function loadPortfolioData() {
-      const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    <section class="section contact" id="contact">
+      <div class="contact-panel"><p class="eyebrow">HAVE A PROJECT IN MIND?</p><h2>Let's build<br><span>something great.</span></h2><p>Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.</p><a class="btn primary" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer">Visit my GitHub <span>↗</span></a></div>
+    </section>
+  </main>
+  <footer class="footer"><a href="#home" class="logo">L<span>T</span></a><p>© <span id="year"></span> Muchammad Leonard Taufik Putra. Built with curiosity & code.</p><a href="#home">Back to top ↑</a></footer>
+  <script>
+    const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    async function loadPortfolioData() {
       try {
         const response = await fetch("portfolio-data.json", {cache:"no-store"});
         if (!response.ok) return;
-        const d = await response.json();
-        const p = d.profile || {};
-        const heroName = document.querySelector(".hero h1 span");
-        if (heroName && p.name) heroName.textContent = p.name;
-        const heroTitle = document.querySelector(".hero h2");
-        if (heroTitle && p.tagline) heroTitle.textContent = p.tagline;
-        const intro = document.querySelector(".hero-description");
-        if (intro && p.intro) intro.textContent = p.intro;
-        const about = document.querySelector(".about-card");
-        if (about) about.innerHTML = (p.aboutTitle ? "<h3>"+escapeHTML(p.aboutTitle)+"</h3>" : "") + (p.about || []).map(x=>"<p>"+escapeHTML(x)+"</p>").join("");
-        const skills = document.querySelector(".skills-grid");
-        if (skills && Array.isArray(d.skills)) skills.innerHTML = d.skills.map(s=>'<div class="skill-card"><div class="skill-icon">'+escapeHTML(s.icon)+'</div><h3>'+escapeHTML(s.name)+'</h3><p>'+escapeHTML(s.description)+'</p></div>').join("");
-        const projects = document.querySelector(".projects-grid");
-        if (projects && Array.isArray(d.projects)) projects.innerHTML = d.projects.map(x=>'<article class="project-card"><div class="project-visual">'+escapeHTML(x.icon)+'</div><div class="project-info"><p class="project-category">'+escapeHTML(x.category)+'</p><h3>'+escapeHTML(x.title)+'</h3><p>'+escapeHTML(x.description)+'</p><div class="tags">'+(x.tags||[]).map(t=>'<span>'+escapeHTML(t)+'</span>').join("")+'</div>'+(x.url?'<a href="'+escapeHTML(x.url)+'" target="_blank" rel="noopener noreferrer">Lihat proyek</a>':"")+'</div></article>').join("");
-        const contactText = document.querySelector(".contact .section-heading > p:last-child");
-        if (contactText && d.contact?.description) contactText.textContent = d.contact.description;
-        const contactLink = document.querySelector(".contact > a.btn");
-        if (contactLink && d.contact?.github) contactLink.href = d.contact.github;
-      } catch (error) { console.warn("Data portofolio belum dapat dimuat:", error); }
-    })();
-    </script>
-
-    <script src="script.js"></script>
-
+        const data = await response.json();
+        const profile = data.profile || {};
+        if (profile.intro) document.querySelector(".hero-description").textContent = profile.intro;
+        if (Array.isArray(data.skills)) document.querySelector(".skills-grid").innerHTML = data.skills.map(skill => '<article class="skill-card"><span class="skill-icon">'+esc(skill.icon)+'</span><div><h3>'+esc(skill.name)+'</h3><p>'+esc(skill.description)+'</p></div></article>').join("");
+        if (Array.isArray(data.projects)) document.querySelector(".projects-grid").innerHTML = data.projects.map(project => '<article class="project-card"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(data.projects.indexOf(project)+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(project.description)+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div>'+(project.url?'<a class="project-link" href="'+esc(project.url)+'" target="_blank" rel="noopener noreferrer">Explore project <span>↗</span></a>':'')+'</article>').join("");
+        if (data.contact?.description) document.querySelector(".contact-panel > p:not(.eyebrow)").textContent = data.contact.description;
+        if (data.contact?.github) document.querySelector(".contact-panel .btn").href = data.contact.github;
+      } catch (error) { console.warn("Portfolio data could not be loaded:", error); }
+    }
+    document.getElementById("year").textContent = new Date().getFullYear();
+    loadPortfolioData();
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>
