@@ -56,3 +56,19 @@ a{color:inherit;text-decoration:none}section{scroll-margin-top:90px}
 .cursor-glow{position:fixed;left:0;top:0;width:230px;height:230px;border-radius:50%;pointer-events:none;z-index:2;opacity:0;background:radial-gradient(circle,rgba(34,211,238,.13) 0%,rgba(168,85,247,.09) 38%,transparent 72%);filter:blur(9px);will-change:transform,opacity;transition:opacity .22s ease}
 .cursor-glow.is-active{opacity:1}
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cursor-glow{display:none!important}}
+
+
+/* PROFILE MOTION UPGRADE — image remains untouched */
+.portrait-frame{animation:portrait-float 6s ease-in-out infinite;transform-origin:center;isolation:isolate}
+.portrait-frame .portrait{z-index:2}
+.portrait-glow{z-index:0;animation:glow-breathe 4s ease-in-out infinite}
+.portrait-orbit{position:absolute;inset:8%;border:1px solid transparent;border-radius:32%;pointer-events:none;z-index:3;opacity:.7}
+.orbit-one{border-top-color:rgba(34,211,238,.8);border-right-color:rgba(168,85,247,.35);animation:orbit-spin 12s linear infinite}
+.orbit-two{inset:2%;border-bottom-color:rgba(168,85,247,.8);border-left-color:rgba(34,211,238,.35);animation:orbit-spin 18s linear infinite reverse}
+.portrait-scan{position:absolute;z-index:4;left:0;right:0;top:-35%;height:28%;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(34,211,238,.13),rgba(192,132,252,.18),transparent);filter:blur(5px);animation:portrait-scan 7s ease-in-out infinite}
+@keyframes portrait-float{0%,100%{translate:0 0}50%{translate:0 -10px}}
+@keyframes glow-breathe{0%,100%{opacity:.55;scale:.94}50%{opacity:1;scale:1.06}}
+@keyframes orbit-spin{to{rotate:360deg}}
+@keyframes portrait-scan{0%,12%{top:-35%;opacity:0}20%{opacity:1}55%{top:110%;opacity:.75}65%,100%{top:110%;opacity:0}}
+@media(max-width:650px){.portrait-frame{animation-duration:7s}.portrait-orbit{inset:5%}}
+@media(prefers-reduced-motion:reduce){.portrait-frame,.portrait-glow,.portrait-orbit,.portrait-scan{animation:none!important;translate:none!important;rotate:none!important;scale:1!important}}
