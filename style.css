@@ -108,3 +108,61 @@ main>section.nav-reveal.section-entered .section-heading{animation:heading-arriv
 main>section[id]:target{scroll-margin-top:100px}
 @media(max-width:760px){html{scroll-padding-top:76px}main>section[id]{scroll-margin-top:76px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}main>section.nav-reveal{opacity:1;transform:none;filter:none;transition:none}main>section.nav-reveal.section-entered .section-heading{animation:none}.nav-links a,.nav-links a:after{transition:none}}
+
+
+/* CINEMATIC SECTION TRANSITIONS — 3D depth + controlled glitch */
+main > section.nav-reveal{
+  opacity:0;
+  transform:perspective(1400px) rotateX(7deg) translateY(42px) scale(.975);
+  transform-origin:50% 12%;
+  filter:blur(7px);
+  transition:opacity .8s cubic-bezier(.2,.75,.25,1),transform .85s cubic-bezier(.16,1,.3,1),filter .8s ease;
+  backface-visibility:hidden;
+}
+main > section.nav-reveal.section-entered{
+  opacity:1;
+  transform:perspective(1400px) rotateX(0) translateY(0) scale(1);
+  filter:blur(0);
+}
+main > section.section-jump{
+  animation:section-3d-glitch-in .82s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes section-3d-glitch-in{
+  0%{opacity:.45;transform:perspective(1400px) rotateX(9deg) rotateY(-2deg) translateY(30px) scale(.965);filter:blur(9px) hue-rotate(55deg);clip-path:inset(8% 0 0)}
+  28%{opacity:1;transform:perspective(1400px) rotateX(-2deg) rotateY(1deg) translateY(-5px) scale(1.008);filter:blur(1px) hue-rotate(-25deg);clip-path:inset(0 0 2%)}
+  43%{transform:perspective(1400px) rotateX(1deg) translateX(3px);filter:blur(0) hue-rotate(12deg)}
+  58%{transform:perspective(1400px) rotateX(0) translateX(-2px);filter:none}
+  100%{opacity:1;transform:perspective(1400px) rotateX(0) translate(0) scale(1);filter:none;clip-path:inset(0)}
+}
+body.page-glitch:before,body.page-glitch:after{
+  content:"";position:fixed;inset:0;z-index:130;pointer-events:none;opacity:0;
+}
+body.page-glitch:before{
+  background:linear-gradient(transparent 0 43%,rgba(34,211,238,.18) 43% 45%,transparent 45% 57%,rgba(168,85,247,.16) 57% 59%,transparent 59%);
+  mix-blend-mode:screen;animation:glitch-scan .48s steps(2,end) both;
+}
+body.page-glitch:after{
+  background:linear-gradient(90deg,transparent 0 28%,rgba(34,211,238,.12) 28% 29%,transparent 29% 70%,rgba(236,72,153,.12) 70% 71%,transparent 71%);
+  mix-blend-mode:screen;animation:glitch-slice .48s steps(2,end) both;
+}
+@keyframes glitch-scan{
+  0%{opacity:0;transform:translateY(-14px)}
+  18%,72%{opacity:1}
+  100%{opacity:0;transform:translateY(14px)}
+}
+@keyframes glitch-slice{
+  0%{opacity:0;clip-path:inset(0 0 88% 0);transform:translateX(-8px)}
+  22%{opacity:1;clip-path:inset(22% 0 58% 0);transform:translateX(9px)}
+  48%{opacity:.8;clip-path:inset(62% 0 18% 0);transform:translateX(-5px)}
+  76%{opacity:.55;clip-path:inset(40% 0 42% 0);transform:translateX(4px)}
+  100%{opacity:0;clip-path:inset(0 0 0 0);transform:translateX(0)}
+}
+.nav-links a{position:relative;transition:color .25s,text-shadow .25s}
+.nav-links a.active{color:#fff;text-shadow:0 0 12px rgba(34,211,238,.65),0 0 22px rgba(168,85,247,.55)}
+.nav-links a.active:after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));box-shadow:0 0 12px var(--cyan);animation:nav-line-in .3s ease both}
+@keyframes nav-line-in{from{transform:scaleX(.15);opacity:0}to{transform:scaleX(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){
+  main > section.nav-reveal{opacity:1;transform:none;filter:none;transition:none}
+  main > section.section-jump,body.page-glitch:before,body.page-glitch:after{animation:none!important}
+  .nav-links a.active:after{animation:none}
+}
