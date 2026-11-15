@@ -92,3 +92,29 @@ document.getElementById("year").textContent =
     [projects, skills].filter(Boolean).forEach(node => observer.observe(node, { childList: true }));
   }
 })();
+
+
+// GLOBAL NEON CURSOR GLOW — desktop pointer only
+(function () {
+  const glow = document.querySelector(".cursor-glow");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!glow || !finePointer.matches || reduceMotion.matches) return;
+
+  let frame = 0;
+  let x = -200;
+  let y = -200;
+  document.addEventListener("pointermove", function (event) {
+    if (event.pointerType !== "mouse") return;
+    x = event.clientX;
+    y = event.clientY;
+    if (frame) return;
+    frame = requestAnimationFrame(function () {
+      glow.style.transform = "translate3d(" + x + "px, " + y + "px, 0) translate(-50%, -50%)";
+      glow.classList.add("is-active");
+      frame = 0;
+    });
+  }, { passive: true });
+  document.addEventListener("pointerleave", function () { glow.classList.remove("is-active"); });
+  document.addEventListener("pointerenter", function () { glow.classList.add("is-active"); });
+})();
