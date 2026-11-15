@@ -151,3 +151,41 @@ document.getElementById("year").textContent =
  const commands={help:"Commands: help, about, projects, skills, socials, clear, date",about:"Leonard — developer, programmer, and cybersecurity enthusiast. Always learning and building.",projects:"Featured work: SENTINEL X and other development experiments. Visit the Projects section above.",skills:"Current stack: Python, HTML, CSS, JavaScript, Linux, Git, and GitHub.",socials:"Instagram: instagram.com/eonll.ard | GitHub: github.com/muchammadleonardtaufikputra-bot",date:()=>new Date().toString()};
  form.addEventListener("submit",function(e){e.preventDefault();const cmd=input.value.trim().toLowerCase();if(!cmd)return;const line=document.createElement("p");line.className="terminal-command";line.textContent="visitor@leonard:~$ "+cmd;output.appendChild(line);if(cmd==="clear"){output.innerHTML="";}else{const response=document.createElement("p");response.className="terminal-response";const result=commands[cmd];response.textContent=typeof result==="function"?result():(result||"Command not found. Type help to see available commands.");output.appendChild(response);}input.value="";output.scrollTop=output.scrollHeight;});
 })();
+
+
+// SECTION NAVIGATION: smooth movement, active menu state, and entrance reveals
+(function(){
+ const sections=Array.from(document.querySelectorAll("main > section[id]"));
+ const links=Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+ if(!sections.length)return;
+ sections.forEach(section=>section.classList.add("nav-reveal"));
+ const home=document.querySelector("main > section#home");
+ if(home)requestAnimationFrame(()=>home.classList.add("section-entered"));
+ const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+ if("IntersectionObserver" in window&&!reduceMotion.matches){
+   const revealObserver=new IntersectionObserver(entries=>{
+     entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("section-entered");revealObserver.unobserve(entry.target);}});
+   },{threshold:0.12,rootMargin:"0px 0px -8% 0px"});
+   sections.filter(section=>section!==home).forEach(section=>revealObserver.observe(section));
+ }
+ const activeObserver=new IntersectionObserver(entries=>{
+   entries.forEach(entry=>{
+     if(!entry.isIntersecting)return;
+     links.forEach(link=>{
+       const active=link.getAttribute("href")==="#"+entry.target.id;
+       link.classList.toggle("active",active);
+       if(active)link.setAttribute("aria-current","location");else link.removeAttribute("aria-current");
+     });
+   });
+ },{rootMargin:"-32% 0px -52% 0px",threshold:0});
+ sections.forEach(section=>activeObserver.observe(section));
+ links.forEach(link=>link.addEventListener("click",event=>{
+   const id=link.getAttribute("href").slice(1),target=document.getElementById(id);
+   if(!target)return;
+   event.preventDefault();
+   target.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"start"});
+   if(history.replaceState)history.replaceState(null,"","#"+id);
+   const menu=document.getElementById("navLinks"),toggle=document.getElementById("menuToggle");
+   if(menu&&toggle){menu.classList.remove("active");toggle.setAttribute("aria-expanded","false");}
+ }));
+})();
