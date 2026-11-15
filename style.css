@@ -92,3 +92,19 @@ a{color:inherit;text-decoration:none}section{scroll-margin-top:90px}
 @media(max-width:700px){.contact-panel .social-links{grid-template-columns:1fr;max-width:420px}.contact-panel .social-link{min-height:100px}}
 @media(max-width:390px){.social-cta{font-size:7px}.contact-panel .social-link{gap:10px;padding:15px 12px}.social-logo{flex-basis:46px;width:46px;height:46px}}
 @media(prefers-reduced-motion:reduce){.contact-panel .social-link,.contact-panel .social-link:before{transition:none}}
+
+
+/* SECTION-TO-SECTION NAVIGATION TRANSITIONS */
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+main>section[id]{scroll-margin-top:92px}
+.nav-links a{position:relative;transition:color .25s ease, text-shadow .25s ease}
+.nav-links a:after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:2px;border-radius:5px;background:linear-gradient(90deg,#c084fc,#22d3ee);box-shadow:0 0 10px rgba(34,211,238,.5);transition:right .28s ease}
+.nav-links a:hover:after,.nav-links a.active:after{right:0}
+.nav-links a.active{color:#e9d5ff;text-shadow:0 0 16px rgba(192,132,252,.35)}
+main>section.nav-reveal{opacity:0;transform:translate3d(0,34px,0) scale(.985);filter:blur(5px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1),filter .75s ease;}
+main>section.nav-reveal.section-entered{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
+main>section.nav-reveal.section-entered .section-heading{animation:heading-arrive .65s .08s both cubic-bezier(.2,.7,.2,1)}
+@keyframes heading-arrive{from{opacity:0;transform:translateY(15px);letter-spacing:.04em}to{opacity:1;transform:translateY(0);letter-spacing:normal}}
+main>section[id]:target{scroll-margin-top:100px}
+@media(max-width:760px){html{scroll-padding-top:76px}main>section[id]{scroll-margin-top:76px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}main>section.nav-reveal{opacity:1;transform:none;filter:none;transition:none}main>section.nav-reveal.section-entered .section-heading{animation:none}.nav-links a,.nav-links a:after{transition:none}}
