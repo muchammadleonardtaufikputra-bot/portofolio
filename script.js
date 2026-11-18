@@ -220,3 +220,104 @@ document.getElementById("year").textContent =
    if(menu&&toggle){menu.classList.remove("active");toggle.setAttribute("aria-expanded","false");}
  }));
 })();
+
+
+// LIVE GLITCH BACKGROUND — animated canvas behind the content:
+// faint grid, falling glyph rain, drifting particles, a travelling scan
+// band, and short RGB-split glitch bursts. Pauses when the tab is hidden
+// and renders a single static frame when reduced motion is preferred.
+(function(){
+  const canvas=document.getElementById("glitchBg");
+  if(!canvas) return;
+  const ctx=canvas.getContext("2d");
+  if(!ctx) return;
+  const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+  const GLYPHS="01<>[]{}#$%&*+=;:/\\|ﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓｱｲｳｴｵ";
+  let w=0,h=0,cols=[],drops=[],parts=[],raf=0,last=0;
+  let nextBurst=performance.now()+2200,burstUntil=0,scanY=-140;
+  function isLight(){return document.documentElement.getAttribute("data-theme")==="light";}
+  function resize(){
+    const dpr=Math.min(window.devicePixelRatio||1,1.5);
+    w=window.innerWidth;h=window.innerHeight;
+    canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);
+    canvas.style.width=w+"px";canvas.style.height=h+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.max(8,Math.floor(w/22));
+    cols=[];drops=[];
+    for(let i=0;i<n;i++){cols.push(i*22+Math.random()*10);drops.push(Math.random()*h);}
+    parts=[];
+    const count=Math.min(46,Math.floor(w*h/45000));
+    for(let i=0;i<count;i++)parts.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.8+.6,s:Math.random()*.32+.08,o:Math.random()*.5+.15});
+  }
+  function drawGrid(light){
+    ctx.strokeStyle=light?"rgba(124,58,237,.07)":"rgba(168,85,247,.06)";
+    ctx.lineWidth=1;ctx.beginPath();
+    for(let x=0.5;x<w;x+=88){ctx.moveTo(x,0);ctx.lineTo(x,h);}
+    for(let y=0.5;y<h;y+=88){ctx.moveTo(0,y);ctx.lineTo(w,y);}
+    ctx.stroke();
+  }
+  function drawRain(light,step){
+    ctx.font="13px ui-monospace,Consolas,monospace";
+    for(let i=0;i<cols.length;i++){
+      const ch=GLYPHS[Math.floor(Math.random()*GLYPHS.length)];
+      const cyan=Math.random()<.55;
+      ctx.fillStyle=cyan?(light?"rgba(8,145,178,.28)":"rgba(34,211,238,.20)"):(light?"rgba(124,58,237,.26)":"rgba(192,132,252,.17)");
+      ctx.fillText(ch,cols[i],drops[i]);
+      drops[i]+=step*(0.5+Math.random()*0.9);
+      if(drops[i]>h+20&&Math.random()<.06)drops[i]=-20;
+    }
+  }
+  function drawParts(light){
+    for(const p of parts){
+      p.y-=p.s;if(p.y<-4){p.y=h+4;p.x=Math.random()*w;}
+      ctx.fillStyle=light?"rgba(124,58,237,"+(p.o*.8)+")":"rgba(168,85,247,"+p.o+")";
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+    }
+  }
+  function drawScan(light){
+    scanY+=1.1;if(scanY>h+160)scanY=-160;
+    const g=ctx.createLinearGradient(0,scanY-70,0,scanY+70);
+    const c=light?"124,58,237":"34,211,238";
+    g.addColorStop(0,"rgba("+c+",0)");g.addColorStop(.5,"rgba("+c+",.055)");g.addColorStop(1,"rgba("+c+",0)");
+    ctx.fillStyle=g;ctx.fillRect(0,scanY-70,w,140);
+  }
+  function drawBurst(now,light){
+    if(now>=nextBurst){burstUntil=now+140+Math.random()*120;nextBurst=now+2400+Math.random()*3800;}
+    if(now>burstUntil)return;
+    const slices=4+Math.floor(Math.random()*4);
+    for(let i=0;i<slices;i++){
+      const y=Math.random()*h,hh=5+Math.random()*22,off=(Math.random()-.5)*36;
+      ctx.fillStyle=Math.random()<.5?(light?"rgba(8,145,178,.16)":"rgba(34,211,238,.13)"):(light?"rgba(192,38,211,.14)":"rgba(217,70,239,.12)");
+      ctx.fillRect(off,y,w,hh);
+      ctx.fillStyle=light?"rgba(23,20,43,.25)":"rgba(255,255,255,.06)";
+      for(let s=0;s<6;s++)ctx.fillRect(Math.random()*w,y+Math.random()*hh,2+Math.random()*14,1.5);
+    }
+  }
+  function frame(now){
+    raf=0;
+    if(now-last<33){raf=requestAnimationFrame(frame);return;}
+    last=now;
+    const light=isLight();
+    ctx.clearRect(0,0,w,h);
+    drawGrid(light);drawRain(light,1);drawParts(light);drawScan(light);drawBurst(now,light);
+    raf=requestAnimationFrame(frame);
+  }
+  function drawStatic(){
+    const light=isLight();
+    ctx.clearRect(0,0,w,h);
+    drawGrid(light);
+    ctx.font="13px ui-monospace,Consolas,monospace";
+    for(let i=0;i<cols.length;i+=2){
+      ctx.fillStyle=light?"rgba(124,58,237,.20)":"rgba(192,132,252,.13)";
+      ctx.fillText(GLYPHS[i%GLYPHS.length],cols[i],drops[i]);
+    }
+    drawParts(light);
+  }
+  function start(){if(reduceMotion.matches){drawStatic();return;}cancelAnimationFrame(raf);last=0;raf=requestAnimationFrame(frame);}
+  function stop(){cancelAnimationFrame(raf);raf=0;}
+  let resizeTimer;
+  window.addEventListener("resize",function(){clearTimeout(resizeTimer);resizeTimer=setTimeout(function(){resize();if(reduceMotion.matches)drawStatic();},180);});
+  document.addEventListener("visibilitychange",function(){if(document.hidden)stop();else start();});
+  if(reduceMotion.addEventListener)reduceMotion.addEventListener("change",function(){if(reduceMotion.matches){stop();drawStatic();}else start();});
+  resize();start();
+})();
