@@ -208,3 +208,50 @@ body.page-glitch:after{
 @media(prefers-reduced-motion:reduce){
  main>section.section-jump,body.page-glitch:before,body.page-glitch:after{animation:none!important}
 }
+
+
+/* THEME + LANGUAGE TOGGLES */
+.nav-controls{display:flex;align-items:center;gap:8px}
+.icon-toggle,.lang-toggle{border:1px solid var(--line);background:rgba(168,85,247,.08);color:var(--text);border-radius:999px;cursor:pointer;font:inherit;transition:.25s}
+.icon-toggle{width:36px;height:36px;font-size:16px;display:grid;place-items:center;line-height:1}
+.lang-toggle{height:36px;padding:0 13px;font-size:12px;font-weight:800;letter-spacing:1px}
+.icon-toggle:hover,.lang-toggle:hover{border-color:var(--purple);background:rgba(168,85,247,.16)}
+.icon-toggle:focus-visible,.lang-toggle:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+@media(max-width:650px){.nav-controls{margin-left:auto}.menu-toggle{order:3}.nav-controls{order:2}}
+
+/* LIGHT THEME — dark stays the default; the terminal window stays dark on purpose */
+html[data-theme="light"]{--bg:#f4f2fb;--panel:#ffffff;--panel2:#efeaf9;--text:#17142b;--muted:#5a5470;--line:rgba(124,58,237,.22);--glow:0 0 42px rgba(124,58,237,.14)}
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] .navbar{background:rgba(244,242,251,.88);border-bottom-color:rgba(124,58,237,.16)}
+html[data-theme="light"] .logo{color:#17142b}
+html[data-theme="light"] .menu-toggle{color:#17142b}
+html[data-theme="light"] .nav-links a{color:var(--muted)}
+html[data-theme="light"] .nav-links a:hover{color:#17142b}
+html[data-theme="light"] .nav-links a.active{color:#5b21b6}
+html[data-theme="light"] .eyebrow{color:#7c3aed}
+html[data-theme="light"] .hero h2{color:#2e2750}
+html[data-theme="light"] .secondary{border-color:rgba(124,58,237,.45);color:#17142b}
+html[data-theme="light"] .secondary:hover{background:rgba(124,58,237,.1)}
+html[data-theme="light"] .hero-meta b{color:#7c3aed}
+html[data-theme="light"] .visual-caption{color:#5a5470}
+html[data-theme="light"] .portrait-frame{background:linear-gradient(135deg,rgba(34,211,238,.12),rgba(168,85,247,.14))}
+html[data-theme="light"] .about-card{background:linear-gradient(130deg,rgba(124,58,237,.08),rgba(255,255,255,.96))}
+html[data-theme="light"] .about-mark{color:#17142b}
+html[data-theme="light"] .project-card{background:linear-gradient(145deg,#ffffff,#f1ebfd)}
+html[data-theme="light"] .project-category,html[data-theme="light"] .text-link{color:#7c3aed}
+html[data-theme="light"] .project-link{color:#5b21b6}
+html[data-theme="light"] .tags span{color:#6d28d9;background:rgba(124,58,237,.09)}
+html[data-theme="light"] .skill-card{background:#fff}
+html[data-theme="light"] .contact-panel{background:radial-gradient(ellipse at 50% 0%,rgba(124,58,237,.14),transparent 65%),#ffffff}
+html[data-theme="light"] .social-link{background:rgba(124,58,237,.05)}
+html[data-theme="light"] .contact-panel .social-link{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(255,255,255,.65))}
+html[data-theme="light"] .social-copy>strong{color:#17142b}
+html[data-theme="light"] .social-copy>b{color:#7c3aed}
+html[data-theme="light"] .social-copy>small{color:#5a5470}
+html[data-theme="light"] .github-logo{color:#5b21b6}
+html[data-theme="light"] .scroll-progress{background:rgba(0,0,0,.06)}
+html[data-theme="light"] .ambient{opacity:.2}
+html[data-theme="light"] .icon-toggle,html[data-theme="light"] .lang-toggle{background:rgba(124,58,237,.08)}
+html[data-theme="light"] .icon-toggle:hover,html[data-theme="light"] .lang-toggle:hover{background:rgba(124,58,237,.16)}
+@media(max-width:650px){html[data-theme="light"] .nav-links{background:rgba(255,255,255,.98)}}
+

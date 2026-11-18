@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070711">
+  <meta name="color-scheme" content="dark light">
   <meta name="description" content="Portfolio Muchammad Leonard Taufik Putra — Developer, programmer, and cybersecurity enthusiast.">
   <title>Muchammad Leonard Taufik Putra | Developer Portfolio</title>
+  <script>
+    // Apply saved theme + language before first paint (no flash).
+    try {
+      var savedTheme = localStorage.getItem("leon-theme");
+      if (savedTheme === "light" || savedTheme === "dark") document.documentElement.setAttribute("data-theme", savedTheme);
+      var savedLang = localStorage.getItem("leon-lang");
+      if (savedLang === "en" || savedLang === "id") document.documentElement.setAttribute("lang", savedLang);
+    } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=glitch-v2">
+  <link rel="stylesheet" href="style.css?v=theme-lang-v1">
 </head>
 <body>
   <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
@@ -20,22 +30,26 @@
     <a href="#home" class="logo" aria-label="Leonard, home">L<span>T</span></a>
     <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li>
+      <li><a href="#home" data-i18n="nav.home">Beranda</a></li><li><a href="#about" data-i18n="nav.about">Tentang</a></li><li><a href="#projects" data-i18n="nav.projects">Proyek</a></li><li><a href="#skills" data-i18n="nav.skills">Keahlian</a></li><li><a href="#contact" data-i18n="nav.contact">Kontak</a></li>
     </ul>
-    <a class="nav-cta" href="#contact">Let’s talk <span>↗</span></a>
+    <div class="nav-controls">
+      <button class="icon-toggle" id="themeToggle" type="button" aria-label="Ubah ke tema terang" title="Tema">🌙</button>
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Ubah bahasa ke English" title="Bahasa">EN</button>
+    </div>
+    <a class="nav-cta" href="#contact"><span data-i18n="nav.cta">Mari bicara</span> <span>↗</span></a>
   </nav>
   <main>
     <section class="hero" id="home">
       <div class="hero-content">
-        <p class="eyebrow"><span class="status-dot"></span> HELLO, I'M A DEVELOPER</p>
-        <h1>Building my<br><span>digital future.</span></h1>
-        <h2>Developer <i>|</i> Cybersecurity Enthusiast <i>|</i> Learner</h2>
-        <p class="hero-description">Saya membangun kemampuan di bidang programming, web development, dan cybersecurity. Selalu belajar, bereksperimen, dan mengubah ide menjadi karya nyata.</p>
+        <p class="eyebrow"><span class="status-dot"></span> <span data-i18n="hero.eyebrow">HALO, SAYA SEORANG DEVELOPER</span></p>
+        <h1 data-i18n-html="hero.title">Membangun<br><span>masa depan digital.</span></h1>
+        <h2 data-i18n-html="hero.subtitle">Developer <i>|</i> Penggemar Cybersecurity <i>|</i> Pembelajar</h2>
+        <p class="hero-description" data-i18n="hero.description">Saya membangun kemampuan di bidang programming, web development, dan cybersecurity. Selalu belajar, bereksperimen, dan mengubah ide menjadi karya nyata.</p>
         <div class="hero-buttons">
-          <a href="#projects" class="btn primary">Explore projects <span>→</span></a>
-          <a href="#contact" class="btn secondary">Get in touch</a>
+          <a href="#projects" class="btn primary"><span data-i18n="hero.explore">Jelajahi proyek</span> <span>→</span></a>
+          <a href="#contact" class="btn secondary" data-i18n="hero.contact">Hubungi saya</a>
         </div>
-        <div class="hero-meta"><span><b>01</b> Curious mind</span><span><b>02</b> Build & learn</span><span><b>03</b> Think securely</span></div>
+        <div class="hero-meta"><span><b>01</b> <span data-i18n="hero.meta1">Rasa ingin tahu</span></span><span><b>02</b> <span data-i18n="hero.meta2">Bangun &amp; belajar</span></span><span><b>03</b> <span data-i18n="hero.meta3">Berpikir aman</span></span></div>
       </div>
       <div class="hero-visual">
         <div class="visual-grid" aria-hidden="true"></div>
@@ -45,71 +59,204 @@
           <img src="images/901472245_1493559992631136_4888158295140287447_n.jpg" alt="Foto profil Leonard" class="portrait" fetchpriority="high" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><video class="portrait portrait-fallback" autoplay muted loop playsinline aria-label="Video profil cadangan" hidden><source src="images/profile.mp4" type="video/mp4"></video>
           <span class="frame-corner corner-tl"></span><span class="frame-corner corner-br"></span>
         </div>
-        <p class="visual-caption"><span></span> DEVELOPER / PROGRAMMER / LEARNER</p>
+        <p class="visual-caption"><span></span> <span data-i18n="hero.caption">DEVELOPER / PROGRAMMER / PEMBELAJAR</span></p>
       </div>
     </section>
 
     <section class="section about" id="about">
-      <div class="section-heading"><p class="eyebrow">GET TO KNOW ME</p><h2>A little <span>about me.</span></h2></div>
+      <div class="section-heading"><p class="eyebrow" data-i18n="about.eyebrow">KENALI SAYA</p><h2 data-i18n-html="about.heading">Sedikit <span>tentang saya.</span></h2></div>
       <div class="about-card">
         <div class="about-mark">LT<span>.</span></div>
-        <div><h3>Halo, saya Leon!</h3>
-          <p>Saya tertarik dengan dunia teknologi, pemrograman, dan keamanan digital. Saat ini saya terus mengembangkan kemampuan HTML, CSS, JavaScript, Python, Linux, Git, dan GitHub.</p>
-          <p>Tujuan saya adalah menjadi developer yang mampu membangun aplikasi dan website yang bermanfaat, sekaligus memahami bagaimana menjaga sistem tetap aman.</p>
-          <p>Saya menikmati proses belajar, mencoba hal baru, dan menyelesaikan masalah melalui kode.</p>
+        <div><h3 data-i18n="about.title">Halo, saya Leon!</h3>
+          <p data-i18n="about.p1">Saya tertarik dengan dunia teknologi, pemrograman, dan keamanan digital. Saat ini saya terus mengembangkan kemampuan HTML, CSS, JavaScript, Python, Linux, Git, dan GitHub.</p>
+          <p data-i18n="about.p2">Tujuan saya adalah menjadi developer yang mampu membangun aplikasi dan website yang bermanfaat, sekaligus memahami bagaimana menjaga sistem tetap aman.</p>
+          <p data-i18n="about.p3">Saya menikmati proses belajar, mencoba hal baru, dan menyelesaikan masalah melalui kode.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="projects">
-      <div class="section-heading section-heading-row"><div><p class="eyebrow">SELECTED WORK</p><h2>Featured <span>projects.</span></h2><p>Beberapa karya dan eksperimen yang sedang saya kembangkan.</p></div><a class="text-link" href="https://github.com/muchammadleonardtaufikputra-bot?tab=repositories" target="_blank" rel="noopener noreferrer">View GitHub ↗</a></div>
+      <div class="section-heading section-heading-row"><div><p class="eyebrow" data-i18n="projects.eyebrow">KARYA PILIHAN</p><h2 data-i18n-html="projects.heading">Proyek <span>unggulan.</span></h2><p data-i18n="projects.sub">Beberapa karya dan eksperimen yang sedang saya kembangkan.</p></div><a class="text-link" href="https://github.com/muchammadleonardtaufikputra-bot?tab=repositories" target="_blank" rel="noopener noreferrer"><span data-i18n="projects.github">Lihat GitHub</span> ↗</a></div>
       <div class="projects-grid"></div>
     </section>
 
     <section class="section" id="skills">
-      <div class="section-heading"><p class="eyebrow">TOOLS & TECHNOLOGIES</p><h2>My tech <span>stack.</span></h2><p>Teknologi yang sedang saya pelajari dan gunakan.</p></div>
+      <div class="section-heading"><p class="eyebrow" data-i18n="skills.eyebrow">ALAT &amp; TEKNOLOGI</p><h2 data-i18n-html="skills.heading">Teknologi <span>yang saya kuasai.</span></h2><p data-i18n="skills.sub">Teknologi yang sedang saya pelajari dan gunakan.</p></div>
       <div class="skills-grid"></div>
     </section>
 
 
 
     <section class="section terminal-section" id="terminal">
-      <div class="section-heading"><p class="eyebrow">SENTINEL INTERFACE</p><h2>Interactive <span>terminal.</span></h2><p>Jelajahi profil dan proyek melalui simulasi terminal sederhana.</p></div>
-      <div class="terminal-window"><div class="terminal-bar"><span></span><span></span><span></span><b>LEONARD@PORTFOLIO:~</b><time id="liveClock">--:--:--</time></div><div class="terminal-output" id="terminalOutput" aria-live="polite"><p>Welcome to Leonard's portfolio terminal.</p><p>Type <strong>help</strong> to see available commands.</p></div><form class="terminal-form" id="terminalForm"><label for="terminalInput">visitor@leonard:~$</label><input id="terminalInput" autocomplete="off" spellcheck="false" placeholder="type help..." aria-label="Terminal command"><button type="submit">RUN ↵</button></form></div>
+      <div class="section-heading"><p class="eyebrow" data-i18n="terminal.eyebrow">ANTARMUKA SENTINEL</p><h2 data-i18n-html="terminal.heading">Terminal <span>interaktif.</span></h2><p data-i18n="terminal.sub">Jelajahi profil dan proyek melalui simulasi terminal sederhana.</p></div>
+      <div class="terminal-window"><div class="terminal-bar"><span></span><span></span><span></span><b>LEONARD@PORTFOLIO:~</b><time id="liveClock">--:--:--</time></div><div class="terminal-output" id="terminalOutput" aria-live="polite"><p data-i18n="terminal.welcome1">Selamat datang di terminal portofolio Leonard.</p><p data-i18n-html="terminal.welcome2">Ketik <strong>help</strong> untuk melihat perintah yang tersedia.</p></div><form class="terminal-form" id="terminalForm"><label for="terminalInput">visitor@leonard:~$</label><input id="terminalInput" autocomplete="off" spellcheck="false" placeholder="ketik help..." data-i18n-placeholder="terminal.placeholder" aria-label="Terminal command"><button type="submit" data-i18n="terminal.run">JALANKAN ↵</button></form></div>
     </section>
 
     <section class="section contact" id="contact">
-      <div class="contact-panel"><p class="eyebrow">HAVE A PROJECT IN MIND?</p><h2>Let's build<br><span>something great.</span></h2><p>Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.</p><a class="btn primary" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer">Visit my GitHub <span>↗</span></a><div class="social-links" aria-label="Social media">
+      <div class="contact-panel"><p class="eyebrow" data-i18n="contact.eyebrow">PUNYA IDE PROYEK?</p><h2 data-i18n-html="contact.heading">Mari bangun<br><span>sesuatu yang hebat.</span></h2><p data-i18n="contact.description">Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.</p><a class="btn primary" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer"><span data-i18n="contact.githubBtn">Kunjungi GitHub saya</span> <span>↗</span></a><div class="social-links" aria-label="Social media">
         <a class="social-link instagram-link" href="https://www.instagram.com/eonll.ard/" target="_blank" rel="noopener noreferrer" aria-label="Visit Instagram @eonll.ard">
           <span class="social-logo instagram-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="url(#ig-gradient)" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="url(#ig-gradient)" stroke-width="2"/><circle cx="17.5" cy="6.8" r="1.2" fill="#F9A8D4"/><defs><linearGradient id="ig-gradient" x1="3" y1="21" x2="21" y2="3"><stop stop-color="#F9CE34"/><stop offset=".48" stop-color="#EE2A7B"/><stop offset="1" stop-color="#6228D7"/></linearGradient></defs></svg></span>
-          <span class="social-copy"><b>INSTAGRAM</b><strong>@eonll.ard</strong><small>Follow my updates & projects</small></span><span class="social-cta">VISIT PROFILE <b>↗</b></span>
+          <span class="social-copy"><b>INSTAGRAM</b><strong>@eonll.ard</strong><small data-i18n="social.igSmall">Ikuti update &amp; proyek saya</small></span><span class="social-cta"><span data-i18n="social.igCta">KUNJUNGI PROFIL</span> <b>↗</b></span>
         </a>
         <a class="social-link github-link" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
           <span class="social-logo github-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.32-3.76-1.32-.5-1.28-1.24-1.62-1.24-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 1.7 2.62 1.21 3.26.93.1-.72.39-1.21.71-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.56 0c2.12-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.29-2.61 5.23-5.1 5.51.4.35.76 1.03.76 2.08v3.06c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg></span>
-          <span class="social-copy"><b>GITHUB</b><strong>Leonard's repositories</strong><small>Explore code & experiments</small></span><span class="social-cta">VIEW REPOS <b>↗</b></span>
+          <span class="social-copy"><b>GITHUB</b><strong data-i18n="social.ghStrong">Repositori Leonard</strong><small data-i18n="social.ghSmall">Jelajahi kode &amp; eksperimen</small></span><span class="social-cta"><span data-i18n="social.ghCta">LIHAT REPO</span> <b>↗</b></span>
         </a>
       </div></div>
     </section>
   </main>
-  <footer class="footer"><a href="#home" class="logo">L<span>T</span></a><p>© <span id="year"></span> Muchammad Leonard Taufik Putra. Built with curiosity & code.</p><a href="#home">Back to top ↑</a></footer>
+  <footer class="footer"><a href="#home" class="logo">L<span>T</span></a><p data-i18n-html="footer.text">© <span id="year"></span> Muchammad Leonard Taufik Putra. Dibangun dengan rasa ingin tahu &amp; kode.</p><a href="#home" data-i18n="footer.top">Kembali ke atas ↑</a></footer>
   <script>
     const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    const I18N = {
+      id: {
+        "nav.home": "Beranda", "nav.about": "Tentang", "nav.projects": "Proyek", "nav.skills": "Keahlian", "nav.contact": "Kontak", "nav.cta": "Mari bicara",
+        "hero.eyebrow": "HALO, SAYA SEORANG DEVELOPER",
+        "hero.title": "Membangun<br><span>masa depan digital.</span>",
+        "hero.subtitle": "Developer <i>|</i> Penggemar Cybersecurity <i>|</i> Pembelajar",
+        "hero.description": "Saya membangun kemampuan di bidang programming, web development, dan cybersecurity. Selalu belajar, bereksperimen, dan mengubah ide menjadi karya nyata.",
+        "hero.explore": "Jelajahi proyek", "hero.contact": "Hubungi saya",
+        "hero.meta1": "Rasa ingin tahu", "hero.meta2": "Bangun & belajar", "hero.meta3": "Berpikir aman",
+        "hero.caption": "DEVELOPER / PROGRAMMER / PEMBELAJAR",
+        "about.eyebrow": "KENALI SAYA", "about.heading": "Sedikit <span>tentang saya.</span>", "about.title": "Halo, saya Leon!",
+        "about.p1": "Saya tertarik dengan dunia teknologi, pemrograman, dan keamanan digital. Saat ini saya terus mengembangkan kemampuan HTML, CSS, JavaScript, Python, Linux, Git, dan GitHub.",
+        "about.p2": "Tujuan saya adalah menjadi developer yang mampu membangun aplikasi dan website yang bermanfaat, sekaligus memahami bagaimana menjaga sistem tetap aman.",
+        "about.p3": "Saya menikmati proses belajar, mencoba hal baru, dan menyelesaikan masalah melalui kode.",
+        "projects.eyebrow": "KARYA PILIHAN", "projects.heading": "Proyek <span>unggulan.</span>",
+        "projects.sub": "Beberapa karya dan eksperimen yang sedang saya kembangkan.",
+        "projects.github": "Lihat GitHub", "projects.explore": "Jelajahi proyek",
+        "skills.eyebrow": "ALAT & TEKNOLOGI", "skills.heading": "Teknologi <span>yang saya kuasai.</span>",
+        "skills.sub": "Teknologi yang sedang saya pelajari dan gunakan.",
+        "terminal.eyebrow": "ANTARMUKA SENTINEL", "terminal.heading": "Terminal <span>interaktif.</span>",
+        "terminal.sub": "Jelajahi profil dan proyek melalui simulasi terminal sederhana.",
+        "terminal.welcome1": "Selamat datang di terminal portofolio Leonard.",
+        "terminal.welcome2": "Ketik <strong>help</strong> untuk melihat perintah yang tersedia.",
+        "terminal.placeholder": "ketik help...", "terminal.run": "JALANKAN ↵",
+        "contact.eyebrow": "PUNYA IDE PROYEK?", "contact.heading": "Mari bangun<br><span>sesuatu yang hebat.</span>",
+        "contact.description": "Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.",
+        "contact.githubBtn": "Kunjungi GitHub saya",
+        "social.igSmall": "Ikuti update & proyek saya", "social.igCta": "KUNJUNGI PROFIL",
+        "social.ghStrong": "Repositori Leonard", "social.ghSmall": "Jelajahi kode & eksperimen", "social.ghCta": "LIHAT REPO",
+        "footer.text": "© <span id=\"year\">{year}</span> Muchammad Leonard Taufik Putra. Dibangun dengan rasa ingin tahu & kode.",
+        "footer.top": "Kembali ke atas ↑",
+        "menu.label": "Buka menu", "portrait.alt": "Foto profil Leonard",
+        "theme.toLight": "Ubah ke tema terang", "theme.toDark": "Ubah ke tema gelap",
+        "lang.label": "Ubah bahasa ke English"
+      },
+      en: {
+        "nav.home": "Home", "nav.about": "About", "nav.projects": "Projects", "nav.skills": "Skills", "nav.contact": "Contact", "nav.cta": "Let's talk",
+        "hero.eyebrow": "HELLO, I'M A DEVELOPER",
+        "hero.title": "Building my<br><span>digital future.</span>",
+        "hero.subtitle": "Developer <i>|</i> Cybersecurity Enthusiast <i>|</i> Learner",
+        "hero.description": "I'm building skills in programming, web development, and cybersecurity. Always learning, experimenting, and turning ideas into real work.",
+        "hero.explore": "Explore projects", "hero.contact": "Get in touch",
+        "hero.meta1": "Curious mind", "hero.meta2": "Build & learn", "hero.meta3": "Think securely",
+        "hero.caption": "DEVELOPER / PROGRAMMER / LEARNER",
+        "about.eyebrow": "GET TO KNOW ME", "about.heading": "A little <span>about me.</span>", "about.title": "Hi, I'm Leon!",
+        "about.p1": "I'm interested in technology, programming, and digital security. Right now I'm building my skills in HTML, CSS, JavaScript, Python, Linux, Git, and GitHub.",
+        "about.p2": "My goal is to become a developer who can build useful applications and websites, while understanding how to keep systems secure.",
+        "about.p3": "I enjoy learning, trying new things, and solving problems through code.",
+        "projects.eyebrow": "SELECTED WORK", "projects.heading": "Featured <span>projects.</span>",
+        "projects.sub": "Some of the work and experiments I'm currently building.",
+        "projects.github": "View GitHub", "projects.explore": "Explore project",
+        "skills.eyebrow": "TOOLS & TECHNOLOGIES", "skills.heading": "My tech <span>stack.</span>",
+        "skills.sub": "The technologies I'm learning and using.",
+        "terminal.eyebrow": "SENTINEL INTERFACE", "terminal.heading": "Interactive <span>terminal.</span>",
+        "terminal.sub": "Explore my profile and projects through a simple simulated terminal.",
+        "terminal.welcome1": "Welcome to Leonard's portfolio terminal.",
+        "terminal.welcome2": "Type <strong>help</strong> to see available commands.",
+        "terminal.placeholder": "type help...", "terminal.run": "RUN ↵",
+        "contact.eyebrow": "HAVE A PROJECT IN MIND?", "contact.heading": "Let's build<br><span>something great.</span>",
+        "contact.description": "I'm open to learning, collaborating, and sharing experiences.",
+        "contact.githubBtn": "Visit my GitHub",
+        "social.igSmall": "Follow my updates & projects", "social.igCta": "VISIT PROFILE",
+        "social.ghStrong": "Leonard's repositories", "social.ghSmall": "Explore code & experiments", "social.ghCta": "VIEW REPOS",
+        "footer.text": "© <span id=\"year\">{year}</span> Muchammad Leonard Taufik Putra. Built with curiosity & code.",
+        "footer.top": "Back to top ↑",
+        "menu.label": "Open menu", "portrait.alt": "Leonard's profile photo",
+        "theme.toLight": "Switch to light theme", "theme.toDark": "Switch to dark theme",
+        "lang.label": "Switch language to Indonesian"
+      }
+    };
+    let currentLang = document.documentElement.lang === "en" ? "en" : "id";
+    let portfolioData = null;
+    const t = key => (I18N[currentLang] && I18N[currentLang][key]) || I18N.id[key] || key;
+    function pickText(item, field) {
+      if (!item) return "";
+      if (currentLang === "en" && item[field + "_en"]) return item[field + "_en"];
+      return item[field] || "";
+    }
+    function renderPortfolioData(data) {
+      const profile = data.profile || {};
+      if (profile.intro || profile.intro_en) document.querySelector(".hero-description").textContent = pickText(profile, "intro");
+      if (profile.aboutTitle || profile.aboutTitle_en) {
+        const aboutTitle = document.querySelector(".about-card h3");
+        if (aboutTitle) aboutTitle.textContent = pickText(profile, "aboutTitle");
+      }
+      const aboutList = currentLang === "en" && Array.isArray(profile.about_en) ? profile.about_en : profile.about;
+      if (Array.isArray(aboutList)) {
+        document.querySelectorAll(".about-card p").forEach((p, i) => { if (aboutList[i]) p.textContent = aboutList[i]; });
+      }
+      if (Array.isArray(data.skills)) document.querySelector(".skills-grid").innerHTML = data.skills.map(skill => '<article class="skill-card"><span class="skill-icon">'+esc(skill.icon)+'</span><div><h3>'+esc(skill.name)+'</h3><p>'+esc(pickText(skill, "description"))+'</p></div></article>').join("");
+      if (Array.isArray(data.projects)) document.querySelector(".projects-grid").innerHTML = data.projects.map(project => '<article class="project-card"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(data.projects.indexOf(project)+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div>'+(project.url?'<a class="project-link" href="'+esc(project.url)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a>':'')+'</article>').join("");
+      if (data.contact && (data.contact.description || data.contact.description_en)) document.querySelector(".contact-panel > p:not(.eyebrow)").textContent = pickText(data.contact, "description");
+      if (data.contact?.github) document.querySelector(".contact-panel .btn").href = data.contact.github;
+    }
+    function applyLanguage(lang) {
+      currentLang = lang === "en" ? "en" : "id";
+      document.documentElement.lang = currentLang;
+      try { localStorage.setItem("leon-lang", currentLang); } catch (e) {}
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const value = t(el.getAttribute("data-i18n"));
+        if (el.getAttribute("data-i18n") === "footer.text") return; // handled below (contains the year span)
+        el.textContent = value;
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach(el => {
+        el.innerHTML = t(el.getAttribute("data-i18n-html")).replace("{year}", String(new Date().getFullYear()));
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder"))));
+      const menuToggle = document.getElementById("menuToggle");
+      if (menuToggle) menuToggle.setAttribute("aria-label", t("menu.label"));
+      const portrait = document.querySelector(".portrait");
+      if (portrait) portrait.setAttribute("alt", t("portrait.alt"));
+      const langToggle = document.getElementById("langToggle");
+      if (langToggle) {
+        langToggle.textContent = currentLang === "id" ? "EN" : "ID";
+        langToggle.setAttribute("aria-label", t("lang.label"));
+      }
+      if (portfolioData) renderPortfolioData(portfolioData);
+    }
+    function applyTheme(theme) {
+      const next = theme === "light" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("leon-theme", next); } catch (e) {}
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle) {
+        themeToggle.textContent = next === "dark" ? "🌙" : "☀️";
+        themeToggle.setAttribute("aria-label", t(next === "dark" ? "theme.toLight" : "theme.toDark"));
+      }
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) metaTheme.setAttribute("content", next === "dark" ? "#070711" : "#f4f2fb");
+    }
     async function loadPortfolioData() {
       try {
         const response = await fetch("portfolio-data.json", {cache:"no-store"});
         if (!response.ok) return;
-        const data = await response.json();
-        const profile = data.profile || {};
-        if (profile.intro) document.querySelector(".hero-description").textContent = profile.intro;
-        if (Array.isArray(data.skills)) document.querySelector(".skills-grid").innerHTML = data.skills.map(skill => '<article class="skill-card"><span class="skill-icon">'+esc(skill.icon)+'</span><div><h3>'+esc(skill.name)+'</h3><p>'+esc(skill.description)+'</p></div></article>').join("");
-        if (Array.isArray(data.projects)) document.querySelector(".projects-grid").innerHTML = data.projects.map(project => '<article class="project-card"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(data.projects.indexOf(project)+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(project.description)+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div>'+(project.url?'<a class="project-link" href="'+esc(project.url)+'" target="_blank" rel="noopener noreferrer">Explore project <span>↗</span></a>':'')+'</article>').join("");
-        if (data.contact?.description) document.querySelector(".contact-panel > p:not(.eyebrow)").textContent = data.contact.description;
-        if (data.contact?.github) document.querySelector(".contact-panel .btn").href = data.contact.github;
+        portfolioData = await response.json();
+        renderPortfolioData(portfolioData);
       } catch (error) { console.warn("Portfolio data could not be loaded:", error); }
     }
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    });
+    document.getElementById("langToggle").addEventListener("click", () => {
+      applyLanguage(currentLang === "id" ? "en" : "id");
+    });
     document.getElementById("year").textContent = new Date().getFullYear();
+    applyTheme(document.documentElement.getAttribute("data-theme") || "dark");
+    applyLanguage(currentLang);
     loadPortfolioData();
   </script>
-  <script src="script.js?v=glitch-v2"></script>
+  <script src="script.js?v=theme-lang-v1"></script>
 </body>
 </html>

@@ -1,88 +1,98 @@
 {
   "profile": {
-    "name": "Muchammad Leonard Taufik Putra",
-    "greeting": "Hi, I'm",
-    "tagline": "Future Programmer & Web Developer",
-    "intro": "Saya sedang belajar Cyber Security, Programming, Linux, dan Web Development. Ini adalah perjalanan saya membangun masa depan di bidang teknologi.",
-    "aboutTitle": "Halo, saya Leon!",
     "about": [
       "Saya adalah seseorang yang tertarik dengan dunia teknologi dan pemrograman. Saat ini saya sedang mempelajari HTML, CSS, JavaScript, Python, Linux, Git, dan GitHub.",
       "Tujuan saya adalah menjadi programmer profesional yang mampu membangun aplikasi dan website yang bermanfaat bagi banyak orang.",
       "Saya menikmati proses belajar, mencoba hal baru, dan menyelesaikan masalah melalui kode."
-    ]
+    ],
+    "aboutTitle": "Halo, saya Leon!",
+    "aboutTitle_en": "Hi, I'm Leon!",
+    "about_en": [
+      "I'm someone interested in technology and programming. Right now I'm learning HTML, CSS, JavaScript, Python, Linux, Git, and GitHub.",
+      "My goal is to become a professional programmer who can build applications and websites that help many people.",
+      "I enjoy learning, trying new things, and solving problems through code."
+    ],
+    "greeting": "Hi, I'm",
+    "intro": "Saya sedang belajar Cyber Security, Programming, Linux, dan Web Development. Ini adalah perjalanan saya membangun masa depan di bidang teknologi.",
+    "intro_en": "I'm currently learning Cyber Security, Programming, Linux, and Web Development. This is my journey building a future in technology.",
+    "name": "Muchammad Leonard Taufik Putra",
+    "tagline": "Future Programmer & Web Developer"
   },
   "skills": [
     {
+      "description": "Website Structure",
       "icon": "🌐",
-      "name": "HTML",
-      "description": "Website Structure"
+      "name": "HTML"
     },
     {
+      "description": "Web Design",
       "icon": "🎨",
-      "name": "CSS",
-      "description": "Web Design"
+      "name": "CSS"
     },
     {
+      "description": "Web Interaction",
       "icon": "⚡",
-      "name": "JavaScript",
-      "description": "Web Interaction"
+      "name": "JavaScript"
     },
     {
+      "description": "Programming",
       "icon": "🐍",
-      "name": "Python",
-      "description": "Programming"
+      "name": "Python"
     },
     {
+      "description": "Operating System",
       "icon": "🐧",
-      "name": "Linux",
-      "description": "Operating System"
+      "name": "Linux"
     },
     {
+      "description": "Version Control",
       "icon": "🔧",
-      "name": "Git & GitHub",
-      "description": "Version Control"
+      "name": "Git & GitHub"
     }
   ],
   "projects": [
     {
-      "icon": "💻",
       "category": "WEB DEVELOPMENT",
-      "title": "Personal Portfolio",
       "description": "Website portfolio pribadi menggunakan HTML, CSS, dan JavaScript.",
+      "description_en": "My personal portfolio website built with HTML, CSS, and JavaScript.",
+      "icon": "💻",
       "tags": [
         "HTML",
         "CSS",
         "JavaScript"
       ],
+      "title": "Personal Portfolio",
       "url": ""
     },
     {
-      "icon": "🐍",
       "category": "PROGRAMMING",
-      "title": "Python Beginner",
       "description": "Kumpulan latihan Python untuk memahami dasar-dasar pemrograman.",
+      "description_en": "A collection of Python exercises for understanding programming basics.",
+      "icon": "🐍",
       "tags": [
         "Python",
         "Linux"
       ],
+      "title": "Python Beginner",
       "url": ""
     },
     {
-      "icon": "🐧",
       "category": "SYSTEM",
-      "title": "Linux Learning",
       "description": "Dokumentasi pembelajaran Linux, terminal, dan perintah dasar.",
+      "description_en": "Documentation of my Linux learning, terminal, and basic commands.",
+      "icon": "🐧",
       "tags": [
         "Linux",
         "Terminal"
       ],
+      "title": "Linux Learning",
       "url": ""
     },
     {
-      "icon": "🛡️",
       "category": "CYBERSECURITY",
-      "title": "Cybersecurity Awareness Lab",
       "description": "Aplikasi edukasi interaktif untuk berlatih mengenali tanda-tanda phishing melalui contoh pesan simulasi yang aman.",
+      "description_en": "An interactive educational app to practise recognising phishing signs through safe simulated message examples.",
+      "icon": "🛡️",
       "tags": [
         "Cybersecurity",
         "Phishing Awareness",
@@ -90,13 +100,14 @@
         "CSS",
         "JavaScript"
       ],
+      "title": "Cybersecurity Awareness Lab",
       "url": "https://muchammadleonardtaufikputra-bot.github.io/portofolio/projects/security-awareness/"
     },
     {
-      "icon": "🛰️",
       "category": "CYBERSECURITY / BLUE TEAM",
-      "title": "SENTINEL X — Threat Detection & Incident Response",
       "description": "Simulasi Security Operations Center (SOC) dengan synthetic log analyzer, rule-based threat detection, incident management, MITRE ATT&CK mapping, forensic timeline, dan export laporan.",
+      "description_en": "A Security Operations Center (SOC) simulation with a synthetic log analyzer, rule-based threat detection, incident management, MITRE ATT&CK mapping, a forensic timeline, and report export.",
+      "icon": "🛰️",
       "tags": [
         "Cybersecurity",
         "Blue Team",
@@ -105,11 +116,13 @@
         "MITRE ATT&CK",
         "Incident Response"
       ],
+      "title": "SENTINEL X — Threat Detection & Incident Response",
       "url": "https://muchammadleonardtaufikputra-bot.github.io/portofolio/projects/sentinel-x/"
     }
   ],
   "contact": {
     "description": "Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.",
+    "description_en": "I'm open to learning, collaborating, and sharing experiences.",
     "github": "https://github.com/muchammadleonardtaufikputra-bot"
   }
 }
