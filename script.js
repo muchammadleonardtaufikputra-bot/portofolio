@@ -143,6 +143,10 @@ document.getElementById("year").textContent =
  const bar=document.getElementById("scrollProgress");
  function updateProgress(){if(!bar)return;const max=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(max>0?(window.scrollY/max)*100:0)+"%";}
  window.addEventListener("scroll",updateProgress,{passive:true});window.addEventListener("resize",updateProgress);updateProgress();
+ const toTop=document.getElementById("backToTop");
+ function updateToTop(){if(!toTop)return;toTop.hidden=window.scrollY<=600;}
+ window.addEventListener("scroll",updateToTop,{passive:true});updateToTop();
+ if(toTop)toTop.addEventListener("click",function(){window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});});
  const clock=document.getElementById("liveClock");
  function tick(){if(clock)clock.textContent=new Date().toLocaleTimeString("id-ID",{hour12:false});}
  tick();setInterval(tick,1000);
