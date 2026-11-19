@@ -118,6 +118,27 @@
       ],
       "title": "SENTINEL X — Threat Detection & Incident Response",
       "url": "https://muchammadleonardtaufikputra-bot.github.io/portofolio/projects/sentinel-x/"
+    },
+    {
+      "category": "CYBERSECURITY / BLUE TEAM",
+      "description": "Platform keamanan defensif berbasis Python dan Flask untuk inventaris sistem lokal, pemeriksaan keamanan read-only, simulasi event inert, deteksi berbasis aturan, analitik deteksi, referensi kandidat MITRE ATT&CK, monitoring timeline simulasi, dashboard eksekutif, dan ekspor laporan JSON/HTML.",
+      "description_en": "A Python and Flask defensive security platform for local system inventory, read-only security checks, inert event simulation, rule-based detection, detection analytics, candidate MITRE ATT&CK references, a simulation monitoring timeline, an executive dashboard, and JSON/HTML report exports.",
+      "icon": "🛡️",
+      "tags": [
+        "Python",
+        "Flask",
+        "SQLite",
+        "Cybersecurity",
+        "Blue Team",
+        "SOC",
+        "Detection Analytics",
+        "MITRE ATT&CK",
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "title": "NEMESIS — Adversary Research & Emulation System",
+      "url": "https://github.com/muchammadleonardtaufikputra-bot/NEMESIS"
     }
   ],
   "contact": {
