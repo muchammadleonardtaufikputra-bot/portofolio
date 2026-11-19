@@ -1,64 +1,102 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="NEMESIS defensive security project showcase with synthetic demonstration data.">
-  <meta name="theme-color" content="#080b16">
-  <title>NEMESIS | Defensive Security Showcase</title>
-  <style>
-    :root{color-scheme:dark;--bg:#080b16;--panel:#10182a;--line:#26334b;--text:#e8efff;--muted:#94a3b8;--cyan:#54e6df;--violet:#a78bfa;--green:#6ee7b7}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#15264a 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
-    a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}.wrap{width:min(1120px,92%);margin:auto}
-    header{padding:24px 0;border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:900;letter-spacing:.16em}.brand span{color:var(--cyan)}.links{display:flex;gap:18px;flex-wrap:wrap}
-    .hero{padding:64px 0 34px}.eyebrow{color:var(--cyan);font-size:.76rem;font-weight:800;letter-spacing:.2em}.hero h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.04;margin:14px 0}.hero h1 span{color:var(--cyan)}.lead{max-width:720px;color:var(--muted);font-size:1.05rem}
-    .notice{border:1px solid #27665f;background:#0b2828;color:#b9fff0;padding:12px 15px;border-radius:12px;margin:24px 0;display:flex;gap:10px;align-items:center}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}.card,.panel{background:linear-gradient(145deg,#121d32,#0d1424);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 16px 45px #0002}
-    .metric{font-size:2rem;font-weight:850;letter-spacing:-.04em}.label{color:var(--muted);font-size:.82rem}.panel-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin:16px 0}.panel h2{font-size:1.05rem;margin:0 0 16px}.bars{display:grid;gap:15px}.bar-head{display:flex;justify-content:space-between;color:var(--muted);font-size:.86rem}.track{height:9px;border-radius:9px;background:#26334b;overflow:hidden;margin-top:6px}.fill{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--cyan),var(--violet))}
-    .status{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.status:last-child{border:0}.pill{font-size:.72rem;border:1px solid #27665f;color:var(--green);padding:2px 8px;border-radius:30px}
-    .actions{display:flex;gap:12px;flex-wrap:wrap;margin:25px 0}.btn{display:inline-block;border-radius:10px;padding:11px 16px;font-weight:750;border:1px solid var(--cyan);background:var(--cyan);color:#07131a}.btn.secondary{background:transparent;color:var(--text);border-color:var(--line)}
-    .foot{color:var(--muted);font-size:.8rem;padding:28px 0 42px;border-top:1px solid var(--line);margin-top:34px}
-    @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.panel-grid{grid-template-columns:1fr}}@media(max-width:480px){.nav{align-items:flex-start;flex-direction:column}.grid{gap:9px}.card{padding:14px}.metric{font-size:1.6rem}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="NEMESIS defensive security dashboard showcase using synthetic data only.">
+<meta name="theme-color" content="#080b10">
+<title>NEMESIS | Core System v1.0.0</title>
+<style>
+:root{color-scheme:dark;--bg:#080b10;--side:#0a0d13;--panel:#10151e;--panel2:#0d121a;--line:#252d39;--red:#ff174f;--red2:#a90032;--green:#00f58a;--blue:#5b91c7;--text:#e5eaf2;--muted:#8290a3;--mono:Consolas,"Courier New",monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);font-size:13px;letter-spacing:.025em}
+button,a{font:inherit}a{color:inherit;text-decoration:none}button{cursor:pointer}
+.shell{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:244px;background:linear-gradient(180deg,#0b0e14,#080b10);border-right:2px solid #303846;overflow-y:auto;z-index:5;display:flex;flex-direction:column}
+.mark{height:58px;padding:13px 15px;color:var(--red);font-size:30px;font-weight:bold;border-bottom:1px solid #171d27;text-shadow:0 0 14px #ff174f66}
+.brand{padding:34px 15px 25px;border-bottom:1px solid #202733}.brand-name{font-family:Arial,sans-serif;font-size:clamp(32px,3vw,46px);font-weight:500;letter-spacing:-2px;color:var(--red);text-shadow:0 0 16px #ff174f55}.brand-sub{font-size:27px;font-weight:bold;line-height:1.12;color:var(--red);margin-top:28px;letter-spacing:.04em}.brand-sub small{display:block;font-size:25px;margin-top:7px}.nav-label{padding:25px 24px 12px;color:#4e6a86;font-size:10px;letter-spacing:.18em}.nav{padding:0 8px 20px;display:grid;gap:4px}.nav button{border:0;border-left:3px solid transparent;text-align:left;background:transparent;color:#8796aa;padding:12px 16px;font-size:12px;letter-spacing:.08em}.nav button:hover,.nav button.active{background:#28101a;color:#ff426e;border-left-color:var(--red);box-shadow:inset 0 0 18px #ff174f0b}.sidebar-foot{margin-top:auto;padding:16px 14px;color:#526173;font-size:10px;border-top:1px solid #202733;line-height:1.8}
+.main{margin-left:244px;min-height:100vh;padding:0 38px 40px;max-width:1800px}.topbar{height:88px;border-bottom:1px solid #29313d;display:flex;align-items:center;justify-content:space-between;gap:18px;color:#dce4ef;font-size:16px;line-height:1.45;letter-spacing:.08em}.top-status{white-space:nowrap;color:var(--green);font-size:11px}.clock{color:var(--red);font-size:16px;margin-right:14px}.page{display:none;padding-top:42px;animation:fade .22s ease}.page.active{display:block}@keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+.eyebrow{color:#8190a4;font-size:10px;letter-spacing:.17em;text-transform:uppercase;margin-bottom:10px}.heading-row{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:8px}.page h1{font-size:30px;line-height:1.2;color:var(--red);margin:0;font-weight:700;letter-spacing:.04em;text-transform:uppercase}.sub{color:#8190a4;font-size:14px;margin:16px 0 30px}.action{background:#b90036;border:1px solid var(--red);color:white;padding:14px 20px;font-weight:bold;font-size:12px;letter-spacing:.04em}.action:hover{background:#e00043}.action.ghost{background:#141c27;border-color:#3a4656;color:#cbd5e1}.banner{padding:17px 18px;margin:24px 0;border-left:3px solid var(--green);background:#0b1b16;color:#8de8b7;line-height:1.7}.banner.red{border-left-color:var(--red);background:#1a0d14;color:#d68ba0}.banner.demo{border-left-color:#ffbd4a;background:#21190d;color:#f5d49b}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:22px 0 30px}.stat,.panel{background:linear-gradient(145deg,#111720,#0d121a);border:1px solid var(--line);padding:22px 23px;min-width:0}.stat .cap{color:#7186a0;font-size:10px;letter-spacing:.15em;text-transform:uppercase}.stat strong{display:block;margin-top:22px;font-size:26px;letter-spacing:-.04em;color:#edf3fb}.stat strong.green{color:var(--green)}.stat strong.red{color:var(--red)}.panel{margin:18px 0}.panel h2{margin:0 0 18px;color:var(--red);font-size:17px;letter-spacing:.1em;text-transform:uppercase}.panel p{color:#9aa8b8;line-height:1.8}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.four{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.scenario{border:1px solid #2a3544;background:#101720;padding:18px}.scenario h3{font-size:15px;color:#dbe5f2;margin:0 0 8px}.scenario code{color:var(--red);font-size:12px}.scenario p{font-size:11px;color:#8c9bad;min-height:34px}.mini-action{border:1px solid #394656;background:#121a25;color:#b9c7d7;padding:8px 10px;font-size:10px}
+.bars{display:grid;gap:18px}.barline .barhead{display:flex;justify-content:space-between;color:#9aa8b8;font-size:11px}.track{height:9px;background:#26303d;margin-top:8px}.fill{height:100%;background:linear-gradient(90deg,#a90032,#ff174f);box-shadow:0 0 12px #ff174f44}
+.rows{display:grid;gap:9px}.event{padding:15px 17px;background:#160f17;border:1px solid #35212c;border-left:3px solid var(--red)}.event b{color:#ff5479;display:block;margin-bottom:7px}.event span{color:#8e9bad;font-size:11px;line-height:1.7}.tag{display:inline-block;border:1px solid #285d48;color:var(--green);font-size:10px;padding:3px 7px;margin-right:6px}.tag.red{border-color:#70233b;color:#ff6c8c}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:left;padding:12px 10px;border-bottom:1px solid #26303c}.table th{color:#748ba5;font-weight:normal}.table td{color:#c5cfdb}.empty{border:1px dashed #354252;padding:28px;text-align:center;color:#718198}
+.footer{border-top:1px solid #26303b;margin-top:42px;padding:18px 0;color:#58677a;font-size:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.source-link{display:inline-block;margin-top:12px;background:#b90036;border:1px solid var(--red);padding:12px 17px;color:#fff;font-weight:bold}.source-link:hover{background:#e00043}
+@media(max-width:1050px){.sidebar{width:205px}.main{margin-left:205px;padding:0 24px 30px}.stats{grid-template-columns:repeat(2,1fr)}.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.sidebar{position:relative;width:auto;height:auto;max-height:none;border-right:0;border-bottom:2px solid #303846}.mark{height:45px}.brand{padding:15px}.brand-name{font-size:34px}.brand-sub{font-size:17px;margin-top:8px}.brand-sub small{font-size:16px;display:inline;margin-left:5px}.nav-label,.sidebar-foot{display:none}.nav{display:flex;overflow-x:auto;padding:8px;gap:5px}.nav button{white-space:nowrap;padding:9px 11px;font-size:10px}.main{margin:0;padding:0 14px 25px}.topbar{height:66px;font-size:11px}.top-status{font-size:9px}.clock{font-size:12px;margin-right:6px}.page{padding-top:28px}.page h1{font-size:22px}.heading-row{align-items:flex-start;flex-direction:column}.action{padding:10px 13px}.stats{gap:8px}.stat{padding:14px}.stat strong{font-size:21px;margin-top:14px}.stat .cap{font-size:9px}.two{grid-template-columns:1fr}.four{grid-template-columns:1fr 1fr}.panel{padding:16px}.footer{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
-<header><div class="wrap nav"><a class="brand" href="../../index.html">NEME<span>SIS</span></a><nav class="links" aria-label="Navigasi"><a href="#overview">Overview</a><a href="#analytics">Analytics</a><a href="#safety">Safety</a></nav></div></header>
-<main class="wrap">
-  <section class="hero">
-    <div class="eyebrow">DEFENSIVE SECURITY • PROJECT SHOWCASE</div>
-    <h1>Adversary Research<br><span>&amp; Emulation System</span></h1>
-    <p class="lead">NEMESIS adalah proyek pembelajaran keamanan defensif berbasis Python dan Flask. Halaman ini merupakan visualisasi portofolio statis, bukan dashboard operasional yang terhubung ke perangkat atau server lokal.</p>
-    <div class="notice"><strong>DEMO MODE</strong><span>Seluruh angka dan grafik di halaman ini adalah data sintetis untuk demonstrasi visual.</span></div>
-    <div class="actions"><a class="btn" href="https://github.com/muchammadleonardtaufikputra-bot/NEMESIS" target="_blank" rel="noopener noreferrer">View Source Code ↗</a><a class="btn secondary" href="../../index.html#projects">Back to Portfolio</a></div>
-  </section>
-  <section id="overview">
-    <div class="eyebrow">SYNTHETIC OVERVIEW</div>
-    <div class="grid">
-      <article class="card"><div class="metric">128</div><div class="label">Simulated events</div></article>
-      <article class="card"><div class="metric">112</div><div class="label">Detected events</div></article>
-      <article class="card"><div class="metric">16</div><div class="label">Undetected examples</div></article>
-      <article class="card"><div class="metric">87.5%</div><div class="label">Demo detection ratio</div></article>
-    </div>
-  </section>
-  <section id="analytics" class="panel-grid">
-    <article class="panel"><h2>Synthetic event distribution</h2><div class="bars">
-      <div><div class="bar-head"><span>Authentication</span><span>42</span></div><div class="track"><div class="fill" style="width:100%"></div></div></div>
-      <div><div class="bar-head"><span>Endpoint alerts</span><span>35</span></div><div class="track"><div class="fill" style="width:83.3%"></div></div></div>
-      <div><div class="bar-head"><span>Firewall alerts</span><span>28</span></div><div class="track"><div class="fill" style="width:66.7%"></div></div></div>
-      <div><div class="bar-head"><span>Access control</span><span>23</span></div><div class="track"><div class="fill" style="width:54.8%"></div></div></div>
-    </div></article>
-    <article class="panel"><h2>Demo components</h2>
-      <div class="status"><span>Read-only assessment concept</span><span class="pill">DEMO</span></div>
-      <div class="status"><span>Inert event simulation</span><span class="pill">DEMO</span></div>
-      <div class="status"><span>Rule-based detection</span><span class="pill">DEMO</span></div>
-      <div class="status"><span>Reporting &amp; analytics</span><span class="pill">DEMO</span></div>
-    </article>
-  </section>
-  <section id="safety" class="panel">
-    <h2>Security &amp; data boundaries</h2>
-    <p class="label">Showcase ini tidak mengakses localhost, tidak menjalankan pemindaian jaringan, tidak membaca data perangkat, dan tidak mengirim telemetri. Angka sintetis tidak mewakili hasil pengujian nyata. Untuk detail implementasi, tinjau source code di repository.</p>
-  </section>
-  <footer class="foot">NEMESIS • Portfolio demonstration • Synthetic data only • No live system connection</footer>
+<div class="shell">
+<aside class="sidebar">
+<div class="mark">N</div>
+<div class="brand"><div class="brand-name">NEMESIS</div><div class="brand-sub">CORE<br>SYSTEM<small>v1.0.0</small></div></div>
+<div class="nav-label">MAIN INTERFACE</div>
+<nav class="nav" aria-label="NEMESIS dashboard navigation">
+<button class="active" data-page="overview">OVERVIEW</button>
+<button data-page="recon">RECONNAISSANCE</button>
+<button data-page="assessment">ASSESSMENT</button>
+<button data-page="simulation">SIMULATION</button>
+<button data-page="threat">THREAT INTEL</button>
+<button data-page="analytics">DETECTION ANALYTICS</button>
+<button data-page="monitoring">SECURITY MONITORING</button>
+<button data-page="integration">INTEGRATION</button>
+<button data-page="reports">REPORTS</button>
+<button data-page="exports">EXPORT CENTER</button>
+</nav>
+<div class="sidebar-foot">SYSTEM ONLINE<br>AUTHORIZED LOCAL LAB<br><span style="color:var(--green)">●</span> SYNTHETIC DEMO ENVIRONMENT</div>
+</aside>
+<main class="main">
+<div class="topbar"><div>SECURITY RESEARCH ENVIRONMENT<br><span style="color:#7c899a">NEMESIS CONTROL INTERFACE</span></div><div class="top-status"><span class="clock" id="clock">00:00:00</span> ONLINE</div></div>
+
+<section class="page active" id="overview">
+<div class="eyebrow">CORE SYSTEM / OVERVIEW</div><div class="heading-row"><h1>SECURITY OPERATIONS</h1><span class="tag">DEMO MODE</span></div>
+<p class="sub">NEMESIS defensive security research and emulation environment.</p>
+<div class="banner demo"><b>SYNTHETIC DATA NOTICE</b><br>Dashboard ini menggunakan data buatan untuk demonstrasi portofolio. Tidak terhubung ke server lokal, perangkat, atau telemetry sungguhan.</div>
+<div class="stats">
+<div class="stat"><div class="cap">Assessment Records</div><strong>06</strong></div>
+<div class="stat"><div class="cap">Simulation Events</div><strong>128</strong></div>
+<div class="stat"><div class="cap">Detected Events</div><strong class="green">112</strong></div>
+<div class="stat"><div class="cap">Candidate MITRE</div><strong>04</strong></div>
+</div>
+<div class="two"><div class="panel"><h2>System Overview</h2><div class="rows"><div class="statusline"><span class="tag">ONLINE</span> Local dashboard concept</div><div class="statusline"><span class="tag">READ ONLY</span> Assessment model</div><div class="statusline"><span class="tag red">INERT</span> Event simulation only</div></div></div>
+<div class="panel"><h2>Detection Summary</h2><div class="stats" style="grid-template-columns:1fr 1fr;margin:0"><div class="stat"><div class="cap">Detection Ratio</div><strong class="green">87.5%</strong></div><div class="stat"><div class="cap">Not Detected</div><strong class="red">16</strong></div></div></div></div>
+</section>
+
+<section class="page" id="recon"><div class="eyebrow">READ-ONLY MODULE</div><div class="heading-row"><h1>RECONNAISSANCE</h1><span class="tag">SYNTHETIC</span></div><p class="sub">Local inventory module concept — no actual device information is displayed here.</p><div class="banner demo">Contoh data di bawah ini bersifat placeholder. Halaman publik tidak membaca hostname, username, alamat IP, MAC address, atau konfigurasi perangkatmu.</div><div class="panel"><h2>Example Inventory Summary</h2><div class="stats"><div class="stat"><div class="cap">Platform</div><strong>WINDOWS</strong></div><div class="stat"><div class="cap">Architecture</div><strong>x64</strong></div><div class="stat"><div class="cap">Collection</div><strong>LOCAL</strong></div><div class="stat"><div class="cap">Mode</div><strong class="green">READ_ONLY</strong></div></div></div></section>
+
+<section class="page" id="assessment"><div class="eyebrow">READ-ONLY SECURITY CHECKS</div><div class="heading-row"><h1>SECURITY ASSESSMENT</h1><span class="tag">DEMO</span></div><p class="sub">Illustrative security posture checks. No checks are executed by this public page.</p><div class="stats"><div class="stat"><div class="cap">Total Checks</div><strong>03</strong></div><div class="stat"><div class="cap">Pass</div><strong class="green">02</strong></div><div class="stat"><div class="cap">Warning</div><strong>00</strong></div><div class="stat"><div class="cap">Error</div><strong class="red">00</strong></div></div><div class="panel"><h2>Assessment Results</h2><div class="statusline">Windows Firewall <span class="tag">PASS</span></div><div class="statusline">Defender Protection <span class="tag">PASS</span></div><div class="statusline">System Information <span class="tag">INFO</span></div></div></section>
+
+<section class="page" id="simulation"><div class="eyebrow">INERT EVENT LAB</div><div class="heading-row"><h1>SIMULATION LAB</h1><span class="tag red">NO REAL ATTACKS</span></div><p class="sub">Examples of harmless, pre-generated event records. Buttons are intentionally non-executing in this portfolio preview.</p><div class="four"><div class="scenario"><h3>AUTH-001</h3><code>Authentication</code><p>Failed login event sample</p><button class="mini-action" disabled>PREVIEW ONLY</button></div><div class="scenario"><h3>FW-001</h3><code>Network Security</code><p>Firewall alert sample</p><button class="mini-action" disabled>PREVIEW ONLY</button></div><div class="scenario"><h3>EDR-001</h3><code>Endpoint Security</code><p>Unusual process alert sample</p><button class="mini-action" disabled>PREVIEW ONLY</button></div><div class="scenario"><h3>ACCESS-001</h3><code>Access Control</code><p>Privilege change event sample</p><button class="mini-action" disabled>PREVIEW ONLY</button></div></div><div class="panel"><h2>Latest Detection Result</h2><div class="event"><b>SIMULATED EVENT — DETECTED</b><span>Sample event record • Inert local event model • Synthetic preview</span></div></div></section>
+
+<section class="page" id="threat"><div class="eyebrow">REFERENCE CATALOG</div><div class="heading-row"><h1>THREAT INTELLIGENCE</h1><span class="tag">CANDIDATE ONLY</span></div><p class="sub">Candidate MITRE ATT&amp;CK references associated with synthetic scenario examples.</p><div class="rows"><div class="event"><b>AUTH-001 — Authentication Failure</b><span>Candidate T1110 · Brute Force · LOW confidence · Evidence required</span></div><div class="event"><b>FW-001 — Firewall Alert</b><span>Candidate T1686 · Disable or Modify System Firewall · LOW confidence</span></div><div class="event"><b>EDR-001 — Unusual Process</b><span>Candidate T1059 · Command and Scripting Interpreter · LOW confidence</span></div><div class="event"><b>ACCESS-001 — Privilege Change</b><span>Candidate T1098 · Account Manipulation · LOW confidence</span></div></div><div class="banner">MITRE mappings are candidates for learning and triage, not confirmed attack evidence.</div></section>
+
+<section class="page" id="analytics"><div class="eyebrow">READ-ONLY SIMULATION ANALYTICS</div><div class="heading-row"><h1>DETECTION ANALYTICS</h1><span class="tag">SYNTHETIC DATA</span></div><p class="sub">Detection coverage across the illustrative event set.</p><div class="banner">ANALYSIS MODE: READ_ONLY_SIMULATION_ANALYTICS — stored synthetic event examples only.</div><div class="stats"><div class="stat"><div class="cap">Total Events</div><strong>128</strong></div><div class="stat"><div class="cap">Detected</div><strong class="green">112</strong></div><div class="stat"><div class="cap">Not Detected</div><strong class="red">16</strong></div><div class="stat"><div class="cap">Coverage</div><strong>87.5%</strong></div></div><div class="panel"><h2>Scenario Distribution</h2><div class="bars"><div class="barline"><div class="barhead"><span>Authentication</span><span>42</span></div><div class="track"><div class="fill" style="width:100%"></div></div></div><div class="barline"><div class="barhead"><span>Endpoint Security</span><span>35</span></div><div class="track"><div class="fill" style="width:83.3%"></div></div></div><div class="barline"><div class="barhead"><span>Firewall</span><span>28</span></div><div class="track"><div class="fill" style="width:66.7%"></div></div></div><div class="barline"><div class="barhead"><span>Access Control</span><span>23</span></div><div class="track"><div class="fill" style="width:54.8%"></div></div></div></div></div></section>
+
+<section class="page" id="monitoring"><div class="eyebrow">READ-ONLY MONITORING MODULE</div><div class="heading-row"><h1>SECURITY MONITORING</h1><span class="tag">READ ONLY</span></div><p class="sub">Timeline and summary of stored synthetic simulation events.</p><div class="banner">This monitoring summary describes stored inert simulation examples only. It is not live system monitoring or real-world threat detection.</div><div class="stats"><div class="stat"><div class="cap">Analyzed Events</div><strong>128</strong></div><div class="stat"><div class="cap">Detected Events</div><strong class="green">112</strong></div><div class="stat"><div class="cap">Not Detected</div><strong>16</strong></div><div class="stat"><div class="cap">Monitoring Mode</div><strong style="font-size:18px">READ_ONLY</strong></div></div><div class="panel"><h2>Event Timeline</h2><div class="rows"><div class="event"><b>#128 — Unusual Process Alert</b><span>EDR-001 · Synthetic timestamp · DETECTED</span></div><div class="event"><b>#127 — Failed Login Event</b><span>AUTH-001 · Synthetic timestamp · DETECTED</span></div><div class="event"><b>#126 — Firewall Alert</b><span>FW-001 · Synthetic timestamp · DETECTED</span></div><div class="event"><b>#125 — Privilege Change</b><span>ACCESS-001 · Synthetic timestamp · NOT DETECTED</span></div></div></div></section>
+
+<section class="page" id="integration"><div class="eyebrow">SYSTEM CONNECTIONS</div><div class="heading-row"><h1>INTEGRATION</h1><span class="tag">PREVIEW</span></div><p class="sub">Integration architecture overview.</p><div class="panel"><h2>SENTINEL X Integration</h2><p>Conceptual integration status panel. This public preview does not connect to SENTINEL X, NEMESIS localhost services, or any external endpoint.</p><div class="banner red">DEFENSIVE MONITORING CONCEPT — no external system connection is active.</div></div></section>
+
+<section class="page" id="reports"><div class="eyebrow">REPORT MANAGEMENT</div><div class="heading-row"><h1>UNIFIED REPORTS</h1><span class="tag">SAMPLE</span></div><p class="sub">Illustrative report archive using fictional report metadata.</p><div class="stats"><div class="stat"><div class="cap">Assessment Reports</div><strong>06</strong></div><div class="stat"><div class="cap">Latest Record</div><strong>#06</strong></div></div><div class="panel"><h2>Available Assessment Reports</h2><div class="event"><b>REPORT #06 — NEMESIS SECURITY ASSESSMENT</b><span>Synthetic sample report metadata · JSON / HTML preview</span></div><div class="event"><b>REPORT #05 — NEMESIS SECURITY ASSESSMENT</b><span>Synthetic sample report metadata · JSON / HTML preview</span></div></div></section>
+
+<section class="page" id="exports"><div class="eyebrow">DATA EXPORT INTERFACE</div><div class="heading-row"><h1>EXPORT CENTER</h1><span class="tag">DEMO FILES</span></div><p class="sub">Example export inventory. No files are generated or downloaded by this public preview.</p><div class="stats"><div class="stat"><div class="cap">Available Formats</div><strong>02</strong></div><div class="stat"><div class="cap">JSON</div><strong>DATA</strong></div><div class="stat"><div class="cap">HTML</div><strong>REPORT</strong></div><div class="stat"><div class="cap">Mode</div><strong class="green">STATIC</strong></div></div><div class="panel"><h2>Unified Export History</h2><table class="table"><thead><tr><th>FILE NAME</th><th>FORMAT</th><th>STATUS</th></tr></thead><tbody><tr><td>nemesis_demo_report.json</td><td>JSON</td><td><span class="tag">SAMPLE</span></td></tr><tr><td>nemesis_demo_report.html</td><td>HTML</td><td><span class="tag">SAMPLE</span></td></tr></tbody></table></div></section>
+
+<div class="footer"><span>NEMESIS CORE SYSTEM v1.0.0</span><span>PORTFOLIO PREVIEW • SYNTHETIC DATA ONLY</span><span><a href="https://github.com/muchammadleonardtaufikputra-bot/NEMESIS" target="_blank" rel="noopener noreferrer">SOURCE CODE ↗</a></span></div>
 </main>
+</div>
+<script>
+(function(){
+ const buttons=[...document.querySelectorAll('.nav button')];
+ const pages=[...document.querySelectorAll('.page')];
+ function show(id){
+   pages.forEach(p=>p.classList.toggle('active',p.id===id));
+   buttons.forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+   window.scrollTo({top:0,behavior:'smooth'});
+ }
+ buttons.forEach(b=>b.addEventListener('click',()=>show(b.dataset.page)));
+ const clock=document.getElementById('clock');
+ function tick(){const d=new Date();clock.textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(x=>String(x).padStart(2,'0')).join(':')}
+ tick();setInterval(tick,1000);
+})();
+</script>
 </body>
 </html>
