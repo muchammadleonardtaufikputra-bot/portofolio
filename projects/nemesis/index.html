@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="NEMESIS defensive security project showcase with synthetic demonstration data.">
+  <meta name="theme-color" content="#080b16">
+  <title>NEMESIS | Defensive Security Showcase</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080b16;--panel:#10182a;--line:#26334b;--text:#e8efff;--muted:#94a3b8;--cyan:#54e6df;--violet:#a78bfa;--green:#6ee7b7}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#15264a 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+    a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}.wrap{width:min(1120px,92%);margin:auto}
+    header{padding:24px 0;border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:900;letter-spacing:.16em}.brand span{color:var(--cyan)}.links{display:flex;gap:18px;flex-wrap:wrap}
+    .hero{padding:64px 0 34px}.eyebrow{color:var(--cyan);font-size:.76rem;font-weight:800;letter-spacing:.2em}.hero h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.04;margin:14px 0}.hero h1 span{color:var(--cyan)}.lead{max-width:720px;color:var(--muted);font-size:1.05rem}
+    .notice{border:1px solid #27665f;background:#0b2828;color:#b9fff0;padding:12px 15px;border-radius:12px;margin:24px 0;display:flex;gap:10px;align-items:center}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}.card,.panel{background:linear-gradient(145deg,#121d32,#0d1424);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 16px 45px #0002}
+    .metric{font-size:2rem;font-weight:850;letter-spacing:-.04em}.label{color:var(--muted);font-size:.82rem}.panel-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin:16px 0}.panel h2{font-size:1.05rem;margin:0 0 16px}.bars{display:grid;gap:15px}.bar-head{display:flex;justify-content:space-between;color:var(--muted);font-size:.86rem}.track{height:9px;border-radius:9px;background:#26334b;overflow:hidden;margin-top:6px}.fill{height:100%;border-radius:9px;background:linear-gradient(90deg,var(--cyan),var(--violet))}
+    .status{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.status:last-child{border:0}.pill{font-size:.72rem;border:1px solid #27665f;color:var(--green);padding:2px 8px;border-radius:30px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin:25px 0}.btn{display:inline-block;border-radius:10px;padding:11px 16px;font-weight:750;border:1px solid var(--cyan);background:var(--cyan);color:#07131a}.btn.secondary{background:transparent;color:var(--text);border-color:var(--line)}
+    .foot{color:var(--muted);font-size:.8rem;padding:28px 0 42px;border-top:1px solid var(--line);margin-top:34px}
+    @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.panel-grid{grid-template-columns:1fr}}@media(max-width:480px){.nav{align-items:flex-start;flex-direction:column}.grid{gap:9px}.card{padding:14px}.metric{font-size:1.6rem}}
+  </style>
+</head>
+<body>
+<header><div class="wrap nav"><a class="brand" href="../../index.html">NEME<span>SIS</span></a><nav class="links" aria-label="Navigasi"><a href="#overview">Overview</a><a href="#analytics">Analytics</a><a href="#safety">Safety</a></nav></div></header>
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">DEFENSIVE SECURITY • PROJECT SHOWCASE</div>
+    <h1>Adversary Research<br><span>&amp; Emulation System</span></h1>
+    <p class="lead">NEMESIS adalah proyek pembelajaran keamanan defensif berbasis Python dan Flask. Halaman ini merupakan visualisasi portofolio statis, bukan dashboard operasional yang terhubung ke perangkat atau server lokal.</p>
+    <div class="notice"><strong>DEMO MODE</strong><span>Seluruh angka dan grafik di halaman ini adalah data sintetis untuk demonstrasi visual.</span></div>
+    <div class="actions"><a class="btn" href="https://github.com/muchammadleonardtaufikputra-bot/NEMESIS" target="_blank" rel="noopener noreferrer">View Source Code ↗</a><a class="btn secondary" href="../../index.html#projects">Back to Portfolio</a></div>
+  </section>
+  <section id="overview">
+    <div class="eyebrow">SYNTHETIC OVERVIEW</div>
+    <div class="grid">
+      <article class="card"><div class="metric">128</div><div class="label">Simulated events</div></article>
+      <article class="card"><div class="metric">112</div><div class="label">Detected events</div></article>
+      <article class="card"><div class="metric">16</div><div class="label">Undetected examples</div></article>
+      <article class="card"><div class="metric">87.5%</div><div class="label">Demo detection ratio</div></article>
+    </div>
+  </section>
+  <section id="analytics" class="panel-grid">
+    <article class="panel"><h2>Synthetic event distribution</h2><div class="bars">
+      <div><div class="bar-head"><span>Authentication</span><span>42</span></div><div class="track"><div class="fill" style="width:100%"></div></div></div>
+      <div><div class="bar-head"><span>Endpoint alerts</span><span>35</span></div><div class="track"><div class="fill" style="width:83.3%"></div></div></div>
+      <div><div class="bar-head"><span>Firewall alerts</span><span>28</span></div><div class="track"><div class="fill" style="width:66.7%"></div></div></div>
+      <div><div class="bar-head"><span>Access control</span><span>23</span></div><div class="track"><div class="fill" style="width:54.8%"></div></div></div>
+    </div></article>
+    <article class="panel"><h2>Demo components</h2>
+      <div class="status"><span>Read-only assessment concept</span><span class="pill">DEMO</span></div>
+      <div class="status"><span>Inert event simulation</span><span class="pill">DEMO</span></div>
+      <div class="status"><span>Rule-based detection</span><span class="pill">DEMO</span></div>
+      <div class="status"><span>Reporting &amp; analytics</span><span class="pill">DEMO</span></div>
+    </article>
+  </section>
+  <section id="safety" class="panel">
+    <h2>Security &amp; data boundaries</h2>
+    <p class="label">Showcase ini tidak mengakses localhost, tidak menjalankan pemindaian jaringan, tidak membaca data perangkat, dan tidak mengirim telemetri. Angka sintetis tidak mewakili hasil pengujian nyata. Untuk detail implementasi, tinjau source code di repository.</p>
+  </section>
+  <footer class="foot">NEMESIS • Portfolio demonstration • Synthetic data only • No live system connection</footer>
+</main>
+</body>
+</html>
