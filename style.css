@@ -370,3 +370,38 @@ html[data-theme="light"] .service-head:hover .service-title{color:#5b21b6}
 }
 
 
+/* EXTREME — curved 3D project carousel, reverse marquee, drifting ghost */
+.projects-carousel{overflow-x:auto;scroll-snap-type:x proximity;padding:44px 4% 34px;perspective:1400px;scrollbar-width:none;-ms-overflow-style:none;cursor:grab;overscroll-behavior-x:contain}
+.projects-carousel::-webkit-scrollbar{display:none}
+.projects-carousel.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.carousel-track{display:flex;gap:20px;width:max-content;margin:0 auto;transform-style:preserve-3d}
+.projects-carousel .project-card{flex:0 0 min(420px,82vw);scroll-snap-align:center;transform:var(--arc,none);transform-style:preserve-3d;rotate:0}
+.projects-carousel .project-card:first-child{grid-column:auto;padding:24px;background:linear-gradient(145deg,rgba(25,21,42,.96),rgba(12,11,22,.98))}
+.projects-carousel .project-card:first-child h3{font-size:19px}
+.projects-carousel .project-card:first-child .project-description{max-width:none;font-size:13px;min-height:44px}
+.carousel-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:4px}
+.carousel-arrow{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(168,85,247,.08);color:var(--text);font-size:18px;cursor:pointer;transition:.25s}
+.carousel-arrow:hover{background:linear-gradient(100deg,#c026d3,#7c3aed);color:#fff;border-color:transparent;transform:translateY(-2px)}
+.carousel-hint{font-size:12px;color:var(--muted);letter-spacing:1px;text-align:center}
+.tech-marquee.marquee-reverse{background:transparent;border-top:0}
+.marquee-reverse .marquee-track{animation-direction:reverse;animation-duration:38s}
+.marquee-reverse .marquee-track span{font-size:22px;color:transparent;-webkit-text-stroke:1px rgba(180,145,255,.35)}
+.marquee-track{animation-duration:22s}
+.hero-ghost{animation:ghost-drift 26s ease-in-out infinite alternate}
+@keyframes ghost-drift{from{transform:translateX(0)}to{transform:translateX(-4%)}}
+html[data-theme="light"] .carousel-arrow{background:rgba(124,58,237,.08)}
+html[data-theme="light"] .carousel-arrow:hover{color:#fff}
+html[data-theme="light"] .marquee-reverse .marquee-track span{-webkit-text-stroke-color:rgba(124,58,237,.35)}
+html[data-theme="light"] .projects-carousel .project-card:first-child{background:linear-gradient(145deg,#ffffff,#f1ebfd)}
+@media(max-width:650px){
+  .projects-carousel{padding:30px 4% 24px}
+  .projects-carousel .project-card{flex-basis:84vw}
+  .carousel-hint{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .projects-carousel .project-card{transform:none}
+  .marquee-track,.marquee-reverse .marquee-track{animation:none}
+  .hero-ghost{animation:none}
+}
+
+

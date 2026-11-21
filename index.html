@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=layout-v1">
+  <link rel="stylesheet" href="style.css?v=extreme-v1">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -83,6 +83,7 @@
     </section>
 
     <div class="tech-marquee" aria-hidden="true"><div class="marquee-track"><span>HTML ✦ CSS ✦ JAVASCRIPT ✦ PYTHON ✦ LINUX ✦ GIT &amp; GITHUB ✦&nbsp;</span><span>HTML ✦ CSS ✦ JAVASCRIPT ✦ PYTHON ✦ LINUX ✦ GIT &amp; GITHUB ✦&nbsp;</span></div></div>
+    <div class="tech-marquee marquee-reverse" aria-hidden="true"><div class="marquee-track"><span>DEVELOPER ✦ CYBERSECURITY ✦ PEMBELAJAR ✦ BUILDER ✦ LEARNER ✦&nbsp;</span><span>DEVELOPER ✦ CYBERSECURITY ✦ PEMBELAJAR ✦ BUILDER ✦ LEARNER ✦&nbsp;</span></div></div>
 
     <section class="section about" id="about">
       <div class="ghost-word" aria-hidden="true">TENTANG</div>
@@ -109,7 +110,14 @@
         <input class="filter-search" id="projectSearch" type="search" data-i18n-placeholder="filter.search" placeholder="Cari proyek..." aria-label="Cari proyek">
       </div>
       <p class="filter-empty" id="filterEmpty" hidden data-i18n="filter.empty">Tidak ada proyek yang cocok.</p>
-      <div class="projects-grid"></div>
+      <div class="projects-carousel" id="projectsCarousel">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-arrow" id="carouselPrev" type="button" data-i18n-aria="projects.prev" aria-label="Proyek sebelumnya">←</button>
+        <p class="carousel-hint" data-i18n="projects.dragHint">Geser atau drag untuk melihat proyek lainnya →</p>
+        <button class="carousel-arrow" id="carouselNext" type="button" data-i18n-aria="projects.next" aria-label="Proyek berikutnya">→</button>
+      </div>
     </section>
 
     <section class="section" id="skills">
@@ -188,6 +196,8 @@
         "projects.eyebrow": "KARYA PILIHAN", "projects.heading": "Proyek <span>unggulan.</span>",
         "projects.sub": "Beberapa karya dan eksperimen yang sedang saya kembangkan.",
         "projects.github": "Lihat GitHub", "projects.explore": "Jelajahi proyek",
+        "projects.dragHint": "Geser atau drag untuk melihat proyek lainnya →",
+        "projects.prev": "Proyek sebelumnya", "projects.next": "Proyek berikutnya",
         "skills.eyebrow": "ALAT & TEKNOLOGI", "skills.heading": "Teknologi <span>yang saya kuasai.</span>",
         "skills.sub": "Teknologi yang sedang saya pelajari dan gunakan.",
         "terminal.eyebrow": "ANTARMUKA SENTINEL", "terminal.heading": "Terminal <span>interaktif.</span>",
@@ -240,6 +250,8 @@
         "projects.eyebrow": "SELECTED WORK", "projects.heading": "Featured <span>projects.</span>",
         "projects.sub": "Some of the work and experiments I'm currently building.",
         "projects.github": "View GitHub", "projects.explore": "Explore project",
+        "projects.dragHint": "Swipe or drag to see more projects →",
+        "projects.prev": "Previous project", "projects.next": "Next project",
         "skills.eyebrow": "TOOLS & TECHNOLOGIES", "skills.heading": "My tech <span>stack.</span>",
         "skills.sub": "The technologies I'm learning and using.",
         "terminal.eyebrow": "SENTINEL INTERFACE", "terminal.heading": "Interactive <span>terminal.</span>",
@@ -292,13 +304,55 @@
       }
       return true;
     }
+    const carouselEl = document.getElementById("projectsCarousel");
+    const carouselTrack = document.getElementById("carouselTrack");
+    function updateCarouselArc() {
+      if (!carouselEl || !carouselTrack) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        carouselTrack.querySelectorAll(".project-card").forEach(c => c.style.setProperty("--arc", "none"));
+        return;
+      }
+      const rect = carouselEl.getBoundingClientRect();
+      if (!rect.width) return;
+      const center = rect.left + rect.width / 2;
+      carouselTrack.querySelectorAll(".project-card").forEach(card => {
+        const r = card.getBoundingClientRect();
+        const offset = (r.left + r.width / 2 - center) / (rect.width / 2);
+        const clamped = Math.max(-1.4, Math.min(1.4, offset));
+        const rotY = clamped * -38;
+        const z = -Math.abs(clamped) * 150;
+        const scale = 1 - Math.min(0.16, Math.abs(clamped) * 0.11);
+        card.style.setProperty("--arc", "translateZ(" + z.toFixed(0) + "px) rotateY(" + rotY.toFixed(1) + "deg) scale(" + scale.toFixed(3) + ")");
+      });
+    }
     function renderProjects() {
-      const grid = document.querySelector(".projects-grid");
+      const grid = carouselTrack;
       const empty = document.getElementById("filterEmpty");
       if (!grid) return;
       const list = allProjects.filter(projectMatchesFilter);
       grid.innerHTML = list.map((project, i) => '<article class="project-card"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(i+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>').join("");
       if (empty) empty.hidden = list.length > 0;
+      if (carouselEl && list.length) carouselEl.scrollLeft = Math.max(0, (carouselTrack.scrollWidth - carouselEl.clientWidth) / 2);
+      updateCarouselArc();
+    }
+    if (carouselEl) {
+      let arcRaf = 0;
+      carouselEl.addEventListener("scroll", () => { if (arcRaf) return; arcRaf = requestAnimationFrame(() => { updateCarouselArc(); arcRaf = 0; }); }, { passive: true });
+      window.addEventListener("resize", updateCarouselArc);
+      let dragging = false, dragMoved = 0, startX = 0, startScroll = 0;
+      carouselEl.addEventListener("pointerdown", e => { dragging = true; dragMoved = 0; startX = e.clientX; startScroll = carouselEl.scrollLeft; carouselEl.classList.add("is-dragging"); });
+      window.addEventListener("pointermove", e => { if (!dragging) return; carouselEl.scrollLeft = startScroll - (e.clientX - startX); dragMoved = Math.max(dragMoved, Math.abs(e.clientX - startX)); });
+      window.addEventListener("pointerup", () => { dragging = false; carouselEl.classList.remove("is-dragging"); });
+      carouselEl.addEventListener("click", e => { if (dragMoved > 6) { e.preventDefault(); e.stopPropagation(); dragMoved = 0; } }, true);
+      const prevBtn = document.getElementById("carouselPrev");
+      const nextBtn = document.getElementById("carouselNext");
+      function scrollCarousel(dir) {
+        const card = carouselTrack.querySelector(".project-card");
+        const step = card ? card.getBoundingClientRect().width + 20 : 440;
+        carouselEl.scrollBy({ left: dir * step, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      }
+      if (prevBtn) prevBtn.addEventListener("click", () => scrollCarousel(-1));
+      if (nextBtn) nextBtn.addEventListener("click", () => scrollCarousel(1));
     }
     function renderPortfolioData(data) {
       const profile = data.profile || {};
@@ -412,6 +466,6 @@
     applyLanguage(currentLang);
     loadPortfolioData();
   </script>
-  <script src="script.js?v=layout-v1"></script>
+  <script src="script.js?v=extreme-v1"></script>
 </body>
 </html>
