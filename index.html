@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=hud-v1">
+  <link rel="stylesheet" href="style.css?v=hud-v2">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -111,6 +111,12 @@
       </div>
       <p class="filter-empty" id="filterEmpty" hidden data-i18n="filter.empty">Tidak ada proyek yang cocok.</p>
       <div class="works-wheel-wrap" id="worksWheelWrap">
+        <div class="works-wheel-col">
+          <div class="hud-panel hud-wave-panel">
+            <div class="hud-panel-label"><span>SIGNAL // WORKS</span><span class="hud-live-dot" aria-hidden="true"></span></div>
+            <svg class="hud-wave" viewBox="0 0 520 48" preserveAspectRatio="none" aria-hidden="true"><g class="wave-shift"><path d="M0 34 C26 18 52 42 78 28 S130 8 156 26 S208 44 234 24 S286 10 312 28 S364 42 390 22 S442 12 468 28 S506 40 520 34 L520 48 L0 48 Z" fill="rgba(217,70,239,.18)"/><path d="M0 34 C26 18 52 42 78 28 S130 8 156 26 S208 44 234 24 S286 10 312 28 S364 42 390 22 S442 12 468 28 S506 40 520 34" fill="none" stroke="#e879f9" stroke-width="1.5"/><g transform="translate(520,0)"><path d="M0 34 C26 18 52 42 78 28 S130 8 156 26 S208 44 234 24 S286 10 312 28 S364 42 390 22 S442 12 468 28 S506 40 520 34 L520 48 L0 48 Z" fill="rgba(217,70,239,.18)"/><path d="M0 34 C26 18 52 42 78 28 S130 8 156 26 S208 44 234 24 S286 10 312 28 S364 42 390 22 S442 12 468 28 S506 40 520 34" fill="none" stroke="#e879f9" stroke-width="1.5"/></g></g></svg>
+          </div>
+          <div class="hud-link" aria-hidden="true"></div>
         <div class="works-wheel" id="worksWheel" tabindex="0" role="group" data-i18n-aria="projects.wheelGroup" aria-label="Roda proyek — scroll atau drag untuk ganti proyek">
           <div class="wheel-sweep" aria-hidden="true"></div>
           <div class="wheel-arc" aria-hidden="true"></div>
@@ -122,6 +128,25 @@
           <span class="hud-readout hud-tr" id="hudAngle">ANGLE 0°</span>
           <span class="hud-readout hud-bl" id="hudMode">MODE // MANUAL</span>
           <span class="hud-readout hud-br">SYS // LIVE</span>
+        </div>
+          <div class="hud-link" aria-hidden="true"></div>
+          <div class="hud-gauges">
+            <div class="hud-panel">
+              <div class="hud-panel-label"><span>SECTOR</span></div>
+              <div class="hud-gauge-body">
+                <svg class="hud-gauge" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="18" class="hud-gauge-track"/><circle cx="22" cy="22" r="18" class="hud-gauge-fill" id="hudGaugeFill"/></svg>
+                <span class="hud-gauge-num" id="hudGaugeNum">01</span>
+              </div>
+            </div>
+            <div class="hud-panel">
+              <div class="hud-panel-label"><span>PROJECTS</span></div>
+              <div class="hud-bars" id="hudBars"></div>
+            </div>
+            <div class="hud-panel">
+              <div class="hud-panel-label"><span>TELEMETRY</span></div>
+              <div class="hud-telem" id="hudTelem"></div>
+            </div>
+          </div>
         </div>
         <div class="works-detail" id="worksDetail" aria-live="polite"></div>
       </div>
@@ -326,6 +351,10 @@
     const hudSector = document.getElementById("hudSector");
     const hudAngle = document.getElementById("hudAngle");
     const hudMode = document.getElementById("hudMode");
+    const hudGaugeFill = document.getElementById("hudGaugeFill");
+    const hudGaugeNum = document.getElementById("hudGaugeNum");
+    const hudBars = document.getElementById("hudBars");
+    const hudTelem = document.getElementById("hudTelem");
     let currentList = [];
     let wheelIndex = 0;
     let wheelRot = 0;
@@ -386,6 +415,11 @@
       }
       if (hudSector) hudSector.textContent = "SECTOR " + String(wheelIndex+1).padStart(2,"0") + " [" + String(list.length).padStart(2,"0") + "]";
       if (hudAngle) hudAngle.textContent = "ANGLE " + Math.round(wheelRot) + "°";
+      const gaugeC = 113.1;
+      if (hudGaugeFill) hudGaugeFill.style.strokeDashoffset = (gaugeC * (1 - (wheelIndex + 1) / list.length)).toFixed(1);
+      if (hudGaugeNum) hudGaugeNum.textContent = String(wheelIndex + 1).padStart(2, "0");
+      if (hudBars) hudBars.innerHTML = list.map((p, i) => '<span class="hud-bar' + (i === wheelIndex ? ' is-active' : '') + '" style="height:' + (i === wheelIndex ? 100 : 28 + ((i * 37 + 13) % 62)) + '%"></span>').join("");
+      if (hudTelem) hudTelem.innerHTML = '<div>CAT // ' + esc(project.category.toUpperCase()) + '</div><div>TAGS // ' + (project.tags || []).length + '</div><div>IDX // ' + String(wheelIndex + 1).padStart(2, "0") + ' / ' + String(list.length).padStart(2, "0") + '</div>';
       const prog = document.getElementById("wheelProgressFill");
       if (prog) prog.style.strokeDashoffset = (527.8 * (1 - (wheelIndex + 1) / list.length)).toFixed(1);
       if (wheelRing) wheelRing.querySelectorAll(".wheel-item").forEach((el, i) => el.classList.toggle("is-active", i === wheelIndex));

@@ -372,7 +372,30 @@ html[data-theme="light"] .service-head:hover .service-title{color:#5b21b6}
 
 /* WORKS WHEEL — rotating project dial (kept from EXTREME: reverse marquee, drifting ghost) */
 .works-wheel-wrap{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);gap:44px;align-items:center;margin-top:34px}
-.works-wheel{position:relative;width:min(520px,88vw);aspect-ratio:1;margin:0 auto;--wheel-r:min(200px,31vw);cursor:grab;touch-action:pan-y;outline:none;transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .35s ease}
+.works-wheel{position:relative;width:min(520px,100%);aspect-ratio:1;margin:0 auto;--wheel-r:min(200px,31vw);cursor:grab;touch-action:pan-y;outline:none;transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .35s ease}
+.works-wheel-col{display:flex;flex-direction:column;align-items:stretch;min-width:0;gap:0}
+.hud-panel{position:relative;background-color:rgba(168,85,247,.04);background-image:linear-gradient(#c084fc,#c084fc),linear-gradient(#c084fc,#c084fc),linear-gradient(#c084fc,#c084fc),linear-gradient(#c084fc,#c084fc),linear-gradient(#c084fc,#c084fc),linear-gradient(#c084fc,#c084fc),linear-gradient(#c084fc,#c084fc),linear-gradient(#c084fc,#c084fc);background-size:16px 2px,2px 16px,16px 2px,2px 16px,16px 2px,2px 16px,16px 2px,2px 16px;background-position:left top,left top,right top,right top,left bottom,left bottom,right bottom,right bottom;background-repeat:no-repeat;padding:10px 12px}
+.hud-panel-label{display:flex;justify-content:space-between;align-items:center;font:600 9px/1 ui-monospace,Consolas,monospace;letter-spacing:2px;color:var(--muted);margin-bottom:8px}
+.hud-live-dot{width:6px;height:6px;border-radius:50%;background:#22d3ee;box-shadow:0 0 8px #22d3ee;animation:blink 1.6s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.hud-wave-panel{width:100%;max-width:520px;margin:0 auto}
+.hud-wave{width:100%;height:44px;display:block;overflow:hidden}
+.wave-shift{animation:wave-slide 8s linear infinite}
+@keyframes wave-slide{to{transform:translateX(-520px)}}
+.hud-link{width:1px;height:16px;background:rgba(192,132,252,.5);margin:0 auto;position:relative;flex:none}
+.hud-link::after{content:"";position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;border:1px solid #c084fc;background:#0c0b16}
+.hud-gauges{display:flex;gap:10px;width:100%;max-width:520px;margin:0 auto}
+.hud-gauges .hud-panel{flex:1;min-width:0}
+.hud-gauge-body{display:flex;align-items:center;gap:10px}
+.hud-gauge{width:44px;height:44px;transform:rotate(-90deg);flex:none}
+.hud-gauge-track{fill:none;stroke:rgba(168,85,247,.15);stroke-width:4}
+.hud-gauge-fill{fill:none;stroke:#d946ef;stroke-width:4;stroke-linecap:round;stroke-dasharray:113.1;stroke-dashoffset:94.2;transition:stroke-dashoffset .6s ease}
+.hud-gauge-num{font:700 20px/1 "Space Grotesk",system-ui,sans-serif;color:var(--text)}
+.hud-bars{display:flex;align-items:flex-end;gap:4px;height:44px}
+.hud-bar{flex:1;background:rgba(168,85,247,.35);border-radius:2px 2px 0 0;min-height:4px}
+.hud-bar.is-active{background:#d946ef;box-shadow:0 0 8px rgba(217,70,239,.7)}
+.hud-telem{font:600 9px/1.7 ui-monospace,Consolas,monospace;letter-spacing:1px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-telem div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .works-wheel:focus-visible{outline:2px solid var(--purple);outline-offset:6px;border-radius:50%}
 .works-wheel.is-dragging{cursor:grabbing}
 .works-wheel::before{content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top:10px solid var(--purple);z-index:3}
@@ -464,6 +487,10 @@ html[data-theme="light"] .shadow-item:hover{border-color:rgba(124,58,237,.45);ba
   .wheel-detail-card::after{font-size:90px}
   .hud-readout{font-size:9px;padding:3px 5px}
   .works-detail{padding:10px}
+  .hud-gauge{width:34px;height:34px}
+  .hud-gauge-num{font-size:16px}
+  .hud-telem{font-size:8px}
+  .hud-bars{height:36px}
 }
 @media(prefers-reduced-motion:reduce){
   .works-wheel{transform:none}
@@ -471,6 +498,8 @@ html[data-theme="light"] .shadow-item:hover{border-color:rgba(124,58,237,.45);ba
   .wheel-detail-card{animation:none;opacity:1}
   .wheel-ticks{animation:none}
   .wheel-sweep,.wheel-arc{animation:none}
+  .wave-shift{animation:none}
+  .hud-live-dot{animation:none}
   .shadow-item{animation:none}
   .wheel-center-count.count-pop{animation:none}
   .works-wheel.is-auto .wheel-center::before{animation:none}
