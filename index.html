@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=wheel-v1">
+  <link rel="stylesheet" href="style.css?v=wheel-v2">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -113,6 +113,8 @@
       <div class="works-wheel-wrap" id="worksWheelWrap">
         <div class="works-wheel" id="worksWheel" tabindex="0" role="group" data-i18n-aria="projects.wheelGroup" aria-label="Roda proyek — scroll atau drag untuk ganti proyek">
           <div class="wheel-ring" id="wheelRing"></div>
+          <div class="wheel-ticks" aria-hidden="true"></div>
+          <svg class="wheel-orbit-text" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="orbitPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#orbitPath" textLength="488" lengthAdjust="spacingAndGlyphs">SCROLL ✦ DRAG ✦ CYCLE ✦ WORKS ✦ SCROLL ✦ DRAG ✦ CYCLE ✦ WORKS ✦</textPath></text></svg>
           <div class="wheel-center" aria-hidden="true"><span class="wheel-center-label">WORKS</span><span class="wheel-center-count" id="wheelCount">01 / 06</span></div>
         </div>
         <div class="works-detail" id="worksDetail" aria-live="polite"></div>
@@ -323,14 +325,14 @@
     function renderWheel() {
       if (!wheelRing) return;
       const n = currentList.length;
-      wheelRing.innerHTML = currentList.map((project, i) => '<button type="button" class="wheel-item" style="--a:' + (i * 360 / n) + 'deg" data-index="' + i + '" aria-label="' + esc(project.title) + '">' + esc(shortTitle(project.title)) + '</button>').join("");
+      wheelRing.innerHTML = currentList.map((project, i) => '<button type="button" class="wheel-item" style="--a:' + (i * 360 / n) + 'deg" data-index="' + i + '" aria-label="' + esc(project.title) + '"><span class="wheel-item-num">' + String(i+1).padStart(2,"0") + '</span>' + esc(shortTitle(project.title)) + '</button>').join("");
     }
     function renderDetail() {
       if (!worksDetail) return;
       const list = currentList;
       if (!list.length) { worksDetail.innerHTML = ""; if (wheelCount) wheelCount.textContent = "00 / 00"; return; }
       const project = list[wheelIndex];
-      worksDetail.innerHTML = '<article class="project-card wheel-detail-card"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(wheelIndex+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>';
+      worksDetail.innerHTML = '<article class="project-card wheel-detail-card" data-index="'+String(wheelIndex+1).padStart(2,"0")+'"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(wheelIndex+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>';
       if (wheelCount) wheelCount.textContent = String(wheelIndex+1).padStart(2,"0") + " / " + String(list.length).padStart(2,"0");
       if (wheelRing) wheelRing.querySelectorAll(".wheel-item").forEach((el, i) => el.classList.toggle("is-active", i === wheelIndex));
     }
