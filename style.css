@@ -402,11 +402,12 @@ html[data-theme="light"] .service-head:hover .service-title{color:#5b21b6}
 @keyframes border-spin{to{--bd-angle:360deg}}
 .wheel-detail-card::after{content:attr(data-index);position:absolute;right:10px;bottom:-26px;font-size:120px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(168,85,247,.18);pointer-events:none;z-index:0}
 .wheel-detail-card>*{position:relative;z-index:1}
-.shadow-label{margin:22px 2px 10px;font-size:11px;letter-spacing:3px;color:var(--muted)}
 .shadow-list{display:flex;flex-direction:column;gap:8px}
-.shadow-item{display:flex;align-items:center;gap:12px;width:calc(100% - var(--shift,0px));padding:10px 14px;background:rgba(168,85,247,.06);border:1px solid var(--line);border-radius:12px;color:var(--text);font:600 13px/1.3 "Space Grotesk",system-ui,sans-serif;text-align:left;cursor:pointer;opacity:var(--o,.7);margin-left:var(--shift,0px);animation:shadow-in .45s ease backwards;animation-delay:var(--d,0s);transition:border-color .25s,background .25s,opacity .25s}
+.shadow-above{margin-bottom:14px}
+.shadow-below{margin-top:14px}
+.shadow-item{display:flex;align-items:center;gap:12px;width:calc(100% - var(--shift,0px));padding:10px 14px;background:rgba(168,85,247,.06);border:1px solid var(--line);border-radius:12px;color:var(--text);font:600 13px/1.3 "Space Grotesk",system-ui,sans-serif;text-align:left;cursor:pointer;opacity:var(--o,.7);margin-left:var(--shift,0px);filter:blur(var(--blur,.6px));animation:shadow-in .45s ease backwards;animation-delay:var(--d,0s);transition:border-color .25s,background .25s,opacity .25s,filter .25s}
 @keyframes shadow-in{from{opacity:0;transform:translateY(8px)}to{opacity:var(--o,.7);transform:none}}
-.shadow-item:hover{opacity:1;border-color:rgba(192,132,252,.5);background:rgba(168,85,247,.12)}
+.shadow-item:hover{opacity:1;filter:blur(0);border-color:rgba(192,132,252,.5);background:rgba(168,85,247,.12)}
 .shadow-icon{font-size:18px;flex:0 0 auto}
 .shadow-title{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .shadow-cat{font-size:11px;color:var(--muted);letter-spacing:1px;flex:0 0 auto}
