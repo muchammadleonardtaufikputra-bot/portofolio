@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=wheel-v5">
+  <link rel="stylesheet" href="style.css?v=hud-v1">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -112,10 +112,16 @@
       <p class="filter-empty" id="filterEmpty" hidden data-i18n="filter.empty">Tidak ada proyek yang cocok.</p>
       <div class="works-wheel-wrap" id="worksWheelWrap">
         <div class="works-wheel" id="worksWheel" tabindex="0" role="group" data-i18n-aria="projects.wheelGroup" aria-label="Roda proyek — scroll atau drag untuk ganti proyek">
+          <div class="wheel-sweep" aria-hidden="true"></div>
+          <div class="wheel-arc" aria-hidden="true"></div>
           <div class="wheel-ring" id="wheelRing"></div>
           <div class="wheel-ticks" aria-hidden="true"></div>
           <svg class="wheel-progress" viewBox="0 0 180 180" aria-hidden="true"><defs><linearGradient id="progressGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c026d3"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><circle class="wheel-progress-track" cx="90" cy="90" r="84"/><circle class="wheel-progress-fill" id="wheelProgressFill" cx="90" cy="90" r="84"/></svg>
           <div class="wheel-center" aria-hidden="true"><span class="wheel-center-label">WORKS</span><span class="wheel-center-count" id="wheelCount">01 / 06</span></div>
+          <span class="hud-readout hud-tl" id="hudSector">SECTOR 01 [06]</span>
+          <span class="hud-readout hud-tr" id="hudAngle">ANGLE 0°</span>
+          <span class="hud-readout hud-bl" id="hudMode">MODE // MANUAL</span>
+          <span class="hud-readout hud-br">SYS // LIVE</span>
         </div>
         <div class="works-detail" id="worksDetail" aria-live="polite"></div>
       </div>
@@ -317,14 +323,18 @@
     const worksDetail = document.getElementById("worksDetail");
     const wheelCount = document.getElementById("wheelCount");
     const wheelWrap = document.getElementById("worksWheelWrap");
+    const hudSector = document.getElementById("hudSector");
+    const hudAngle = document.getElementById("hudAngle");
+    const hudMode = document.getElementById("hudMode");
     let currentList = [];
     let wheelIndex = 0;
     let wheelRot = 0;
     let autoTimer = 0, resumeTimer = 0, wheelInView = false, wheelDragging = false, wheelHovered = false;
-    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = 0; } if (worksWheel) worksWheel.classList.remove("is-auto"); }
+    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = 0; } if (worksWheel) worksWheel.classList.remove("is-auto"); if (hudMode) hudMode.textContent = "MODE // MANUAL"; }
     function startAuto() {
       if (autoTimer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       if (worksWheel) worksWheel.classList.add("is-auto");
+      if (hudMode) hudMode.textContent = "MODE // AUTO";
       autoTimer = setInterval(() => { if (!document.hidden && wheelInView && !wheelDragging && !wheelHovered) selectProject(wheelIndex + 1); }, 3500);
     }
     function pauseAuto(ms) { stopAuto(); clearTimeout(resumeTimer); resumeTimer = setTimeout(startAuto, ms || 6000); }
@@ -374,6 +384,8 @@
         void wheelCount.offsetWidth;
         wheelCount.classList.add("count-pop");
       }
+      if (hudSector) hudSector.textContent = "SECTOR " + String(wheelIndex+1).padStart(2,"0") + " [" + String(list.length).padStart(2,"0") + "]";
+      if (hudAngle) hudAngle.textContent = "ANGLE " + Math.round(wheelRot) + "°";
       const prog = document.getElementById("wheelProgressFill");
       if (prog) prog.style.strokeDashoffset = (527.8 * (1 - (wheelIndex + 1) / list.length)).toFixed(1);
       if (wheelRing) wheelRing.querySelectorAll(".wheel-item").forEach((el, i) => el.classList.toggle("is-active", i === wheelIndex));

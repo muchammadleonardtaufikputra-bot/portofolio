@@ -376,6 +376,16 @@ html[data-theme="light"] .service-head:hover .service-title{color:#5b21b6}
 .works-wheel:focus-visible{outline:2px solid var(--purple);outline-offset:6px;border-radius:50%}
 .works-wheel.is-dragging{cursor:grabbing}
 .works-wheel::before{content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top:10px solid var(--purple);z-index:3}
+.works-wheel::after{content:"";position:absolute;inset:-16px;border:1px solid rgba(168,85,247,.25);border-radius:50%;pointer-events:none}
+.wheel-sweep{position:absolute;inset:6%;border-radius:50%;background:conic-gradient(from 0deg, rgba(217,70,239,.28), rgba(217,70,239,.06) 70deg, transparent 90deg);animation:sweep-spin 9s linear infinite;pointer-events:none}
+@keyframes sweep-spin{to{transform:rotate(360deg)}}
+.wheel-arc{position:absolute;inset:3%;border-radius:50%;background:conic-gradient(from 210deg, transparent 0deg, rgba(217,70,239,.85) 18deg, rgba(217,70,239,.25) 42deg, transparent 60deg);-webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));mask:radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));animation:arc-spin 16s linear infinite reverse;pointer-events:none}
+@keyframes arc-spin{to{transform:rotate(360deg)}}
+.hud-readout{position:absolute;z-index:5;font:600 10px/1 ui-monospace,Consolas,monospace;letter-spacing:1px;color:var(--muted);background:rgba(12,11,22,.65);border:1px solid var(--line);border-radius:4px;padding:4px 7px;pointer-events:none;white-space:nowrap}
+.hud-tl{top:2px;left:2px}
+.hud-tr{top:2px;right:2px}
+.hud-bl{bottom:2px;left:2px}
+.hud-br{bottom:2px;right:2px}
 .wheel-ring{position:absolute;inset:0;transform:rotate(var(--wheel-rot,0deg));transition:transform .6s cubic-bezier(.22,1,.36,1);animation:wheel-fade .7s ease both}
 .wheel-ring.is-dragging{transition:none}
 .wheel-ring::before{content:"";position:absolute;inset:8%;border:1px dashed rgba(168,85,247,.35);border-radius:50%}
@@ -395,7 +405,7 @@ html[data-theme="light"] .service-head:hover .service-title{color:#5b21b6}
 .wheel-center{position:absolute;top:50%;left:50%;width:170px;height:170px;margin:-85px 0 0 -85px;border-radius:50%;background:rgba(25,21,42,.72);border:1px solid var(--line);box-shadow:0 0 44px rgba(124,58,237,.28), inset 0 0 30px rgba(124,58,237,.12);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
 .wheel-center-label{display:block;font-size:clamp(24px,5vw,34px);font-weight:800;letter-spacing:4px;color:var(--text)}
 .wheel-center-count{display:block;margin-top:6px;font-size:12px;letter-spacing:3px;color:var(--muted)}
-.works-detail{min-width:0}
+.works-detail{min-width:0;position:relative;padding:14px;background:linear-gradient(#c084fc,#c084fc) left top / 22px 2px,linear-gradient(#c084fc,#c084fc) left top / 2px 22px,linear-gradient(#c084fc,#c084fc) right top / 22px 2px,linear-gradient(#c084fc,#c084fc) right top / 2px 22px,linear-gradient(#c084fc,#c084fc) left bottom / 22px 2px,linear-gradient(#c084fc,#c084fc) left bottom / 2px 22px,linear-gradient(#c084fc,#c084fc) right bottom / 22px 2px,linear-gradient(#c084fc,#c084fc) right bottom / 2px 22px;background-repeat:no-repeat}
 .wheel-detail-card{opacity:1;animation:detail-in .5s ease both}
 @property --bd-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 .works-detail .wheel-detail-card{border:1px solid transparent;background:linear-gradient(145deg, rgba(25,21,42,.96), rgba(12,11,22,.98)) padding-box,conic-gradient(from var(--bd-angle,0deg), #c026d3, #22d3ee, #7c3aed, #c026d3) border-box;animation:detail-in .5s ease both, border-spin 4s linear infinite}
@@ -452,12 +462,15 @@ html[data-theme="light"] .shadow-item:hover{border-color:rgba(124,58,237,.45);ba
   .wheel-center-label{font-size:24px}
   .wheel-progress{width:156px;height:156px;margin:-78px 0 0 -78px}
   .wheel-detail-card::after{font-size:90px}
+  .hud-readout{font-size:9px;padding:3px 5px}
+  .works-detail{padding:10px}
 }
 @media(prefers-reduced-motion:reduce){
   .works-wheel{transform:none}
   .wheel-ring{transition:none;animation:none}
   .wheel-detail-card{animation:none;opacity:1}
   .wheel-ticks{animation:none}
+  .wheel-sweep,.wheel-arc{animation:none}
   .shadow-item{animation:none}
   .wheel-center-count.count-pop{animation:none}
   .works-wheel.is-auto .wheel-center::before{animation:none}
