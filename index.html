@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=wheel-v2">
+  <link rel="stylesheet" href="style.css?v=wheel-v3">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -114,7 +114,7 @@
         <div class="works-wheel" id="worksWheel" tabindex="0" role="group" data-i18n-aria="projects.wheelGroup" aria-label="Roda proyek — scroll atau drag untuk ganti proyek">
           <div class="wheel-ring" id="wheelRing"></div>
           <div class="wheel-ticks" aria-hidden="true"></div>
-          <svg class="wheel-orbit-text" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="orbitPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#orbitPath" textLength="488" lengthAdjust="spacingAndGlyphs">SCROLL ✦ DRAG ✦ CYCLE ✦ WORKS ✦ SCROLL ✦ DRAG ✦ CYCLE ✦ WORKS ✦</textPath></text></svg>
+          <svg class="wheel-progress" viewBox="0 0 180 180" aria-hidden="true"><defs><linearGradient id="progressGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c026d3"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><circle class="wheel-progress-track" cx="90" cy="90" r="84"/><circle class="wheel-progress-fill" id="wheelProgressFill" cx="90" cy="90" r="84"/></svg>
           <div class="wheel-center" aria-hidden="true"><span class="wheel-center-label">WORKS</span><span class="wheel-center-count" id="wheelCount">01 / 06</span></div>
         </div>
         <div class="works-detail" id="worksDetail" aria-live="polite"></div>
@@ -202,7 +202,7 @@
         "projects.eyebrow": "KARYA PILIHAN", "projects.heading": "Proyek <span>unggulan.</span>",
         "projects.sub": "Beberapa karya dan eksperimen yang sedang saya kembangkan.",
         "projects.github": "Lihat GitHub", "projects.explore": "Jelajahi proyek",
-        "projects.wheelHint": "Scroll atau drag roda untuk ganti proyek →",
+        "projects.wheelHint": "Rodanya muter sendiri — scroll atau drag untuk mengambil alih →",
         "projects.wheelGroup": "Roda proyek — scroll atau drag untuk ganti proyek",
         "projects.prev": "Proyek sebelumnya", "projects.next": "Proyek berikutnya",
         "skills.eyebrow": "ALAT & TEKNOLOGI", "skills.heading": "Teknologi <span>yang saya kuasai.</span>",
@@ -257,7 +257,7 @@
         "projects.eyebrow": "SELECTED WORK", "projects.heading": "Featured <span>projects.</span>",
         "projects.sub": "Some of the work and experiments I'm currently building.",
         "projects.github": "View GitHub", "projects.explore": "Explore project",
-        "projects.wheelHint": "Scroll or drag the wheel to cycle projects →",
+        "projects.wheelHint": "The wheel spins on its own — scroll or drag to take over →",
         "projects.wheelGroup": "Project wheel — scroll or drag to cycle projects",
         "projects.prev": "Previous project", "projects.next": "Next project",
         "skills.eyebrow": "TOOLS & TECHNOLOGIES", "skills.heading": "My tech <span>stack.</span>",
@@ -320,12 +320,28 @@
     let currentList = [];
     let wheelIndex = 0;
     let wheelRot = 0;
+    let autoTimer = 0, resumeTimer = 0, wheelInView = false, wheelDragging = false, wheelHovered = false;
+    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = 0; } }
+    function startAuto() {
+      if (autoTimer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      autoTimer = setInterval(() => { if (!document.hidden && wheelInView && !wheelDragging && !wheelHovered) selectProject(wheelIndex + 1); }, 3500);
+    }
+    function pauseAuto(ms) { stopAuto(); clearTimeout(resumeTimer); resumeTimer = setTimeout(startAuto, ms || 6000); }
+    if ("IntersectionObserver" in window) {
+      const wheelObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => { wheelInView = entry.isIntersecting; });
+      }, { threshold: 0.25 });
+      const projectsSection = document.getElementById("projects");
+      if (projectsSection) wheelObserver.observe(projectsSection);
+    } else { wheelInView = true; }
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) startAuto(); });
+    setTimeout(startAuto, 4000);
     function wheelStep() { return currentList.length ? 360 / currentList.length : 360; }
     function shortTitle(title) { return String(title).split("—")[0].trim(); }
     function renderWheel() {
       if (!wheelRing) return;
       const n = currentList.length;
-      wheelRing.innerHTML = currentList.map((project, i) => '<button type="button" class="wheel-item" style="--a:' + (i * 360 / n) + 'deg" data-index="' + i + '" aria-label="' + esc(project.title) + '"><span class="wheel-item-num">' + String(i+1).padStart(2,"0") + '</span>' + esc(shortTitle(project.title)) + '</button>').join("");
+      wheelRing.innerHTML = currentList.map((project, i) => '<button type="button" class="wheel-item" style="--a:' + (i * 360 / n) + 'deg" data-index="' + i + '" aria-label="' + esc(project.title) + '"><span class="wheel-item-icon">' + esc(project.icon) + '</span><span class="wheel-item-num">' + String(i+1).padStart(2,"0") + '</span>' + esc(shortTitle(project.title)) + '</button>').join("");
     }
     function renderDetail() {
       if (!worksDetail) return;
@@ -334,6 +350,8 @@
       const project = list[wheelIndex];
       worksDetail.innerHTML = '<article class="project-card wheel-detail-card" data-index="'+String(wheelIndex+1).padStart(2,"0")+'"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(wheelIndex+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>';
       if (wheelCount) wheelCount.textContent = String(wheelIndex+1).padStart(2,"0") + " / " + String(list.length).padStart(2,"0");
+      const prog = document.getElementById("wheelProgressFill");
+      if (prog) prog.style.strokeDashoffset = (527.8 * (1 - (wheelIndex + 1) / list.length)).toFixed(1);
       if (wheelRing) wheelRing.querySelectorAll(".wheel-item").forEach((el, i) => el.classList.toggle("is-active", i === wheelIndex));
     }
     function selectProject(i) {
@@ -356,22 +374,24 @@
       if (empty) empty.hidden = list.length > 0;
       renderWheel();
       renderDetail();
+      pauseAuto();
     }
     if (worksWheel && wheelRing) {
-      let dragging = false, dragMoved = 0, startAngle = 0, startRot = 0;
+      let dragMoved = 0, startAngle = 0, startRot = 0;
       function angleFromEvent(e) {
         const r = worksWheel.getBoundingClientRect();
         return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI;
       }
       function endDrag() {
-        if (!dragging) return;
-        dragging = false;
+        if (!wheelDragging) return;
+        wheelDragging = false;
         wheelRing.classList.remove("is-dragging");
         selectProject(Math.round(-wheelRot / wheelStep()));
+        pauseAuto();
       }
-      worksWheel.addEventListener("pointerdown", e => { dragging = true; dragMoved = 0; startAngle = angleFromEvent(e); startRot = wheelRot; wheelRing.classList.add("is-dragging"); });
+      worksWheel.addEventListener("pointerdown", e => { wheelDragging = true; dragMoved = 0; startAngle = angleFromEvent(e); startRot = wheelRot; wheelRing.classList.add("is-dragging"); pauseAuto(); });
       window.addEventListener("pointermove", e => {
-        if (!dragging) return;
+        if (!wheelDragging) return;
         let d = angleFromEvent(e) - startAngle;
         if (d > 180) d -= 360;
         if (d < -180) d += 360;
@@ -381,10 +401,25 @@
       });
       window.addEventListener("pointerup", endDrag);
       window.addEventListener("pointercancel", endDrag);
+      worksWheel.addEventListener("pointerenter", () => { wheelHovered = true; pauseAuto(); });
+      worksWheel.addEventListener("pointerleave", () => {
+        wheelHovered = false;
+        worksWheel.style.setProperty("--tilt-x", "0deg");
+        worksWheel.style.setProperty("--tilt-y", "0deg");
+      });
+      worksWheel.addEventListener("pointermove", e => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const r = worksWheel.getBoundingClientRect();
+        const px = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        const py = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        worksWheel.style.setProperty("--tilt-y", (px * 7).toFixed(1) + "deg");
+        worksWheel.style.setProperty("--tilt-x", (-py * 7).toFixed(1) + "deg");
+      });
       wheelRing.addEventListener("click", e => {
         const item = e.target.closest(".wheel-item");
         if (!item || dragMoved > 4) return;
         selectProject(Number(item.getAttribute("data-index")));
+        pauseAuto();
       });
       let wheelCool = 0;
       worksWheel.addEventListener("wheel", e => {
@@ -393,15 +428,16 @@
         if (now - wheelCool < 450) return;
         wheelCool = now;
         selectProject(wheelIndex + (e.deltaY > 0 ? 1 : -1));
+        pauseAuto();
       }, { passive: false });
       worksWheel.addEventListener("keydown", e => {
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); selectProject(wheelIndex + 1); }
-        if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); selectProject(wheelIndex - 1); }
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); selectProject(wheelIndex + 1); pauseAuto(); }
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); selectProject(wheelIndex - 1); pauseAuto(); }
       });
       const prevBtn = document.getElementById("wheelPrev");
       const nextBtn = document.getElementById("wheelNext");
-      if (prevBtn) prevBtn.addEventListener("click", () => selectProject(wheelIndex - 1));
-      if (nextBtn) nextBtn.addEventListener("click", () => selectProject(wheelIndex + 1));
+      if (prevBtn) prevBtn.addEventListener("click", () => { selectProject(wheelIndex - 1); pauseAuto(); });
+      if (nextBtn) nextBtn.addEventListener("click", () => { selectProject(wheelIndex + 1); pauseAuto(); });
     }
     function renderPortfolioData(data) {
       const profile = data.profile || {};
