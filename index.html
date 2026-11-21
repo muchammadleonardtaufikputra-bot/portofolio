@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=glitchbg-v1">
+  <link rel="stylesheet" href="style.css?v=layout-v1">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -56,16 +56,18 @@
   </nav>
   <main id="main">
     <section class="hero" id="home">
+      <div class="hero-ghost" aria-hidden="true">LEONARD</div>
       <div class="hero-content">
         <p class="eyebrow"><span class="status-dot"></span> <span data-i18n="hero.eyebrow">HALO, SAYA SEORANG DEVELOPER</span></p>
         <h1 data-i18n-html="hero.title">Membangun<br><span>masa depan digital.</span></h1>
+        <p class="hero-roles"><span data-i18n="hero.rolesLabel">Saya seorang</span> <span class="role-rotator" id="roleRotator">Developer</span></p>
         <h2 data-i18n-html="hero.subtitle">Developer <i>|</i> Penggemar Cybersecurity <i>|</i> Pembelajar</h2>
         <p class="hero-description" data-i18n="hero.description">Saya membangun kemampuan di bidang programming, web development, dan cybersecurity. Selalu belajar, bereksperimen, dan mengubah ide menjadi karya nyata.</p>
         <div class="hero-buttons">
           <a href="#projects" class="btn primary"><span data-i18n="hero.explore">Jelajahi proyek</span> <span>→</span></a>
           <a href="#contact" class="btn secondary" data-i18n="hero.contact">Hubungi saya</a>
         </div>
-        <div class="hero-meta"><span><b>01</b> <span data-i18n="hero.meta1">Rasa ingin tahu</span></span><span><b>02</b> <span data-i18n="hero.meta2">Bangun &amp; belajar</span></span><span><b>03</b> <span data-i18n="hero.meta3">Berpikir aman</span></span></div>
+        <div class="hero-meta"><span class="hero-meta-item"><b>01</b><strong data-i18n="hero.meta1">Rasa ingin tahu</strong><small data-i18n="hero.meta1desc">Selalu penasaran dengan cara kerja sesuatu.</small></span><span class="hero-meta-item"><b>02</b><strong data-i18n="hero.meta2">Bangun &amp; belajar</strong><small data-i18n="hero.meta2desc">Belajar dengan membangun proyek nyata.</small></span><span class="hero-meta-item"><b>03</b><strong data-i18n="hero.meta3">Berpikir aman</strong><small data-i18n="hero.meta3desc">Keamanan jadi pertimbangan sejak awal.</small></span></div>
       </div>
       <div class="hero-visual">
         <div class="visual-grid" aria-hidden="true"></div>
@@ -77,9 +79,13 @@
         </div>
         <p class="visual-caption"><span></span> <span data-i18n="hero.caption">DEVELOPER / PROGRAMMER / PEMBELAJAR</span></p>
       </div>
+      <a class="hero-scroll" href="#about"><span data-i18n="hero.scroll">SCROLL ↓</span></a>
     </section>
 
+    <div class="tech-marquee" aria-hidden="true"><div class="marquee-track"><span>HTML ✦ CSS ✦ JAVASCRIPT ✦ PYTHON ✦ LINUX ✦ GIT &amp; GITHUB ✦&nbsp;</span><span>HTML ✦ CSS ✦ JAVASCRIPT ✦ PYTHON ✦ LINUX ✦ GIT &amp; GITHUB ✦&nbsp;</span></div></div>
+
     <section class="section about" id="about">
+      <div class="ghost-word" aria-hidden="true">TENTANG</div>
       <div class="section-heading"><p class="eyebrow" data-i18n="about.eyebrow">KENALI SAYA</p><h2 data-i18n-html="about.heading">Sedikit <span>tentang saya.</span></h2></div>
       <div class="about-card">
         <div class="about-mark">LT<span>.</span></div>
@@ -92,6 +98,7 @@
     </section>
 
     <section class="section" id="projects">
+      <div class="ghost-word" aria-hidden="true">WORKS</div>
       <div class="section-heading section-heading-row"><div><p class="eyebrow" data-i18n="projects.eyebrow">KARYA PILIHAN</p><h2 data-i18n-html="projects.heading">Proyek <span>unggulan.</span></h2><p data-i18n="projects.sub">Beberapa karya dan eksperimen yang sedang saya kembangkan.</p></div><a class="text-link" href="https://github.com/muchammadleonardtaufikputra-bot?tab=repositories" target="_blank" rel="noopener noreferrer"><span data-i18n="projects.github">Lihat GitHub</span> ↗</a></div>
       <div class="filter-bar" role="group" aria-label="Filter proyek">
         <button class="filter-chip is-active" type="button" data-filter="all" data-i18n="filter.all">Semua</button>
@@ -106,8 +113,18 @@
     </section>
 
     <section class="section" id="skills">
+      <div class="ghost-word" aria-hidden="true">STACK</div>
       <div class="section-heading"><p class="eyebrow" data-i18n="skills.eyebrow">ALAT &amp; TEKNOLOGI</p><h2 data-i18n-html="skills.heading">Teknologi <span>yang saya kuasai.</span></h2><p data-i18n="skills.sub">Teknologi yang sedang saya pelajari dan gunakan.</p></div>
       <div class="skills-grid"></div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="section-heading section-heading-row"><div><p class="eyebrow" data-i18n="services.eyebrow">YANG SAYA KERJAKAN</p><h2 data-i18n-html="services.heading">Fokus <span>utama saya.</span></h2><p data-i18n="services.sub">Tiga bidang yang sedang saya dalami.</p></div></div>
+      <div class="services-list">
+        <div class="service-item"><button class="service-head" type="button" aria-expanded="false"><span class="service-index">01</span><span class="service-title" data-i18n="services.item1.title">Web Development</span><span class="service-plus" aria-hidden="true">+</span></button><div class="service-body"><p data-i18n="services.item1.desc">Membangun website dengan HTML, CSS, dan JavaScript — dari portfolio sampai halaman interaktif.</p></div></div>
+        <div class="service-item"><button class="service-head" type="button" aria-expanded="false"><span class="service-index">02</span><span class="service-title" data-i18n="services.item2.title">Cybersecurity</span><span class="service-plus" aria-hidden="true">+</span></button><div class="service-body"><p data-i18n="services.item2.desc">Mempelajari cara kerja serangan dan pertahanan: phishing awareness, monitoring keamanan, dan eksperimen red-team.</p></div></div>
+        <div class="service-item"><button class="service-head" type="button" aria-expanded="false"><span class="service-index">03</span><span class="service-title" data-i18n="services.item3.title">Programming &amp; Otomasi</span><span class="service-plus" aria-hidden="true">+</span></button><div class="service-body"><p data-i18n="services.item3.desc">Latihan Python dan scripting untuk mengotomasi tugas dan membangun tools kecil.</p></div></div>
+      </div>
     </section>
 
 
@@ -118,7 +135,8 @@
     </section>
 
     <section class="section contact" id="contact">
-      <div class="contact-panel"><p class="eyebrow" data-i18n="contact.eyebrow">PUNYA IDE PROYEK?</p><h2 data-i18n-html="contact.heading">Mari bangun<br><span>sesuatu yang hebat.</span></h2><p data-i18n="contact.description">Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.</p><a class="btn primary" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer"><span data-i18n="contact.githubBtn">Kunjungi GitHub saya</span> <span>↗</span></a><div class="social-links" aria-label="Social media">
+      <div class="contact-panel"><p class="eyebrow" data-i18n="contact.eyebrow">PUNYA IDE PROYEK?</p><h2 data-i18n-html="contact.heading">Mari bangun<br><span>sesuatu yang hebat.</span></h2><p data-i18n="contact.description">Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.</p><a class="btn primary" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer"><span data-i18n="contact.githubBtn">Kunjungi GitHub saya</span> <span>↗</span></a></div>
+      <div class="contact-lower"><div class="social-links" aria-label="Social media">
         <a class="social-link instagram-link" href="https://www.instagram.com/eonll.ard/" target="_blank" rel="noopener noreferrer" aria-label="Visit Instagram @eonll.ard">
           <span class="social-logo instagram-logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="url(#ig-gradient)" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="url(#ig-gradient)" stroke-width="2"/><circle cx="17.5" cy="6.8" r="1.2" fill="#F9A8D4"/><defs><linearGradient id="ig-gradient" x1="3" y1="21" x2="21" y2="3"><stop stop-color="#F9CE34"/><stop offset=".48" stop-color="#EE2A7B"/><stop offset="1" stop-color="#6228D7"/></linearGradient></defs></svg></span>
           <span class="social-copy"><b>INSTAGRAM</b><strong>@eonll.ard</strong><small data-i18n="social.igSmall">Ikuti update &amp; proyek saya</small></span><span class="social-cta"><span data-i18n="social.igCta">KUNJUNGI PROFIL</span> <b>↗</b></span>
@@ -139,6 +157,7 @@
       </form></div>
     </section>
   </main>
+  <div class="footer-giant" aria-hidden="true">LEONARD</div>
   <footer class="footer"><a href="#home" class="logo">L<span>T</span></a><p data-i18n-html="footer.text">© <span id="year"></span> Muchammad Leonard Taufik Putra. Dibangun dengan rasa ingin tahu &amp; kode.</p><a href="#home" data-i18n="footer.top">Kembali ke atas ↑</a></footer>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Kembali ke atas" data-i18n-aria="backTop.label" hidden>↑</button>
   <script>
@@ -152,6 +171,15 @@
         "hero.description": "Saya membangun kemampuan di bidang programming, web development, dan cybersecurity. Selalu belajar, bereksperimen, dan mengubah ide menjadi karya nyata.",
         "hero.explore": "Jelajahi proyek", "hero.contact": "Hubungi saya",
         "hero.meta1": "Rasa ingin tahu", "hero.meta2": "Bangun & belajar", "hero.meta3": "Berpikir aman",
+        "hero.meta1desc": "Selalu penasaran dengan cara kerja sesuatu.",
+        "hero.meta2desc": "Belajar dengan membangun proyek nyata.",
+        "hero.meta3desc": "Keamanan jadi pertimbangan sejak awal.",
+        "hero.rolesLabel": "Saya seorang", "hero.role1": "Developer", "hero.role2": "Cybersecurity", "hero.role3": "Pembelajar",
+        "hero.scroll": "SCROLL ↓",
+        "services.eyebrow": "YANG SAYA KERJAKAN", "services.heading": "Fokus <span>utama saya.</span>", "services.sub": "Tiga bidang yang sedang saya dalami.",
+        "services.item1.title": "Web Development", "services.item1.desc": "Membangun website dengan HTML, CSS, dan JavaScript — dari portfolio sampai halaman interaktif.",
+        "services.item2.title": "Cybersecurity", "services.item2.desc": "Mempelajari cara kerja serangan dan pertahanan: phishing awareness, monitoring keamanan, dan eksperimen red-team.",
+        "services.item3.title": "Programming & Otomasi", "services.item3.desc": "Latihan Python dan scripting untuk mengotomasi tugas dan membangun tools kecil.",
         "hero.caption": "DEVELOPER / PROGRAMMER / PEMBELAJAR",
         "about.eyebrow": "KENALI SAYA", "about.heading": "Sedikit <span>tentang saya.</span>", "about.title": "Halo, saya Leon!",
         "about.p1": "Saya tertarik dengan dunia teknologi, pemrograman, dan keamanan digital. Saat ini saya terus mengembangkan kemampuan HTML, CSS, JavaScript, Python, Linux, Git, dan GitHub.",
@@ -195,6 +223,15 @@
         "hero.description": "I'm building skills in programming, web development, and cybersecurity. Always learning, experimenting, and turning ideas into real work.",
         "hero.explore": "Explore projects", "hero.contact": "Get in touch",
         "hero.meta1": "Curious mind", "hero.meta2": "Build & learn", "hero.meta3": "Think securely",
+        "hero.meta1desc": "Always curious about how things work.",
+        "hero.meta2desc": "Learning by building real projects.",
+        "hero.meta3desc": "Security considered from the start.",
+        "hero.rolesLabel": "I am a", "hero.role1": "Developer", "hero.role2": "Cybersecurity", "hero.role3": "Learner",
+        "hero.scroll": "SCROLL ↓",
+        "services.eyebrow": "WHAT I DO", "services.heading": "My main <span>focus.</span>", "services.sub": "Three areas I'm currently exploring.",
+        "services.item1.title": "Web Development", "services.item1.desc": "Building websites with HTML, CSS, and JavaScript — from portfolios to interactive pages.",
+        "services.item2.title": "Cybersecurity", "services.item2.desc": "Learning how attacks and defenses work: phishing awareness, security monitoring, and red-team experiments.",
+        "services.item3.title": "Programming & Automation", "services.item3.desc": "Python practice and scripting to automate tasks and build small tools.",
         "hero.caption": "DEVELOPER / PROGRAMMER / LEARNER",
         "about.eyebrow": "GET TO KNOW ME", "about.heading": "A little <span>about me.</span>", "about.title": "Hi, I'm Leon!",
         "about.p1": "I'm interested in technology, programming, and digital security. Right now I'm building my skills in HTML, CSS, JavaScript, Python, Linux, Git, and GitHub.",
@@ -274,7 +311,7 @@
       if (Array.isArray(aboutList)) {
         document.querySelectorAll(".about-card p").forEach((p, i) => { if (aboutList[i]) p.textContent = aboutList[i]; });
       }
-      if (Array.isArray(data.skills)) document.querySelector(".skills-grid").innerHTML = data.skills.map(skill => '<article class="skill-card"><span class="skill-icon">'+esc(skill.icon)+'</span><div><h3>'+esc(skill.name)+'</h3><p>'+esc(pickText(skill, "description"))+'</p></div></article>').join("");
+      if (Array.isArray(data.skills)) document.querySelector(".skills-grid").innerHTML = data.skills.map((skill, i) => '<article class="skill-card"><span class="skill-index">'+String(i+1).padStart(2,"0")+'</span><span class="skill-icon">'+esc(skill.icon)+'</span><div><h3>'+esc(skill.name)+'</h3><p>'+esc(pickText(skill, "description"))+'</p></div></article>').join("");
       if (Array.isArray(data.projects)) { allProjects = data.projects; renderProjects(); }
       if (data.contact && (data.contact.description || data.contact.description_en)) document.querySelector(".contact-panel > p:not(.eyebrow)").textContent = pickText(data.contact, "description");
       if (data.contact?.github) document.querySelector(".contact-panel .btn").href = data.contact.github;
@@ -302,6 +339,8 @@
         langToggle.textContent = currentLang === "id" ? "EN" : "ID";
         langToggle.setAttribute("aria-label", t("lang.label"));
       }
+      const rotator = document.getElementById("roleRotator");
+      if (rotator && typeof ROLES !== "undefined") rotator.textContent = t(ROLES[roleIdx]);
       if (portfolioData) renderPortfolioData(portfolioData);
     }
     function applyTheme(theme) {
@@ -347,6 +386,21 @@
       } catch (err) { if (status) status.textContent = text; }
       window.open("https://www.instagram.com/eonll.ard/", "_blank", "noopener");
     });
+    const roleRotator = document.getElementById("roleRotator");
+    const ROLES = ["hero.role1", "hero.role2", "hero.role3"];
+    let roleIdx = 0;
+    function cycleRole() {
+      if (!roleRotator) return;
+      roleIdx = (roleIdx + 1) % ROLES.length;
+      roleRotator.classList.add("role-swap");
+      setTimeout(() => { roleRotator.textContent = t(ROLES[roleIdx]); roleRotator.classList.remove("role-swap"); }, 180);
+    }
+    if (roleRotator && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(cycleRole, 2400);
+    document.querySelectorAll(".service-head").forEach(btn => btn.addEventListener("click", () => {
+      const item = btn.closest(".service-item");
+      const open = item.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }));
     document.getElementById("themeToggle").addEventListener("click", () => {
       applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
     });
@@ -358,6 +412,6 @@
     applyLanguage(currentLang);
     loadPortfolioData();
   </script>
-  <script src="script.js?v=glitchbg-v1"></script>
+  <script src="script.js?v=layout-v1"></script>
 </body>
 </html>
