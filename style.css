@@ -352,7 +352,7 @@ html[data-theme="light"] .project-card:first-child{background:linear-gradient(12
 html[data-theme="light"] .service-head:hover .service-title{color:#5b21b6}
 @media(max-width:900px){.hero-ghost{font-size:clamp(90px,22vw,180px)}}
 @media(max-width:650px){
-  .hero h1{letter-spacing:-3px}
+  .hero h1{font-size:clamp(36px,11vw,52px);letter-spacing:-2px}
   .hero-meta{grid-template-columns:1fr;gap:12px;margin-top:30px;text-align:left}
   .hero-scroll{display:none}
   .ghost-word{display:none}
@@ -506,6 +506,7 @@ html[data-theme="light"] .shadow-item:hover{border-color:rgba(124,58,237,.45);ba
   .filter-chip{padding:7px 13px;font-size:11px}
 }
 @media(max-width:390px){
+  .hero h2{font-size:12px}
   .works-wheel{--wheel-r:min(200px,26vw)}
   .wheel-item{width:96px;font-size:10px}
   .wheel-item-icon{font-size:15px}
