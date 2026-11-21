@@ -1,0 +1,7 @@
+name = "leon-links-stats"
+main = "link-stats.js"
+compatibility_date = "2026-11-21"
+
+[[kv_namespaces]]
+binding = "LINK_STATS"
+id = "4b8346a32b464cffba99eec006a17a53"
