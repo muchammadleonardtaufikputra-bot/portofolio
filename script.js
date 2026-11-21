@@ -43,7 +43,6 @@ document.getElementById("year").textContent =
     const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
     card.style.setProperty("--spot-x", (x * 100) + "%");
     card.style.setProperty("--spot-y", (y * 100) + "%");
-    if (card.closest(".projects-carousel")) return; // arc transform owns carousel cards
     const maxTilt = card.classList.contains("portrait-frame") ? 6 : 8;
     const tiltX = (0.5 - y) * maxTilt;
     const tiltY = (x - 0.5) * maxTilt;
@@ -53,10 +52,9 @@ document.getElementById("year").textContent =
   function onLeave(event) {
     const card = event.target.closest(selector);
     if (!card) return;
+    card.style.transform = "";
     card.style.removeProperty("--spot-x");
     card.style.removeProperty("--spot-y");
-    if (card.closest(".projects-carousel")) return; // arc transform owns carousel cards
-    card.style.transform = "";
   }
 
   document.addEventListener("pointermove", onMove);
@@ -84,7 +82,7 @@ document.getElementById("year").textContent =
 
   // Watch cards added later by portfolio-data.json fetch.
   reveal(document);
-  const projects = document.querySelector("#carouselTrack") || document.querySelector(".projects-carousel");
+  const projects = null; // wheel detail cards animate via CSS (.wheel-detail-card)
   const skills = document.querySelector(".skills-grid");
   if ("MutationObserver" in window) {
     const observer = new MutationObserver(() => {

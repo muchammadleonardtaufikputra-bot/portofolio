@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=extreme-v1">
+  <link rel="stylesheet" href="style.css?v=wheel-v1">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -110,13 +110,17 @@
         <input class="filter-search" id="projectSearch" type="search" data-i18n-placeholder="filter.search" placeholder="Cari proyek..." aria-label="Cari proyek">
       </div>
       <p class="filter-empty" id="filterEmpty" hidden data-i18n="filter.empty">Tidak ada proyek yang cocok.</p>
-      <div class="projects-carousel" id="projectsCarousel">
-        <div class="carousel-track" id="carouselTrack"></div>
+      <div class="works-wheel-wrap" id="worksWheelWrap">
+        <div class="works-wheel" id="worksWheel" tabindex="0" role="group" data-i18n-aria="projects.wheelGroup" aria-label="Roda proyek — scroll atau drag untuk ganti proyek">
+          <div class="wheel-ring" id="wheelRing"></div>
+          <div class="wheel-center" aria-hidden="true"><span class="wheel-center-label">WORKS</span><span class="wheel-center-count" id="wheelCount">01 / 06</span></div>
+        </div>
+        <div class="works-detail" id="worksDetail" aria-live="polite"></div>
       </div>
-      <div class="carousel-controls">
-        <button class="carousel-arrow" id="carouselPrev" type="button" data-i18n-aria="projects.prev" aria-label="Proyek sebelumnya">←</button>
-        <p class="carousel-hint" data-i18n="projects.dragHint">Geser atau drag untuk melihat proyek lainnya →</p>
-        <button class="carousel-arrow" id="carouselNext" type="button" data-i18n-aria="projects.next" aria-label="Proyek berikutnya">→</button>
+      <div class="wheel-controls">
+        <button class="wheel-arrow" id="wheelPrev" type="button" data-i18n-aria="projects.prev" aria-label="Proyek sebelumnya">←</button>
+        <p class="wheel-hint" data-i18n="projects.wheelHint">Scroll atau drag roda untuk ganti proyek →</p>
+        <button class="wheel-arrow" id="wheelNext" type="button" data-i18n-aria="projects.next" aria-label="Proyek berikutnya">→</button>
       </div>
     </section>
 
@@ -196,7 +200,8 @@
         "projects.eyebrow": "KARYA PILIHAN", "projects.heading": "Proyek <span>unggulan.</span>",
         "projects.sub": "Beberapa karya dan eksperimen yang sedang saya kembangkan.",
         "projects.github": "Lihat GitHub", "projects.explore": "Jelajahi proyek",
-        "projects.dragHint": "Geser atau drag untuk melihat proyek lainnya →",
+        "projects.wheelHint": "Scroll atau drag roda untuk ganti proyek →",
+        "projects.wheelGroup": "Roda proyek — scroll atau drag untuk ganti proyek",
         "projects.prev": "Proyek sebelumnya", "projects.next": "Proyek berikutnya",
         "skills.eyebrow": "ALAT & TEKNOLOGI", "skills.heading": "Teknologi <span>yang saya kuasai.</span>",
         "skills.sub": "Teknologi yang sedang saya pelajari dan gunakan.",
@@ -250,7 +255,8 @@
         "projects.eyebrow": "SELECTED WORK", "projects.heading": "Featured <span>projects.</span>",
         "projects.sub": "Some of the work and experiments I'm currently building.",
         "projects.github": "View GitHub", "projects.explore": "Explore project",
-        "projects.dragHint": "Swipe or drag to see more projects →",
+        "projects.wheelHint": "Scroll or drag the wheel to cycle projects →",
+        "projects.wheelGroup": "Project wheel — scroll or drag to cycle projects",
         "projects.prev": "Previous project", "projects.next": "Next project",
         "skills.eyebrow": "TOOLS & TECHNOLOGIES", "skills.heading": "My tech <span>stack.</span>",
         "skills.sub": "The technologies I'm learning and using.",
@@ -304,55 +310,96 @@
       }
       return true;
     }
-    const carouselEl = document.getElementById("projectsCarousel");
-    const carouselTrack = document.getElementById("carouselTrack");
-    function updateCarouselArc() {
-      if (!carouselEl || !carouselTrack) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        carouselTrack.querySelectorAll(".project-card").forEach(c => c.style.setProperty("--arc", "none"));
-        return;
-      }
-      const rect = carouselEl.getBoundingClientRect();
-      if (!rect.width) return;
-      const center = rect.left + rect.width / 2;
-      carouselTrack.querySelectorAll(".project-card").forEach(card => {
-        const r = card.getBoundingClientRect();
-        const offset = (r.left + r.width / 2 - center) / (rect.width / 2);
-        const clamped = Math.max(-1.4, Math.min(1.4, offset));
-        const rotY = clamped * -38;
-        const z = -Math.abs(clamped) * 150;
-        const scale = 1 - Math.min(0.16, Math.abs(clamped) * 0.11);
-        card.style.setProperty("--arc", "translateZ(" + z.toFixed(0) + "px) rotateY(" + rotY.toFixed(1) + "deg) scale(" + scale.toFixed(3) + ")");
-      });
+    const worksWheel = document.getElementById("worksWheel");
+    const wheelRing = document.getElementById("wheelRing");
+    const worksDetail = document.getElementById("worksDetail");
+    const wheelCount = document.getElementById("wheelCount");
+    const wheelWrap = document.getElementById("worksWheelWrap");
+    let currentList = [];
+    let wheelIndex = 0;
+    let wheelRot = 0;
+    function wheelStep() { return currentList.length ? 360 / currentList.length : 360; }
+    function shortTitle(title) { return String(title).split("—")[0].trim(); }
+    function renderWheel() {
+      if (!wheelRing) return;
+      const n = currentList.length;
+      wheelRing.innerHTML = currentList.map((project, i) => '<button type="button" class="wheel-item" style="--a:' + (i * 360 / n) + 'deg" data-index="' + i + '" aria-label="' + esc(project.title) + '">' + esc(shortTitle(project.title)) + '</button>').join("");
+    }
+    function renderDetail() {
+      if (!worksDetail) return;
+      const list = currentList;
+      if (!list.length) { worksDetail.innerHTML = ""; if (wheelCount) wheelCount.textContent = "00 / 00"; return; }
+      const project = list[wheelIndex];
+      worksDetail.innerHTML = '<article class="project-card wheel-detail-card"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(wheelIndex+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>';
+      if (wheelCount) wheelCount.textContent = String(wheelIndex+1).padStart(2,"0") + " / " + String(list.length).padStart(2,"0");
+      if (wheelRing) wheelRing.querySelectorAll(".wheel-item").forEach((el, i) => el.classList.toggle("is-active", i === wheelIndex));
+    }
+    function selectProject(i) {
+      const n = currentList.length;
+      if (!n) return;
+      wheelIndex = ((i % n) + n) % n;
+      const target = -wheelIndex * wheelStep();
+      wheelRot = target + 360 * Math.round((wheelRot - target) / 360);
+      if (wheelRing) wheelRing.style.setProperty("--wheel-rot", wheelRot + "deg");
+      renderDetail();
     }
     function renderProjects() {
-      const grid = carouselTrack;
       const empty = document.getElementById("filterEmpty");
-      if (!grid) return;
       const list = allProjects.filter(projectMatchesFilter);
-      grid.innerHTML = list.map((project, i) => '<article class="project-card"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(i+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>').join("");
+      currentList = list;
+      wheelIndex = 0;
+      wheelRot = 0;
+      if (wheelRing) wheelRing.style.setProperty("--wheel-rot", "0deg");
+      if (wheelWrap) wheelWrap.hidden = list.length === 0;
       if (empty) empty.hidden = list.length > 0;
-      if (carouselEl && list.length) carouselEl.scrollLeft = Math.max(0, (carouselTrack.scrollWidth - carouselEl.clientWidth) / 2);
-      updateCarouselArc();
+      renderWheel();
+      renderDetail();
     }
-    if (carouselEl) {
-      let arcRaf = 0;
-      carouselEl.addEventListener("scroll", () => { if (arcRaf) return; arcRaf = requestAnimationFrame(() => { updateCarouselArc(); arcRaf = 0; }); }, { passive: true });
-      window.addEventListener("resize", updateCarouselArc);
-      let dragging = false, dragMoved = 0, startX = 0, startScroll = 0;
-      carouselEl.addEventListener("pointerdown", e => { dragging = true; dragMoved = 0; startX = e.clientX; startScroll = carouselEl.scrollLeft; carouselEl.classList.add("is-dragging"); });
-      window.addEventListener("pointermove", e => { if (!dragging) return; carouselEl.scrollLeft = startScroll - (e.clientX - startX); dragMoved = Math.max(dragMoved, Math.abs(e.clientX - startX)); });
-      window.addEventListener("pointerup", () => { dragging = false; carouselEl.classList.remove("is-dragging"); });
-      carouselEl.addEventListener("click", e => { if (dragMoved > 6) { e.preventDefault(); e.stopPropagation(); dragMoved = 0; } }, true);
-      const prevBtn = document.getElementById("carouselPrev");
-      const nextBtn = document.getElementById("carouselNext");
-      function scrollCarousel(dir) {
-        const card = carouselTrack.querySelector(".project-card");
-        const step = card ? card.getBoundingClientRect().width + 20 : 440;
-        carouselEl.scrollBy({ left: dir * step, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    if (worksWheel && wheelRing) {
+      let dragging = false, dragMoved = 0, startAngle = 0, startRot = 0;
+      function angleFromEvent(e) {
+        const r = worksWheel.getBoundingClientRect();
+        return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI;
       }
-      if (prevBtn) prevBtn.addEventListener("click", () => scrollCarousel(-1));
-      if (nextBtn) nextBtn.addEventListener("click", () => scrollCarousel(1));
+      function endDrag() {
+        if (!dragging) return;
+        dragging = false;
+        wheelRing.classList.remove("is-dragging");
+        selectProject(Math.round(-wheelRot / wheelStep()));
+      }
+      worksWheel.addEventListener("pointerdown", e => { dragging = true; dragMoved = 0; startAngle = angleFromEvent(e); startRot = wheelRot; wheelRing.classList.add("is-dragging"); });
+      window.addEventListener("pointermove", e => {
+        if (!dragging) return;
+        let d = angleFromEvent(e) - startAngle;
+        if (d > 180) d -= 360;
+        if (d < -180) d += 360;
+        dragMoved = Math.max(dragMoved, Math.abs(d));
+        wheelRot = startRot + d;
+        wheelRing.style.setProperty("--wheel-rot", wheelRot + "deg");
+      });
+      window.addEventListener("pointerup", endDrag);
+      window.addEventListener("pointercancel", endDrag);
+      wheelRing.addEventListener("click", e => {
+        const item = e.target.closest(".wheel-item");
+        if (!item || dragMoved > 4) return;
+        selectProject(Number(item.getAttribute("data-index")));
+      });
+      let wheelCool = 0;
+      worksWheel.addEventListener("wheel", e => {
+        e.preventDefault();
+        const now = Date.now();
+        if (now - wheelCool < 450) return;
+        wheelCool = now;
+        selectProject(wheelIndex + (e.deltaY > 0 ? 1 : -1));
+      }, { passive: false });
+      worksWheel.addEventListener("keydown", e => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); selectProject(wheelIndex + 1); }
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); selectProject(wheelIndex - 1); }
+      });
+      const prevBtn = document.getElementById("wheelPrev");
+      const nextBtn = document.getElementById("wheelNext");
+      if (prevBtn) prevBtn.addEventListener("click", () => selectProject(wheelIndex - 1));
+      if (nextBtn) nextBtn.addEventListener("click", () => selectProject(wheelIndex + 1));
     }
     function renderPortfolioData(data) {
       const profile = data.profile || {};
@@ -466,6 +513,6 @@
     applyLanguage(currentLang);
     loadPortfolioData();
   </script>
-  <script src="script.js?v=extreme-v1"></script>
+  <script src="script.js?v=wheel-v1"></script>
 </body>
 </html>
