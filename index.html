@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=wheel-v3">
+  <link rel="stylesheet" href="style.css?v=wheel-v4">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -204,6 +204,7 @@
         "projects.github": "Lihat GitHub", "projects.explore": "Jelajahi proyek",
         "projects.wheelHint": "Rodanya muter sendiri — scroll atau drag untuk mengambil alih →",
         "projects.wheelGroup": "Roda proyek — scroll atau drag untuk ganti proyek",
+        "projects.others": "Proyek lainnya",
         "projects.prev": "Proyek sebelumnya", "projects.next": "Proyek berikutnya",
         "skills.eyebrow": "ALAT & TEKNOLOGI", "skills.heading": "Teknologi <span>yang saya kuasai.</span>",
         "skills.sub": "Teknologi yang sedang saya pelajari dan gunakan.",
@@ -259,6 +260,7 @@
         "projects.github": "View GitHub", "projects.explore": "Explore project",
         "projects.wheelHint": "The wheel spins on its own — scroll or drag to take over →",
         "projects.wheelGroup": "Project wheel — scroll or drag to cycle projects",
+        "projects.others": "More projects",
         "projects.prev": "Previous project", "projects.next": "Next project",
         "skills.eyebrow": "TOOLS & TECHNOLOGIES", "skills.heading": "My tech <span>stack.</span>",
         "skills.sub": "The technologies I'm learning and using.",
@@ -321,9 +323,10 @@
     let wheelIndex = 0;
     let wheelRot = 0;
     let autoTimer = 0, resumeTimer = 0, wheelInView = false, wheelDragging = false, wheelHovered = false;
-    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = 0; } }
+    function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = 0; } if (worksWheel) worksWheel.classList.remove("is-auto"); }
     function startAuto() {
       if (autoTimer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (worksWheel) worksWheel.classList.add("is-auto");
       autoTimer = setInterval(() => { if (!document.hidden && wheelInView && !wheelDragging && !wheelHovered) selectProject(wheelIndex + 1); }, 3500);
     }
     function pauseAuto(ms) { stopAuto(); clearTimeout(resumeTimer); resumeTimer = setTimeout(startAuto, ms || 6000); }
@@ -348,8 +351,22 @@
       const list = currentList;
       if (!list.length) { worksDetail.innerHTML = ""; if (wheelCount) wheelCount.textContent = "00 / 00"; return; }
       const project = list[wheelIndex];
-      worksDetail.innerHTML = '<article class="project-card wheel-detail-card" data-index="'+String(wheelIndex+1).padStart(2,"0")+'"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(wheelIndex+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>';
-      if (wheelCount) wheelCount.textContent = String(wheelIndex+1).padStart(2,"0") + " / " + String(list.length).padStart(2,"0");
+      const ordered = [];
+      for (let k = 1; k < list.length; k++) ordered.push((wheelIndex + k) % list.length);
+      let html = '<article class="project-card wheel-detail-card" data-index="'+String(wheelIndex+1).padStart(2,"0")+'"><div class="project-top"><span class="project-icon">'+esc(project.icon)+'</span><span class="project-index">PROJECT / '+String(wheelIndex+1).padStart(2,"0")+'</span></div><p class="project-category">'+esc(project.category)+'</p><h3>'+esc(project.title)+'</h3><p class="project-description">'+esc(pickText(project, "description"))+'</p><div class="tags">'+(project.tags||[]).map(tag=>'<span>'+esc(tag)+'</span>').join("")+'</div><a class="project-link" href="'+esc(project.url || GITHUB_REPOS)+'" target="_blank" rel="noopener noreferrer">'+esc(t("projects.explore"))+' <span>↗</span></a></article>';
+      if (ordered.length) {
+        html += '<p class="shadow-label">' + esc(t("projects.others")) + '</p><div class="shadow-list">' + ordered.map((idx, k) => {
+          const p = list[idx];
+          return '<button type="button" class="shadow-item" style="--d:' + (k * 0.06).toFixed(2) + 's;--o:' + Math.max(0.3, 0.72 - k * 0.09).toFixed(2) + ';--shift:' + (k * 10) + 'px" data-index="' + idx + '"><span class="shadow-icon">' + esc(p.icon) + '</span><span class="shadow-title">' + esc(shortTitle(p.title)) + '</span><span class="shadow-cat">' + esc(p.category) + '</span><span class="shadow-arrow">→</span></button>';
+        }).join("") + '</div>';
+      }
+      worksDetail.innerHTML = html;
+      if (wheelCount) {
+        wheelCount.textContent = String(wheelIndex+1).padStart(2,"0") + " / " + String(list.length).padStart(2,"0");
+        wheelCount.classList.remove("count-pop");
+        void wheelCount.offsetWidth;
+        wheelCount.classList.add("count-pop");
+      }
       const prog = document.getElementById("wheelProgressFill");
       if (prog) prog.style.strokeDashoffset = (527.8 * (1 - (wheelIndex + 1) / list.length)).toFixed(1);
       if (wheelRing) wheelRing.querySelectorAll(".wheel-item").forEach((el, i) => el.classList.toggle("is-active", i === wheelIndex));
@@ -418,6 +435,12 @@
       wheelRing.addEventListener("click", e => {
         const item = e.target.closest(".wheel-item");
         if (!item || dragMoved > 4) return;
+        selectProject(Number(item.getAttribute("data-index")));
+        pauseAuto();
+      });
+      if (worksDetail) worksDetail.addEventListener("click", e => {
+        const item = e.target.closest(".shadow-item");
+        if (!item) return;
         selectProject(Number(item.getAttribute("data-index")));
         pauseAuto();
       });
