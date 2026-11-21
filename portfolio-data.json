@@ -141,6 +141,24 @@
       "url": "https://muchammadleonardtaufikputra-bot.github.io/portofolio/projects/nemesis/"
     }
   ],
+  "certificates": [
+    {
+      "title": "Spec-Driven Development dengan Kiro",
+      "issuer": "Dicoding",
+      "date": "21 November 2026",
+      "date_en": "November 21, 2026",
+      "validUntil": "21 November 2029",
+      "validUntil_en": "November 21, 2029",
+      "credential": "0LZ0JREY0X65",
+      "verifyUrl": "https://dicoding.com/certificates/0LZ0JREY0X65",
+      "file": "certificates/spec-driven-development-kiro.pdf",
+      "hours": "10 jam",
+      "hours_en": "10 hours",
+      "icon": "🎓",
+      "description": "Menerapkan siklus Spec-Driven Development — dari Requirements, Design, hingga Implementasi Task — menggunakan Kiro untuk membangun fitur aplikasi yang lengkap dan terdokumentasi.",
+      "description_en": "Applying the Spec-Driven Development cycle — from Requirements and Design to Task Implementation — with Kiro to build complete, well-documented application features."
+    }
+  ],
   "contact": {
     "description": "Saya terbuka untuk belajar, berkolaborasi, dan berbagi pengalaman.",
     "description_en": "I'm open to learning, collaborating, and sharing experiences.",

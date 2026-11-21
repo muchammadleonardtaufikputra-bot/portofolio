@@ -31,7 +31,7 @@ document.getElementById("year").textContent =
 (function () {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-  const selector = ".project-card, .skill-card, .portrait-frame";
+  const selector = ".project-card, .skill-card, .cert-card, .portrait-frame";
 
   function onMove(event) {
     if (reduceMotion.matches || !finePointer.matches) return;
@@ -64,7 +64,7 @@ document.getElementById("year").textContent =
   });
 
   function reveal(root) {
-    const items = root.querySelectorAll(".about-card, .project-card, .skill-card");
+    const items = root.querySelectorAll(".about-card, .project-card, .skill-card, .cert-card");
     if (reduceMotion.matches || !("IntersectionObserver" in window)) {
       items.forEach(item => item.classList.add("is-visible"));
       return;
@@ -84,12 +84,14 @@ document.getElementById("year").textContent =
   reveal(document);
   const projects = null; // wheel detail cards animate via CSS (.wheel-detail-card)
   const skills = document.querySelector(".skills-grid");
+  const certs = document.querySelector(".certificates-grid");
   if ("MutationObserver" in window) {
     const observer = new MutationObserver(() => {
       if (projects) reveal(projects);
       if (skills) reveal(skills);
+      if (certs) reveal(certs);
     });
-    [projects, skills].filter(Boolean).forEach(node => observer.observe(node, { childList: true }));
+    [projects, skills, certs].filter(Boolean).forEach(node => observer.observe(node, { childList: true }));
   }
 })();
 

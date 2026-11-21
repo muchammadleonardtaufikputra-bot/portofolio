@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=mobile-v2">
+  <link rel="stylesheet" href="style.css?v=certs-v1">
 </head>
 <body>
   <canvas id="glitchBg" class="glitch-bg" aria-hidden="true"></canvas>
@@ -46,7 +46,7 @@
     <a href="#home" class="logo" aria-label="Leonard, home">L<span>T</span></a>
     <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#home" data-i18n="nav.home">Beranda</a></li><li><a href="#about" data-i18n="nav.about">Tentang</a></li><li><a href="#projects" data-i18n="nav.projects">Proyek</a></li><li><a href="#skills" data-i18n="nav.skills">Keahlian</a></li><li><a href="#contact" data-i18n="nav.contact">Kontak</a></li>
+      <li><a href="#home" data-i18n="nav.home">Beranda</a></li><li><a href="#about" data-i18n="nav.about">Tentang</a></li><li><a href="#projects" data-i18n="nav.projects">Proyek</a></li><li><a href="#skills" data-i18n="nav.skills">Keahlian</a></li><li><a href="#certificates" data-i18n="nav.certs">Sertifikat</a></li><li><a href="#contact" data-i18n="nav.contact">Kontak</a></li>
     </ul>
     <div class="nav-controls">
       <button class="icon-toggle" id="themeToggle" type="button" aria-label="Ubah ke tema terang" title="Tema">🌙</button>
@@ -163,6 +163,12 @@
       <div class="skills-grid"></div>
     </section>
 
+    <section class="section" id="certificates">
+      <div class="ghost-word" aria-hidden="true">SERTIFIKAT</div>
+      <div class="section-heading"><p class="eyebrow" data-i18n="certs.eyebrow">BUKTI BELAJAR</p><h2 data-i18n-html="certs.heading">Sertifikat <span>yang diraih.</span></h2><p data-i18n="certs.sub">Kelas dan pelatihan yang sudah saya selesaikan.</p></div>
+      <div class="certificates-grid"></div>
+    </section>
+
     <section class="section services" id="services">
       <div class="section-heading section-heading-row"><div><p class="eyebrow" data-i18n="services.eyebrow">YANG SAYA KERJAKAN</p><h2 data-i18n-html="services.heading">Fokus <span>utama saya.</span></h2><p data-i18n="services.sub">Tiga bidang yang sedang saya dalami.</p></div></div>
       <div class="services-list">
@@ -213,7 +219,7 @@
     const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
     const I18N = {
       id: {
-        "nav.home": "Beranda", "nav.about": "Tentang", "nav.projects": "Proyek", "nav.skills": "Keahlian", "nav.contact": "Kontak", "nav.cta": "Mari bicara",
+        "nav.home": "Beranda", "nav.about": "Tentang", "nav.projects": "Proyek", "nav.skills": "Keahlian", "nav.certs": "Sertifikat", "nav.contact": "Kontak", "nav.cta": "Mari bicara",
         "hero.eyebrow": "HALO, SAYA SEORANG DEVELOPER",
         "hero.title": "Membangun<br><span>masa depan digital.</span>",
         "hero.subtitle": "Developer <i>|</i> Penggemar Cybersecurity <i>|</i> Pembelajar",
@@ -242,6 +248,10 @@
         "projects.prev": "Proyek sebelumnya", "projects.next": "Proyek berikutnya",
         "skills.eyebrow": "ALAT & TEKNOLOGI", "skills.heading": "Teknologi <span>yang saya kuasai.</span>",
         "skills.sub": "Teknologi yang sedang saya pelajari dan gunakan.",
+        "certs.eyebrow": "BUKTI BELAJAR", "certs.heading": "Sertifikat <span>yang diraih.</span>",
+        "certs.sub": "Kelas dan pelatihan yang sudah saya selesaikan.",
+        "certs.view": "Lihat sertifikat", "certs.verify": "Verifikasi",
+        "certs.valid": "Berlaku hingga",
         "terminal.eyebrow": "ANTARMUKA SENTINEL", "terminal.heading": "Terminal <span>interaktif.</span>",
         "terminal.sub": "Jelajahi profil dan proyek melalui simulasi terminal sederhana.",
         "terminal.welcome1": "Selamat datang di terminal portofolio Leonard.",
@@ -269,7 +279,7 @@
         "lang.label": "Ubah bahasa ke English"
       },
       en: {
-        "nav.home": "Home", "nav.about": "About", "nav.projects": "Projects", "nav.skills": "Skills", "nav.contact": "Contact", "nav.cta": "Let's talk",
+        "nav.home": "Home", "nav.about": "About", "nav.projects": "Projects", "nav.skills": "Skills", "nav.certs": "Certificates", "nav.contact": "Contact", "nav.cta": "Let's talk",
         "hero.eyebrow": "HELLO, I'M A DEVELOPER",
         "hero.title": "Building my<br><span>digital future.</span>",
         "hero.subtitle": "Developer <i>|</i> Cybersecurity Enthusiast <i>|</i> Learner",
@@ -298,6 +308,10 @@
         "projects.prev": "Previous project", "projects.next": "Next project",
         "skills.eyebrow": "TOOLS & TECHNOLOGIES", "skills.heading": "My tech <span>stack.</span>",
         "skills.sub": "The technologies I'm learning and using.",
+        "certs.eyebrow": "PROOF OF LEARNING", "certs.heading": "Certificates <span>earned.</span>",
+        "certs.sub": "Courses and training I have completed.",
+        "certs.view": "View certificate", "certs.verify": "Verify",
+        "certs.valid": "Valid until",
         "terminal.eyebrow": "SENTINEL INTERFACE", "terminal.heading": "Interactive <span>terminal.</span>",
         "terminal.sub": "Explore my profile and projects through a simple simulated terminal.",
         "terminal.welcome1": "Welcome to Leonard's portfolio terminal.",
@@ -533,6 +547,7 @@
         document.querySelectorAll(".about-card p").forEach((p, i) => { if (aboutList[i]) p.textContent = aboutList[i]; });
       }
       if (Array.isArray(data.skills)) document.querySelector(".skills-grid").innerHTML = data.skills.map((skill, i) => '<article class="skill-card"><span class="skill-index">'+String(i+1).padStart(2,"0")+'</span><span class="skill-icon">'+esc(skill.icon)+'</span><div><h3>'+esc(skill.name)+'</h3><p>'+esc(pickText(skill, "description"))+'</p></div></article>').join("");
+      if (Array.isArray(data.certificates)) document.querySelector(".certificates-grid").innerHTML = data.certificates.map(cert => '<article class="cert-card"><span class="cert-icon">'+esc(cert.icon || "🎓")+'</span><div class="cert-body"><h3>'+esc(cert.title)+'</h3><p class="cert-issuer">'+esc(cert.issuer)+' · '+esc(pickText(cert, "date"))+'</p><p class="cert-desc">'+esc(pickText(cert, "description"))+'</p><div class="cert-meta"><span>ID: '+esc(cert.credential)+'</span><span>'+esc(t("certs.valid"))+' '+esc(pickText(cert, "validUntil"))+'</span><span>'+esc(pickText(cert, "hours"))+'</span></div><div class="cert-links"><a href="'+esc(cert.file)+'" target="_blank" rel="noopener noreferrer">'+esc(t("certs.view"))+' <span>↗</span></a><a href="'+esc(cert.verifyUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(t("certs.verify"))+' <span>↗</span></a></div></div></article>').join("");
       if (Array.isArray(data.projects)) { allProjects = data.projects; renderProjects(); }
       if (data.contact && (data.contact.description || data.contact.description_en)) document.querySelector(".contact-panel > p:not(.eyebrow)").textContent = pickText(data.contact, "description");
       if (data.contact?.github) document.querySelector(".contact-panel .btn").href = data.contact.github;
@@ -633,6 +648,6 @@
     applyLanguage(currentLang);
     loadPortfolioData();
   </script>
-  <script src="script.js?v=wheel-v1"></script>
+  <script src="script.js?v=certs-v1"></script>
 </body>
 </html>
