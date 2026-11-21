@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="I Love You — sebuah halaman kecil untuk perasaan yang besar." />
+<link rel="icon" href="data:," />
+<title>I Love You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#fff7f3;
+    --bg-2:#ffece8;
+    --surface:#ffffff;
+    --surface-soft:#fff0ed;
+    --ink:#2e1218;
+    --muted:#7a5560;
+    --line:#f3d5cf;
+    --rose:#e11d48;
+    --rose-deep:#9f1239;
+    --rose-soft:#ffe4e6;
+    --gold:#d97706;
+    --shadow:0 20px 50px rgba(159,18,57,.14);
+    --radius:24px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#170a10;
+      --bg-2:#221019;
+      --surface:#24121b;
+      --surface-soft:#2e1824;
+      --ink:#ffeef2;
+      --muted:#d8a7b3;
+      --line:#3d2330;
+      --rose:#fb7185;
+      --rose-deep:#fda4af;
+      --rose-soft:#3a1e2a;
+      --gold:#fbbf24;
+      --shadow:0 20px 50px rgba(0,0,0,.45);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  button{font:inherit; min-height:44px}
+  a{min-height:44px}
+  #hearts-canvas{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; opacity:.9}
+  .wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 20px 64px}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:92svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:56px 0 40px; position:relative;
+  }
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--surface); border:1px solid var(--line);
+    padding:8px 16px; border-radius:999px; font-size:13px; font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--rose-deep);
+    box-shadow:0 6px 20px rgba(159,18,57,.08);
+  }
+  .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--rose); animation:pulseDot 1.6s ease-in-out infinite}
+  @keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.6}}
+
+  .hero h1{
+    font-family:"Playfair Display",serif;
+    font-weight:900;
+    font-size:clamp(64px,14vw,148px);
+    line-height:.92; letter-spacing:-.02em;
+    margin:28px 0 6px;
+  }
+  .hero h1 .italic{font-style:italic; font-weight:700; color:var(--rose)}
+  .hero h1 .block{display:block}
+
+  .big-heart{
+    width:clamp(84px,16vw,124px); height:auto; margin:18px auto 6px; display:block;
+    filter:drop-shadow(0 16px 28px rgba(225,29,72,.35));
+    animation:heartbeat 1.5s ease-in-out infinite;
+    cursor:pointer; border:none; background:none; padding:6px;
+  }
+  .big-heart svg{width:100%; height:100%; display:block}
+  @keyframes heartbeat{
+    0%,100%{transform:scale(1)}
+    12%{transform:scale(1.12)}
+    24%{transform:scale(1)}
+    36%{transform:scale(1.08)}
+    48%{transform:scale(1)}
+  }
+  .hero-sub{
+    max-width:560px; margin:14px auto 0; font-size:clamp(16px,2.4vw,19px); color:var(--muted); font-weight:500;
+  }
+  .hero-sub strong{color:var(--ink)}
+  .tap-hint{font-family:"Caveat",cursive; font-size:24px; color:var(--rose); margin-top:10px; transform:rotate(-2deg)}
+  .heart-counter{
+    margin-top:6px; font-size:14px; font-weight:700; color:var(--muted);
+  }
+  .heart-counter b{color:var(--rose); font-size:18px}
+  .hero-actions{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:28px}
+  .btn{
+    border-radius:999px; padding:13px 24px; font-weight:800; font-size:15px;
+    cursor:pointer; border:1px solid transparent; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:active{transform:scale(.97)}
+  .btn-primary{background:var(--rose); color:#fff; box-shadow:0 12px 28px rgba(225,29,72,.32)}
+  .btn-primary:hover{background:var(--rose-deep)}
+  .btn-ghost{background:var(--surface); color:var(--ink); border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--rose); color:var(--rose)}
+
+  .scroll-cue{margin-top:44px; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); font-weight:700; display:flex; flex-direction:column; align-items:center; gap:8px}
+  .scroll-cue span{width:1px; height:36px; background:var(--rose); display:block; animation:cue 1.8s ease-in-out infinite; transform-origin:top}
+  @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--surface-soft); overflow:hidden; padding:14px 0; margin:8px -20px 0;
+  }
+  .marquee-track{display:flex; gap:0; width:max-content; animation:marquee 28s linear infinite}
+  .marquee-track span{
+    font-family:"Playfair Display",serif; font-style:italic; font-weight:700;
+    font-size:20px; white-space:nowrap; padding:0 18px; color:var(--rose-deep);
+  }
+  .marquee-track span::after{content:"♥"; margin-left:36px; color:var(--rose); font-style:normal; font-size:14px; vertical-align:middle}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:72px 0 8px}
+  .section-head{max-width:640px}
+  .section-head h2{
+    font-family:"Playfair Display",serif; font-size:clamp(32px,5.5vw,48px); line-height:1.08; margin:0 0 12px; font-weight:800;
+  }
+  .section-head h2 em{color:var(--rose)}
+  .section-head p{color:var(--muted); margin:0; font-size:16px}
+
+  /* Letter / envelope */
+  .letter-card{
+    margin-top:28px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .envelope{
+    padding:34px 28px; text-align:center; cursor:pointer; background:var(--surface-soft);
+    border:none; width:100%; color:var(--ink);
+  }
+  .envelope .env-icon{font-size:52px; line-height:1; display:block; margin-bottom:12px}
+  .envelope strong{font-family:"Playfair Display",serif; font-size:24px; display:block}
+  .envelope small{color:var(--muted); font-weight:600}
+  .letter-body{display:none; padding:36px 30px 40px}
+  .letter-card.open .envelope{display:none}
+  .letter-card.open .letter-body{display:block; animation:fadeIn .5s ease}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+  .letter-body .hand{font-family:"Caveat",cursive; font-size:clamp(24px,4vw,30px); line-height:1.45; color:var(--ink)}
+  .letter-body .hand + .hand{margin-top:16px}
+  .letter-sign{margin-top:26px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px}
+  .letter-sign .from{font-family:"Caveat",cursive; font-size:26px; color:var(--rose)}
+  .seal{
+    width:52px;height:52px;border-radius:50%; background:var(--rose); color:#fff; display:grid; place-items:center;
+    font-size:22px; box-shadow:0 8px 18px rgba(225,29,72,.35); transform:rotate(-8deg);
+  }
+
+  /* Reasons */
+  .reasons{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:28px}
+  .reason{
+    background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:24px 22px;
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .reason:hover{transform:translateY(-4px); border-color:var(--rose)}
+  .reason .num{font-family:"Playfair Display",serif; font-style:italic; font-size:15px; color:var(--rose); font-weight:700}
+  .reason h3{margin:8px 0 8px; font-size:18px; line-height:1.3}
+  .reason p{margin:0; color:var(--muted); font-size:14.5px}
+
+  /* Note generator */
+  .note-box{
+    margin-top:28px; border-radius:var(--radius); padding:38px 30px; text-align:center;
+    background:var(--rose); color:#fff; position:relative; overflow:hidden;
+  }
+  .note-box::before,.note-box::after{content:"♥"; position:absolute; color:rgba(255,255,255,.14); font-size:120px; line-height:1}
+  .note-box::before{top:-28px; left:14px; transform:rotate(-14deg)}
+  .note-box::after{bottom:-36px; right:16px; transform:rotate(16deg)}
+  .note-box .note-label{font-size:12px; letter-spacing:.22em; text-transform:uppercase; font-weight:800; opacity:.85; position:relative}
+  .note-text{
+    font-family:"Playfair Display",serif; font-style:italic; font-weight:700;
+    font-size:clamp(24px,4.6vw,36px); line-height:1.3; margin:16px auto 8px; max-width:640px; position:relative; min-height:2.6em;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .note-text.swap{animation:fadeIn .45s ease}
+  .note-box .btn{background:#fff; color:var(--rose-deep); position:relative; margin-top:14px; box-shadow:0 10px 22px rgba(0,0,0,.18)}
+  .note-box .btn:hover{background:var(--rose-soft)}
+
+  /* Promises */
+  .promises{margin-top:28px; display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line)}
+  .promise{
+    display:flex; gap:18px; align-items:baseline; padding:20px 4px; border-bottom:1px solid var(--line);
+  }
+  .promise .p-num{font-family:"Playfair Display",serif; font-style:italic; color:var(--rose); font-weight:700; min-width:34px}
+  .promise h3{margin:0 0 4px; font-size:17px}
+  .promise p{margin:0; color:var(--muted); font-size:14.5px}
+
+  /* Finale */
+  .finale{text-align:center; padding:84px 0 30px}
+  .finale .hand{font-family:"Caveat",cursive; font-size:clamp(26px,5vw,34px); color:var(--rose); transform:rotate(-1.5deg); display:block}
+  .finale h2{font-family:"Playfair Display",serif; font-size:clamp(44px,9vw,84px); line-height:1.02; margin:14px 0 16px; font-weight:900}
+  .finale h2 em{color:var(--rose)}
+  .finale p{color:var(--muted); max-width:480px; margin:0 auto 28px}
+  footer{text-align:center; padding:28px 0 8px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; font-weight:600}
+  footer .f-heart{color:var(--rose)}
+
+  .burst-heart{position:fixed; pointer-events:none; z-index:50; line-height:1; will-change:transform,opacity}
+
+  @media (max-width:760px){
+    .reasons{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:520px){
+    .reasons{grid-template-columns:1fr}
+    .hero{min-height:88svh}
+    .letter-body{padding:28px 22px 32px}
+    .note-box{padding:32px 20px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .big-heart,.hero-badge .dot,.scroll-cue span,.marquee-track{animation:none !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<canvas id="hearts-canvas" aria-hidden="true"></canvas>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-badge"><span class="dot"></span> A little page, for a big feeling</div>
+
+    <h1><span class="block">I <span class="italic">Love</span></span><span class="block">You</span></h1>
+
+    <button class="big-heart" id="bigHeart" aria-label="Ketuk hati ini">
+      <svg viewBox="0 0 100 92" fill="none" aria-hidden="true">
+        <path d="M50 86C22 64 6 47.5 6 29.6 6 14.9 17.3 4 31.2 4 40.6 4 47.6 9.4 50 16.6 52.4 9.4 59.4 4 68.8 4 82.7 4 94 14.9 94 29.6 94 47.5 78 64 50 86Z" fill="#e11d48"/>
+        <path d="M50 86C22 64 6 47.5 6 29.6 6 14.9 17.3 4 31.2 4 40.6 4 47.6 9.4 50 16.6 52.4 9.4 59.4 4 68.8 4 82.7 4 94 14.9 94 29.6 94 47.5 78 64 50 86Z" fill="url(#hg)" fill-opacity=".35"/>
+        <ellipse cx="33" cy="27" rx="11" ry="7" fill="#fff" fill-opacity=".38" transform="rotate(-24 33 27)"/>
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="100" y2="92"><stop stop-color="#fff"/><stop offset="1" stop-color="#7f1d2d"/></linearGradient></defs>
+      </svg>
+    </button>
+    <div class="tap-hint">ketuk hatinya, ya ↓</div>
+    <div class="heart-counter" id="heartCounter">sudah <b>0</b> hati terkumpul untukmu</div>
+
+    <p class="hero-sub">Tiga kata, delapan huruf, satu perasaan yang tidak pernah habis: <strong>aku sayang kamu</strong> — hari ini, besok, dan seterusnya.</p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#surat">💌 Buka Surat Cinta</a>
+      <button class="btn btn-ghost" id="burstBtn" type="button">Hujani Hati ♥</button>
+    </div>
+
+    <div class="scroll-cue">scroll<span></span></div>
+  </header>
+
+  <!-- MARQUEE: I love you in many languages -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>I Love You</span><span>Je t'aime</span><span>Te Amo</span><span>Ich liebe dich</span><span>Aku Cinta Kamu</span><span>Saranghae · 사랑해</span><span>Ti Amo</span><span>Aishiteru · 愛してる</span><span>Eu Te Amo</span><span>S'agapo · Σ' αγαπώ</span>
+    </div>
+  </div>
+
+  <!-- LETTER -->
+  <section id="surat">
+    <div class="section-head">
+      <h2>Sebuah surat, <em>untukmu</em></h2>
+      <p>Tidak pakai nama, tidak pakai alamat — karena surat ini memang cuma punya satu tujuan: kamu yang sedang membacanya.</p>
+    </div>
+
+    <div class="letter-card" id="letterCard">
+      <button class="envelope" id="envelopeBtn" type="button" aria-expanded="false">
+        <span class="env-icon" aria-hidden="true">💌</span>
+        <strong>Klik untuk membuka</strong>
+        <small>Ada sesuatu di dalamnya…</small>
+      </button>
+      <div class="letter-body">
+        <p class="hand">Hai, kamu.</p>
+        <p class="hand">Kalau kamu sampai di halaman ini, berarti ada seseorang yang ingin kamu tahu satu hal sederhana: kamu dicintai. Bukan karena alasan yang rumit — bukan karena kamu sempurna, bukan karena hari ini hari yang spesial. Hanya karena kamu adalah kamu.</p>
+        <p class="hand">Di hari yang berat, semoga halaman ini jadi pengingat kecil bahwa ada hati yang selalu berpihak padamu. Di hari yang bahagia, semoga ia ikut merayakannya bersamamu.</p>
+        <p class="hand">I love you — dalam setiap bahasa, di setiap waktu, tanpa tapi.</p>
+        <div class="letter-sign">
+          <span class="from">— dengan segenap hati</span>
+          <span class="seal" aria-hidden="true">♥</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REASONS -->
+  <section>
+    <div class="section-head">
+      <h2>Kenapa <em>“I love you”</em>?</h2>
+      <p>Kalau ditanya alasannya, daftarnya tidak akan selesai. Tapi ini enam yang paling utama:</p>
+    </div>
+    <div class="reasons">
+      <article class="reason"><span class="num">— 01</span><h3>Karena senyummu</h3><p>Senyum sederhana yang bisa memperbaiki hari paling berantakan sekalipun.</p></article>
+      <article class="reason"><span class="num">— 02</span><h3>Karena tawamu</h3><p>Suara favorit di dunia. Sekali dengar, susah untuk tidak ikut tertawa.</p></article>
+      <article class="reason"><span class="num">— 03</span><h3>Karena caramu peduli</h3><p>Hal-hal kecil yang kamu perhatikan, yang bahkan orang lain tidak sadari.</p></article>
+      <article class="reason"><span class="num">— 04</span><h3>Karena kehadiranmu</h3><p>Tempat yang sama terasa berbeda — lebih hangat — setiap kamu ada di sana.</p></article>
+      <article class="reason"><span class="num">— 05</span><h3>Karena kamu, ya kamu</h3><p>Bukan versi terbaikmu saja. Semua versimu, di semua harimu.</p></article>
+      <article class="reason"><span class="num">— 06</span><h3>Karena tanpa alasan</h3><p>Cinta yang butuh alasan akan hilang bersama alasannya. Yang ini, tidak.</p></article>
+    </div>
+  </section>
+
+  <!-- NOTE GENERATOR -->
+  <section>
+    <div class="section-head">
+      <h2>Pesan cinta <em>acak</em></h2>
+      <p>Satu pesan untuk setiap ketukan. Ambil sebanyak yang kamu mau — stoknya tidak terbatas.</p>
+    </div>
+    <div class="note-box">
+      <div class="note-label">Pesan untukmu</div>
+      <p class="note-text" id="noteText">“Kamu adalah alasan kenapa kata ‘pulang’ terasa begitu hangat.”</p>
+      <button class="btn" id="noteBtn" type="button">♥ Pesan Lainnya</button>
+    </div>
+  </section>
+
+  <!-- PROMISES -->
+  <section>
+    <div class="section-head">
+      <h2>Tiga janji <em>kecil</em></h2>
+      <p>Bukan janji besar yang muluk-muluk. Hanya hal-hal sederhana yang akan selalu diusahakan:</p>
+    </div>
+    <div class="promises">
+      <div class="promise"><span class="p-num">i.</span><div><h3>Selalu ada</h3><p>Di kabar baik maupun kabar buruk, kamu tidak akan menghadapi apa pun sendirian.</p></div></div>
+      <div class="promise"><span class="p-num">ii.</span><div><h3>Selalu jujur</h3><p>Tentang perasaan, tentang hari yang berat, tentang semuanya — tanpa ditutup-tutupi.</p></div></div>
+      <div class="promise"><span class="p-num">iii.</span><div><h3>Selalu memilihmu</h3><p>Setiap hari, dalam keadaan apa pun, pilihannya tetap sama: kamu.</p></div></div>
+    </div>
+  </section>
+
+  <!-- FINALE -->
+  <div class="finale">
+    <span class="hand">dan sekali lagi, biar tidak lupa —</span>
+    <h2>I Love You,<br><em>Always.</em></h2>
+    <p>Simpan halaman ini. Buka lagi kapan pun kamu butuh diingatkan betapa kamu dicintai.</p>
+    <button class="btn btn-primary" id="finaleBtn" type="button">♥ Kirim Balik Hati</button>
+  </div>
+
+  <footer>made with <span class="f-heart">♥</span> — for you, whoever you are, wherever you are</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Floating hearts canvas ---------- */
+  var canvas = document.getElementById("hearts-canvas");
+  var ctx = canvas.getContext("2d");
+  var W, H, parts = [];
+  function resize(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  function drawHeart(x, y, s, color, alpha, rot){
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.scale(s, s);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(0, 10);
+    ctx.bezierCurveTo(-14, -4, -8, -16, 0, -8);
+    ctx.bezierCurveTo(8, -16, 14, -4, 0, 10);
+    ctx.fill();
+    ctx.restore();
+  }
+  var COLORS = ["#e11d48","#fb7185","#f43f5e","#fda4af"];
+  function spawn(n){
+    for(var i=0;i<n;i++){
+      parts.push({
+        x: Math.random()*W,
+        y: H + 20 + Math.random()*60,
+        s: .5 + Math.random()*1.1,
+        vy: .35 + Math.random()*.8,
+        vx: (Math.random()-.5)*.35,
+        alpha: .25 + Math.random()*.5,
+        rot: (Math.random()-.5)*.5,
+        vr: (Math.random()-.5)*.01,
+        color: COLORS[Math.floor(Math.random()*COLORS.length)]
+      });
+    }
+  }
+  if(!reduced){
+    spawn(14);
+    (function loop(){
+      ctx.clearRect(0,0,W,H);
+      if(parts.length < 22 && Math.random() < .05) spawn(1);
+      parts = parts.filter(function(p){ return p.y > -30; });
+      parts.forEach(function(p){
+        p.y -= p.vy; p.x += p.vx + Math.sin(p.y*.012)*.3; p.rot += p.vr;
+        drawHeart(p.x, p.y, p.s, p.color, p.alpha, p.rot);
+      });
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---------- Burst hearts (DOM) ---------- */
+  function burst(x, y, count){
+    if(reduced) count = Math.min(count, 3);
+    for(var i=0;i<count;i++){
+      var el = document.createElement("span");
+      el.className = "burst-heart";
+      el.textContent = "♥";
+      var size = 14 + Math.random()*22;
+      el.style.fontSize = size + "px";
+      el.style.color = COLORS[Math.floor(Math.random()*COLORS.length)];
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+      document.body.appendChild(el);
+      var ang = Math.random()*Math.PI*2;
+      var dist = 50 + Math.random()*110;
+      var dx = Math.cos(ang)*dist;
+      var dy = Math.sin(ang)*dist - 70;
+      el.animate([
+        { transform:"translate(-50%,-50%) scale(.4) rotate(0deg)", opacity:1 },
+        { transform:"translate(calc(-50% + "+dx+"px), calc(-50% + "+dy+"px)) scale(1.1) rotate("+((Math.random()-.5)*70)+"deg)", opacity:0 }
+      ], { duration: 950 + Math.random()*550, easing:"cubic-bezier(.17,.67,.35,1)" }).onfinish = (function(node){ return function(){ node.remove(); }; })(el);
+    }
+  }
+
+  /* ---------- Heart counter ---------- */
+  var count = 0;
+  var counterEl = document.getElementById("heartCounter");
+  var milestones = {1:"hati pertama — dan ini baru permulaan ♥",10:"10 hati! mulai serius nih ♥",25:"25 hati terkumpul untukmu ♥",50:"50 hati! setengah ratus cinta ♥",100:"100 HATI! resmi: kamu sangat dicintai ♥♥♥"};
+  function addHearts(n, x, y){
+    count += n;
+    if(milestones[count]){
+      counterEl.innerHTML = milestones[count];
+    } else {
+      counterEl.innerHTML = 'sudah <b>' + count + '</b> hati terkumpul untukmu';
+    }
+    if(x !== undefined) burst(x, y, n > 1 ? 14 : 7);
+  }
+
+  var bigHeart = document.getElementById("bigHeart");
+  bigHeart.addEventListener("click", function(e){
+    addHearts(1, e.clientX, e.clientY);
+  });
+  document.getElementById("burstBtn").addEventListener("click", function(e){
+    addHearts(5, window.innerWidth/2, window.innerHeight/3);
+    burst(window.innerWidth*.25, window.innerHeight*.4, 8);
+    burst(window.innerWidth*.75, window.innerHeight*.4, 8);
+  });
+  document.getElementById("finaleBtn").addEventListener("click", function(e){
+    addHearts(5, e.clientX, e.clientY);
+    window.scrollTo({ top:0, behavior: reduced ? "auto" : "smooth" });
+  });
+
+  /* Tap anywhere (on empty areas) = small burst */
+  document.addEventListener("pointerdown", function(e){
+    if(e.target.closest("button, a, .envelope")) return;
+    burst(e.clientX, e.clientY, 4);
+  });
+
+  /* ---------- Envelope ---------- */
+  var card = document.getElementById("letterCard");
+  var envBtn = document.getElementById("envelopeBtn");
+  envBtn.addEventListener("click", function(e){
+    card.classList.add("open");
+    envBtn.setAttribute("aria-expanded","true");
+    burst(e.clientX, e.clientY, 12);
+    addHearts(3);
+  });
+
+  /* ---------- Love notes ---------- */
+  var notes = [
+    "“Kamu adalah alasan kenapa kata ‘pulang’ terasa begitu hangat.”",
+    "“Di antara miliaran manusia, hatiku entah bagaimana selalu menemukanmu.”",
+    "“Hari biasa jadi luar biasa, cuma karena ada kamu di dalamnya.”",
+    "“Kalau cinta punya alamat, alamatnya adalah di mana pun kamu berada.”",
+    "“Aku tidak butuh dunia yang sempurna. Cukup dunia yang ada kamunya.”",
+    "“Jatuh cinta padamu adalah hal termudah yang pernah terjadi padaku.”",
+    "“Semesta boleh luas, tapi tempat favoritku tetap di sampingmu.”",
+    "“Kamu bukan separuhku — kamu adalah bagian terbaik dari seluruhku.”",
+    "“Setiap ‘selamat pagi’ artinya: syukurlah, masih ada kamu satu hari lagi.”",
+    "“Cinta itu ternyata sederhana: melihatmu baik-baik saja, setiap hari.”",
+    "“Kalau aku harus memilih lagi dari awal, aku tetap memilihmu. Selalu.”",
+    "“Rumah bukan tempat. Rumah adalah kamu.”"
+  ];
+  var noteText = document.getElementById("noteText");
+  var lastIdx = 0;
+  document.getElementById("noteBtn").addEventListener("click", function(e){
+    var idx;
+    do { idx = Math.floor(Math.random()*notes.length); } while(idx === lastIdx);
+    lastIdx = idx;
+    noteText.textContent = notes[idx];
+    noteText.classList.remove("swap");
+    void noteText.offsetWidth;
+    noteText.classList.add("swap");
+    burst(e.clientX, e.clientY, 6);
+  });
+
+  /* ---------- Marquee: duplicate track for seamless loop ---------- */
+  var track = document.getElementById("marqueeTrack");
+  track.innerHTML += track.innerHTML;
+})();
+</script>
+</body>
+</html>
