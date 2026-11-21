@@ -42,6 +42,7 @@
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
   .share{margin-top:16px;background:none;border:1px solid var(--line);color:var(--muted);font:600 12px "JetBrains Mono",monospace;letter-spacing:1px;padding:8px 16px;border-radius:999px;cursor:pointer;transition:.25s;animation:rise .6s .3s ease both}
   .share:hover{color:var(--text);border-color:rgba(192,132,252,.6)}
+  .views{margin-top:12px;font:600 12px "JetBrains Mono",monospace;letter-spacing:1px;color:var(--muted);animation:rise .6s .34s ease both}
   .links{width:100%;display:flex;flex-direction:column;gap:12px;margin-top:30px}
   .link-row{display:flex;align-items:center;gap:14px;padding:15px 18px;background:rgba(168,85,247,.06);border:1px solid var(--line);border-radius:16px;color:var(--text);text-decoration:none;text-align:left;transition:transform .25s,border-color .25s,box-shadow .25s,background .25s;animation:rise .55s ease both}
   .link-row:nth-child(1){animation-delay:.32s}
@@ -77,43 +78,44 @@
   <p class="bio">Developer · Cybersecurity · Pembelajar</p>
   <span class="pill"><i aria-hidden="true"></i>TERBUKA UNTUK KOLABORASI</span>
   <button class="share" id="shareBtn" type="button">⧉ BAGIKAN HALAMAN INI</button>
+  <p class="views" id="viewCount" hidden>👁 <span id="viewNum">…</span> KUNJUNGAN</p>
   <nav class="links" aria-label="Semua link">
-    <a class="link-row featured" href="../">
+    <a class="link-row featured" data-link="portfolio" href="../">
       <span class="link-icon" aria-hidden="true">🌐</span>
       <span class="link-copy"><b>Portfolio Website</b><small>Semua proyek &amp; tentang saya</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="link-row" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer">
+    <a class="link-row" data-link="github" href="https://github.com/muchammadleonardtaufikputra-bot" target="_blank" rel="noopener noreferrer">
       <span class="link-icon" aria-hidden="true">💻</span>
       <span class="link-copy"><b>GitHub</b><small>@muchammadleonardtaufikputra-bot</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="link-row" href="https://www.instagram.com/eonll.ard/" target="_blank" rel="noopener noreferrer">
+    <a class="link-row" data-link="instagram" href="https://www.instagram.com/eonll.ard/" target="_blank" rel="noopener noreferrer">
       <span class="link-icon" aria-hidden="true">📸</span>
       <span class="link-copy"><b>Instagram</b><small>@eonll.ard</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="link-row" href="../projects/sentinel-x/">
+    <a class="link-row" data-link="sentinel-x" href="../projects/sentinel-x/">
       <span class="link-icon" aria-hidden="true">🛡️</span>
       <span class="link-copy"><b>SENTINEL-X</b><small>Threat Detection &amp; Incident Response</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="link-row" href="../projects/nemesis/">
+    <a class="link-row" data-link="nemesis" href="../projects/nemesis/">
       <span class="link-icon" aria-hidden="true">🎯</span>
       <span class="link-copy"><b>NEMESIS</b><small>Adversary Research &amp; Emulation System</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="link-row" href="../projects/security-awareness/">
+    <a class="link-row" data-link="awareness-lab" href="../projects/security-awareness/">
       <span class="link-icon" aria-hidden="true">🧠</span>
       <span class="link-copy"><b>Cybersecurity Awareness Lab</b><small>Kuis phishing interaktif</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="link-row" href="../love/">
+    <a class="link-row" data-link="love" href="../love/">
       <span class="link-icon" aria-hidden="true">💌</span>
       <span class="link-copy"><b>I Love You</b><small>Halaman romantis interaktif</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
     </a>
-    <a class="link-row" href="../birthday/">
+    <a class="link-row" data-link="birthday" href="../birthday/">
       <span class="link-icon" aria-hidden="true">🎂</span>
       <span class="link-copy"><b>Happy Birthday</b><small>Halaman ucapan ulang tahun interaktif</small></span>
       <span class="link-arrow" aria-hidden="true">↗</span>
@@ -138,6 +140,40 @@
       document.body.removeChild(ta);
     }
   });
+
+  // Pelacak kunjungan (anonim): isi TRACK_API setelah worker di-deploy,
+  // misal "https://leon-links-stats.<subdomain>.workers.dev".
+  // Kalau kosong, pelacak nonaktif dan penghitung disembunyikan.
+  var TRACK_API = "";
+  function track(payload) {
+    if (!TRACK_API) return;
+    try {
+      var body = JSON.stringify(payload || {});
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(TRACK_API + "/track", new Blob([body], { type: "application/json" }));
+      } else {
+        fetch(TRACK_API + "/track", { method: "POST", headers: { "Content-Type": "application/json" }, body: body, keepalive: true }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+  if (TRACK_API) {
+    if (!sessionStorage.getItem("lt-tracked")) {
+      sessionStorage.setItem("lt-tracked", "1");
+      track({});
+    }
+    fetch(TRACK_API + "/count").then(function (r) { return r.json(); }).then(function (d) {
+      if (typeof d.total === "number") {
+        document.getElementById("viewNum").textContent = d.total.toLocaleString("id-ID");
+        document.getElementById("viewCount").hidden = false;
+      }
+    }).catch(function () {});
+    document.querySelectorAll(".link-row").forEach(function (row) {
+      row.addEventListener("click", function () {
+        var name = row.getAttribute("data-link");
+        if (name) track({ link: name });
+      });
+    });
+  }
 </script>
 </body>
 </html>

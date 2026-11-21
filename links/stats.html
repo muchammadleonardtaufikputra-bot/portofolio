@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistik Linktree · Leon</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0b0a14;--text:#f3f1ff;--muted:#9d97b8;--line:rgba(168,85,247,.25);--purple:#a855f7;--magenta:#d946ef;--cyan:#22d3ee}
+  html{background:var(--bg)}
+  body{min-height:100vh;background:var(--bg);color:var(--text);font-family:"Space Grotesk",system-ui,sans-serif;padding:40px 20px 48px;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(rgba(168,85,247,.14) 1px,transparent 1px);background-size:26px 26px;pointer-events:none}
+  .wrap{position:relative;z-index:1;width:100%;max-width:720px;margin:0 auto}
+  h1{font-size:24px;font-weight:700;letter-spacing:-.5px}
+  .sub{font-size:13px;color:var(--muted);margin-top:6px}
+  .sub a{color:#c084fc;text-decoration:none}
+  .card{background:rgba(168,85,247,.06);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:22px}
+  .card h2{font-size:13px;font-family:"JetBrains Mono",monospace;letter-spacing:2px;color:#e9d5ff;margin-bottom:14px}
+  .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .num{background:rgba(12,11,22,.6);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .num b{display:block;font-size:28px;font-weight:700}
+  .num small{font-size:11px;color:var(--muted);font-family:"JetBrains Mono",monospace;letter-spacing:1px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:9px 8px;text-align:left;border-bottom:1px solid rgba(168,85,247,.14);vertical-align:top}
+  th{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1px;color:var(--muted)}
+  td.mono{font-family:"JetBrains Mono",monospace;font-size:12px}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-family:"JetBrains Mono",monospace}
+  .login{display:flex;gap:10px;margin-top:18px}
+  input{flex:1;background:rgba(12,11,22,.7);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px 14px;font:14px "Space Grotesk",sans-serif;outline:none}
+  input:focus{border-color:rgba(217,70,239,.6)}
+  button{background:linear-gradient(100deg,#c026d3,#7c3aed);color:#fff;border:none;border-radius:10px;padding:11px 18px;font:700 13px "Space Grotesk",sans-serif;cursor:pointer}
+  button.ghost{background:none;border:1px solid var(--line);color:var(--muted)}
+  .status{font-size:13px;color:var(--muted);margin-top:12px;min-height:18px}
+  .status.err{color:#f87171}
+  .note{font-size:12px;color:var(--muted);line-height:1.7;margin-top:22px}
+  .empty{color:var(--muted);font-size:13px;padding:6px 0}
+  @media(max-width:560px){.nums{grid-template-columns:1fr 1fr 1fr}.num b{font-size:22px}table{font-size:12px}.hide-m{display:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>📊 Statistik Linktree</h1>
+  <p class="sub">Hanya kamu yang bisa melihat halaman ini (pakai password). <a href="./">← Kembali ke Linktree</a></p>
+
+  <div class="card" id="loginCard">
+    <h2>MASUK</h2>
+    <div class="login">
+      <input id="pw" type="password" placeholder="Password statistik (STATS_PASSWORD)" autocomplete="off">
+      <button id="loginBtn" type="button">Lihat</button>
+    </div>
+    <p class="status" id="loginStatus"></p>
+  </div>
+
+  <div id="stats" hidden>
+    <div class="card">
+      <h2>RINGKASAN</h2>
+      <div class="nums">
+        <div class="num"><b id="totalNum">–</b><small>TOTAL KUNJUNGAN</small></div>
+        <div class="num"><b id="todayNum">–</b><small>HARI INI</small></div>
+        <div class="num"><b id="uniqNum">–</b><small>UNIK HARI INI</small></div>
+      </div>
+      <p class="status"><button class="ghost" id="refreshBtn" type="button">↻ Muat ulang</button></p>
+    </div>
+
+    <div class="card">
+      <h2>7 HARI TERAKHIR</h2>
+      <table>
+        <thead><tr><th>Tanggal</th><th>Kunjungan</th><th>Unik</th></tr></thead>
+        <tbody id="daysBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>LINK PALING SERING DIKLIK</h2>
+      <div id="clicksBody"><p class="empty">Belum ada klik tercatat.</p></div>
+    </div>
+
+    <div class="card">
+      <h2>KUNJUNGAN TERAKHIR</h2>
+      <table>
+        <thead><tr><th>Waktu (WIB)</th><th>Lokasi</th><th>Perangkat</th><th class="hide-m">Browser</th><th class="hide-m">Sumber</th><th>Link diklik</th></tr></thead>
+        <tbody id="recentBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="note">Data di sini anonim: tidak ada nama dan tidak ada alamat IP yang disimpan. Yang tercatat hanya waktu kunjungan, negara/kota kasar, jenis perangkat, browser, dan dari mana pengunjung datang (misalnya Instagram). Kunjungan yang sama dalam 10 menit hanya dihitung sekali.</p>
+</main>
+<script>
+  // ISI SETELAH WORKER DI-DEPLOY: URL worker link-stats, misal
+  // https://leon-links-stats.<subdomain>.workers.dev (tanpa garis miring di akhir).
+  const TRACK_API = "";
+
+  const $ = (id) => document.getElementById(id);
+  let pw = "";
+
+  function fmtTime(ms) {
+    return new Date(ms).toLocaleString("id-ID", {
+      timeZone: "Asia/Jakarta",
+      day: "2-digit", month: "short",
+      hour: "2-digit", minute: "2-digit",
+    });
+  }
+
+  function esc(s) {
+    return String(s ?? "-").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+    }[c]));
+  }
+
+  async function loadStats() {
+    const st = $("loginStatus");
+    if (!TRACK_API) {
+      st.textContent = "Pelacak belum dipasang — deploy worker dulu, lalu isi TRACK_API di file ini.";
+      st.className = "status err";
+      return;
+    }
+    st.textContent = "Memuat…";
+    st.className = "status";
+    try {
+      const r = await fetch(TRACK_API + "/stats?key=" + encodeURIComponent(pw));
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Gagal memuat.");
+      $("totalNum").textContent = d.total;
+      const today = d.days && d.days[0] ? d.days[0] : { views: 0, uniques: 0 };
+      $("todayNum").textContent = today.views;
+      $("uniqNum").textContent = today.uniques;
+      $("daysBody").innerHTML = (d.days || []).map((x) =>
+        "<tr><td class=\"mono\">" + esc(x.date) + "</td><td>" + x.views + "</td><td>" + x.uniques + "</td></tr>"
+      ).join("") || "<tr><td colspan=\"3\" class=\"empty\">Belum ada data.</td></tr>";
+      const clicks = d.clicks || {};
+      const names = Object.keys(clicks).sort((a, b) => clicks[b] - clicks[a]);
+      $("clicksBody").innerHTML = names.length
+        ? "<table><thead><tr><th>Link</th><th>Klik</th></tr></thead><tbody>" +
+          names.map((n) => "<tr><td>" + esc(n) + "</td><td>" + clicks[n] + "</td></tr>").join("") +
+          "</tbody></table>"
+        : "<p class=\"empty\">Belum ada klik tercatat.</p>";
+      $("recentBody").innerHTML = (d.recent || []).map((v) =>
+        "<tr><td class=\"mono\">" + esc(fmtTime(v.t)) + "</td>" +
+        "<td>" + esc(v.city !== "-" ? v.city + ", " + v.country : v.country) + "</td>" +
+        "<td>" + esc(v.device) + "</td>" +
+        "<td class=\"hide-m\">" + esc(v.browser) + "</td>" +
+        "<td class=\"hide-m\">" + esc(v.source) + "</td>" +
+        "<td>" + (v.link ? "<span class=\"pill\">" + esc(v.link) + "</span>" : "—") + "</td></tr>"
+      ).join("") || "<tr><td colspan=\"6\" class=\"empty\">Belum ada kunjungan tercatat.</td></tr>";
+      $("loginCard").hidden = true;
+      $("stats").hidden = false;
+      st.textContent = "";
+    } catch (e) {
+      st.textContent = "Gagal: " + e.message + " (password salah atau worker belum aktif)";
+      st.className = "status err";
+    }
+  }
+
+  $("loginBtn").addEventListener("click", () => {
+    pw = $("pw").value.trim();
+    if (!pw) { $("loginStatus").textContent = "Isi password dulu."; $("loginStatus").className = "status err"; return; }
+    loadStats();
+  });
+  $("pw").addEventListener("keydown", (e) => { if (e.key === "Enter") $("loginBtn").click(); });
+  $("refreshBtn").addEventListener("click", loadStats);
+</script>
+</body>
+</html>
