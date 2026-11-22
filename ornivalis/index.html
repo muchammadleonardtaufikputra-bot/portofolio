@@ -568,6 +568,12 @@
       .video-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(28, 36, 52, 0.07); }
       .video-frame { position: relative; aspect-ratio: 16 / 9; background: #0b1526; }
       .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .video-play { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: linear-gradient(135deg, #1a2a47, #0b1526); cursor: pointer; }
+      .video-play img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .video-play-btn { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(217, 171, 78, 0.95); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); transition: transform 0.2s ease, background 0.2s ease; }
+      .video-play-btn svg { width: 28px; height: 28px; fill: #201503; margin-left: 3px; }
+      .video-play:hover .video-play-btn, .video-play:focus-visible .video-play-btn { transform: translate(-50%, -50%) scale(1.08); background: #e7bd62; }
+      .video-play-label { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; text-align: left; font-size: 0.95rem; font-weight: 600; color: #fff; background: linear-gradient(transparent, rgba(5, 10, 20, 0.75)); }
       .video-card figcaption { padding: 12px 14px 14px; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5; }
       .video-card figcaption b { color: var(--ink); display: block; font-size: 0.95rem; margin-bottom: 2px; }
       @media (max-width: 650px) { .video-grid { grid-template-columns: 1fr; } }
@@ -622,7 +628,7 @@
         .shot { opacity: 1; transform: none; transition: none; }
         .quote, .ingatan li, .ingatan .num, .hero-photo img, .hero-logo,
         .penutup img.logo-kecil, .hero-stats span, .chip, .quote .mark,
-        .quote::after, .segel { transition: none; }
+        .quote::after, .segel, .video-play-btn { transition: none; }
         .shot:hover, .quote:hover, .btn:hover, .chip:hover,
         .ingatan li:hover, .hero-stats span:hover { transform: none; }
       }
@@ -1100,6 +1106,40 @@
           }, 2500);
         } else {
           revealEls.forEach(function (el) { el.classList.add("in"); });
+        }
+
+        /* ---------- Video: sampul ringan, iframe Drive baru dimuat saat play ditekan ---------- */
+        var videoGrid = document.querySelector(".video-grid");
+        if (videoGrid) {
+          var videoFrames = Array.prototype.slice.call(videoGrid.querySelectorAll(".video-frame"));
+          function videoPoster(src) {
+            var m = src.match(/\/d\/([^/]+)\//);
+            return m ? "https://drive.google.com/thumbnail?id=" + m[1] + "&sz=w1000" : "";
+          }
+          function facadeHTML(frame) {
+            var title = frame.getAttribute("data-title") || "Video";
+            var poster = videoPoster(frame.getAttribute("data-src") || "");
+            return '<button class="video-play" type="button" aria-label="Putar video: ' + title + '">' +
+              (poster ? '<img src="' + poster + '" alt="" loading="lazy" onerror="this.style.display=\'none\'" />' : "") +
+              '<span class="video-play-btn" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>' +
+              '<span class="video-play-label">' + title + "</span></button>";
+          }
+          videoFrames.forEach(function (frame) {
+            var iframe = frame.querySelector("iframe");
+            if (!iframe) return;
+            frame.setAttribute("data-src", iframe.getAttribute("src"));
+            frame.setAttribute("data-title", iframe.getAttribute("title") || "Video");
+            frame.innerHTML = facadeHTML(frame);
+          });
+          videoGrid.addEventListener("click", function (e) {
+            var btn = e.target.closest ? e.target.closest(".video-play") : null;
+            if (!btn) return;
+            var frame = btn.parentNode;
+            videoFrames.forEach(function (f) {
+              if (f !== frame && f.querySelector("iframe")) f.innerHTML = facadeHTML(f);
+            });
+            frame.innerHTML = '<iframe src="' + frame.getAttribute("data-src") + '" title="' + frame.getAttribute("data-title") + '" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+          });
         }
       })();
     </script>
