@@ -543,6 +543,16 @@
       .shot:nth-child(3n+2) { --tilt: 0.45deg; }
       .shot:nth-child(3n) { --tilt: -0.3deg; }
       .shot:hover { transform: rotate(0deg) translateY(-5px); box-shadow: 0 16px 34px rgba(28, 36, 52, 0.16); }
+
+      /* Foto melayang-layang: naik-turun halus, tiap foto beda ritme */
+      @keyframes melayang {
+        0%, 100% { translate: 0 0; }
+        50% { translate: 0 -8px; }
+      }
+      .shot.in { animation: melayang 6s ease-in-out infinite; }
+      .shot:nth-child(3n+1).in { animation-duration: 5.4s; animation-delay: -1.4s; }
+      .shot:nth-child(3n+2).in { animation-duration: 6.6s; animation-delay: -3.1s; }
+      .shot:nth-child(3n).in { animation-duration: 5.9s; animation-delay: -4.6s; }
       .shot figcaption b::before {
         content: "";
         display: inline-block;
@@ -552,6 +562,15 @@
         margin-right: 8px;
         vertical-align: 2px;
       }
+
+      /* Video: grid 2 kolom, embed preview Google Drive */
+      .video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+      .video-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(28, 36, 52, 0.07); }
+      .video-frame { position: relative; aspect-ratio: 16 / 9; background: #0b1526; }
+      .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .video-card figcaption { padding: 12px 14px 14px; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.5; }
+      .video-card figcaption b { color: var(--ink); display: block; font-size: 0.95rem; margin-bottom: 2px; }
+      @media (max-width: 650px) { .video-grid { grid-template-columns: 1fr; } }
 
       /* Kartu kata-kata: garis emas tumbuh saat hover */
       .quote {
@@ -599,7 +618,7 @@
       @media (prefers-reduced-motion: reduce) {
         .hero .kelas, .hero-logo, .hero h1, .hero .tagline, .hero .sub,
         .hero-stats, .hero-cta, .hero-photo, .hero h1::after,
-        .lightbox.open figure { animation: none; }
+        .lightbox.open figure, .shot.in { animation: none; }
         .shot { opacity: 1; transform: none; transition: none; }
         .quote, .ingatan li, .ingatan .num, .hero-photo img, .hero-logo,
         .penutup img.logo-kecil, .hero-stats span, .chip, .quote .mark,
@@ -818,6 +837,42 @@
           </figure>
         </div>
         <p class="gallery-empty" id="galleryEmpty" hidden>Belum ada foto di kategori ini.</p>
+      </section>
+
+      <!-- ================= VIDEO ================= -->
+      <section id="video">
+        <div class="sec-head reveal">
+          <h2>Video Kenangan</h2>
+          <p>Momen-momen yang sempat terekam &mdash; diputar langsung dari Google Drive.</p>
+          <div class="rule"></div>
+        </div>
+
+        <div class="video-grid">
+          <figure class="video-card">
+            <div class="video-frame"><iframe src="https://drive.google.com/file/d/1mI_IKDvwHXigoW3b2SjU9lsD1zr4yN74/preview" title="Bumper Car" loading="lazy" allowfullscreen></iframe></div>
+            <figcaption><b>Bumper Car</b>Tabrakan seru di arena Jatim Park 2.</figcaption>
+          </figure>
+          <figure class="video-card">
+            <div class="video-frame"><iframe src="https://drive.google.com/file/d/1tM1_IlLd3QUBYS4V7HovzoX_w5-7pBB4/preview" title="Arena Bumper Car" loading="lazy" allowfullscreen></iframe></div>
+            <figcaption><b>Arena Bumper Car</b>Muter-muter bareng jerapah di arena bumper car.</figcaption>
+          </figure>
+          <figure class="video-card">
+            <div class="video-frame"><iframe src="https://drive.google.com/file/d/1MXJTXRxiJXqQDTSCDsDkZhTBZtohwaCs/preview" title="Naik Wahana" loading="lazy" allowfullscreen></iframe></div>
+            <figcaption><b>Naik Wahana</b>Wahana kuning-hijau yang bikin deg-degan.</figcaption>
+          </figure>
+          <figure class="video-card">
+            <div class="video-frame"><iframe src="https://drive.google.com/file/d/1f16DWaYkWZAppkVjENnM6vvu_7GTuJBM/preview" title="Selfie Bareng" loading="lazy" allowfullscreen></iframe></div>
+            <figcaption><b>Selfie Bareng</b>Selfie santai di tengah keseruan study tour.</figcaption>
+          </figure>
+          <figure class="video-card">
+            <div class="video-frame"><iframe src="https://drive.google.com/file/d/1VavBbGJ7kyPzo7hMxzn2Y3PWjBdBhL2J/preview" title="Satu Kelas di Bawah Spanduk" loading="lazy" allowfullscreen></iframe></div>
+            <figcaption><b>Satu Kelas di Bawah Spanduk</b>Satu kelas, satu spanduk ORNIVALIS.</figcaption>
+          </figure>
+          <figure class="video-card">
+            <div class="video-frame"><iframe src="https://drive.google.com/file/d/1WT-8HxXfuYJ1JmgQXaYLo1X-2IsHm0JD/preview" title="Suasana Kelas" loading="lazy" allowfullscreen></iframe></div>
+            <figcaption><b>Suasana Kelas</b>Momen di kelas yang terekam kamera.</figcaption>
+          </figure>
+        </div>
       </section>
 
       <!-- ================= KATA-KATA ================= -->
