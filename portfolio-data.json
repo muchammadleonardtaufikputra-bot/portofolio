@@ -143,6 +143,22 @@
   ],
   "certificates": [
     {
+      "title": "Memulai Pemrograman Dengan C",
+      "issuer": "Dicoding",
+      "date": "25 November 2026",
+      "date_en": "November 25, 2026",
+      "validUntil": "25 November 2029",
+      "validUntil_en": "November 25, 2029",
+      "credential": "QLZ9N3L5DZ5D",
+      "verifyUrl": "https://dicoding.com/certificates/QLZ9N3L5DZ5D",
+      "file": "certificates/memulai-pemrograman-dengan-c.pdf",
+      "hours": "15 jam",
+      "hours_en": "15 hours",
+      "icon": "💻",
+      "description": "Mempelajari dasar pemrograman bahasa C — variabel, tipe data, kondisi, perulangan, array, dan fungsi — hingga mampu membuat program C sendiri.",
+      "description_en": "Learning the fundamentals of C programming — variables, data types, conditionals, loops, arrays, and functions — up to building C programs independently."
+    },
+    {
       "title": "Spec-Driven Development dengan Kiro",
       "issuer": "Dicoding",
       "date": "21 November 2026",
