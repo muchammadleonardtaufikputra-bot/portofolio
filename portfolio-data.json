@@ -157,6 +157,41 @@
       "icon": "🎓",
       "description": "Menerapkan siklus Spec-Driven Development — dari Requirements, Design, hingga Implementasi Task — menggunakan Kiro untuk membangun fitur aplikasi yang lengkap dan terdokumentasi.",
       "description_en": "Applying the Spec-Driven Development cycle — from Requirements and Design to Task Implementation — with Kiro to build complete, well-documented application features."
+    },
+    {
+      "title": "TOEFL Preparation & Speaking Courses",
+      "issuer": "Institut Teknologi Sepuluh Nopember — Global Language Center",
+      "date": "28 April 2026",
+      "date_en": "April 28, 2026",
+      "credential": "T/10017/IT2.IV.3.2.5/TU.00.00/GLCR.TR.2026",
+      "file": "certificates/toefl-preparation-its-2026.jpg",
+      "hours": "15 jam",
+      "hours_en": "15 hours",
+      "icon": "🗣️",
+      "description": "Kursus Persiapan TOEFL & Kelas Percakapan (20–24 April 2026) yang diselenggarakan Global Language Center ITS.",
+      "description_en": "TOEFL Preparation & Speaking Courses (April 20–24, 2026) conducted by the ITS Global Language Center."
+    },
+    {
+      "title": "Introductory Speaking",
+      "issuer": "MAHESA Institute, Pare",
+      "date": "21 Mei 2025",
+      "date_en": "May 21, 2025",
+      "credential": "2025060113/MI/S.INTRO/V/2025",
+      "file": "certificates/introductory-speaking-mahesa-2025.jpg",
+      "icon": "🎙️",
+      "description": "Lulus English Training Introductory Speaking (5–20 Mei 2025) dengan nilai A di Speaking Skill, Understanding, dan Vocabulary.",
+      "description_en": "Passed the Introductory Speaking English Training (May 5–20, 2025) with grade A in Speaking Skill, Understanding, and Vocabulary."
+    },
+    {
+      "title": "Finalis — Eduversal Mathematics Competition (EMC)",
+      "issuer": "Eduversal Foundation",
+      "date": "16 November 2024",
+      "date_en": "November 16, 2024",
+      "credential": "05847",
+      "file": "certificates/emc-finalis-2024.jpg",
+      "icon": "🏅",
+      "description": "Finalis Ujian Final Eduversal Mathematics Competition saat kelas 10 — Test Center Trimurti Senior High School, Surabaya.",
+      "description_en": "Finalist of the Eduversal Mathematics Competition final exam in grade 10 — Test Center Trimurti Senior High School, Surabaya."
     }
   ],
   "contact": {
