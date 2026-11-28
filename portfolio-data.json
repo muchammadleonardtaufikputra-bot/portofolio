@@ -143,6 +143,22 @@
   ],
   "certificates": [
     {
+      "title": "Memulai Pemrograman Dengan Java",
+      "issuer": "Dicoding",
+      "date": "28 November 2026",
+      "date_en": "November 28, 2026",
+      "validUntil": "28 November 2029",
+      "validUntil_en": "November 28, 2029",
+      "credential": "0LZ0J5DK0X65",
+      "verifyUrl": "https://dicoding.com/certificates/0LZ0J5DK0X65",
+      "file": "certificates/memulai-pemrograman-dengan-java.pdf",
+      "hours": "15 jam",
+      "hours_en": "15 hours",
+      "icon": "☕",
+      "description": "Mempelajari dasar pemrograman bahasa Java — pengenalan Java, tipe data, control flow, collection, dan OOP — hingga mampu membuat program Java sendiri.",
+      "description_en": "Learning the fundamentals of Java programming — Java basics, control flow, collections, and OOP — up to building Java programs independently."
+    },
+    {
       "title": "Memulai Pemrograman Dengan C",
       "issuer": "Dicoding",
       "date": "25 November 2026",
